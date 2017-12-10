@@ -8,10 +8,7 @@ import './index.css';
 
 ReactDOM.render((
   <BrowserRouter>
-    <Switch>
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/" component={App} />
-    </Switch>
+    <App />
   </BrowserRouter>
 ), document.getElementById('root'));
 registerServiceWorker();

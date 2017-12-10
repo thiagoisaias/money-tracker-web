@@ -55,8 +55,13 @@ a {
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;  
+  font-family: 'Nunito Sans', sans-serif;	
 	background-color: #f8f8f8;
+}
+
+/* Prevent body scrolling when a ReactModal is open */
+.ReactModal__Body--open {
+	overflow: hidden;
 }
 
 /* 

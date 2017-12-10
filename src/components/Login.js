@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import moneyPig from '../img/money_pig.jpg';
-import moneyTravel from '../img/money_travel.jpg';
+// import moneyPig from '../img/money_pig.jpg';
+// import moneyTravel from '../img/money_travel.jpg';
 
 const Container = styled.section`
   display: flex;

@@ -5,26 +5,28 @@ import styled from 'styled-components';
 const Container = styled.div`
   background-color: #59d4d9;
   color: #fff;
+  padding: 16px;
   height: 150px;
-  line-height: 150px;
+  line-height: 75px;
   text-align: center;
-  border: 1px solid #f2f2f2;
-  border-radius: 5px;
+  font-size: 1.5em;
 
   @media (max-width: 736px) {
-    margin: 32px;
   }
 
   @media (min-width: 737px) {
-    width: 60vw;
-    margin: 55px auto;
+    margin: 32px auto;
+    border-radius: 5px;
   }
 
 `;
 
 const CurrentBalance = (props) => {
   return (
-    <Container>Current Balance R$ {props.currentBalance}</Container>
+    <Container>
+      <p> Current Balance </p> 
+      <p>R$ {props.currentBalance} </p>
+    </Container>
   )
 }
 
