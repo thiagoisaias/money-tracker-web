@@ -54,9 +54,13 @@ a {
   text-decoration: none;
 }
 
+input, select {
+	outline: none;
+}
+
 body {
   font-family: 'Nunito Sans', sans-serif;	
-	background-color: #f8f8f8;
+	background-color: #ededed;
 }
 
 /* Prevent body scrolling when a ReactModal is open */
@@ -65,10 +69,6 @@ body {
 }
 
 /* 
-
-black
-
-
 
 purple
 color: #8378f4

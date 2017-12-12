@@ -16,7 +16,7 @@ const Container = styled.div`
 
   @media (min-width: 737px) {
     margin: 32px auto;
-    border-radius: 5px;
+    border-radius: 3px;
   }
 
 `;

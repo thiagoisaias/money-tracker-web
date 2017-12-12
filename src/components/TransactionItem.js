@@ -4,20 +4,17 @@ import styled from "styled-components";
 const Container = styled.div`
   border: 1px solid #f2f2f2;
   padding: 6px;
-  margin: 16px 0;
+  margin: 16px;
 `;
 
-const Description = styled.div`
-`;
-
+const Description = styled.div``;
 
 const CategoryContainer = styled.div`
   display: flex;
   margin: 8px 0;
 `;
 
-const CategoryName = styled.div`
-`;
+const CategoryName = styled.div``;
 
 const CategoryColor = styled.div`
   width: 16px;
@@ -28,6 +25,8 @@ const CategoryColor = styled.div`
 `;
 
 const Value = styled.div`
+  font-weight: 600;
+  color: ${props => (props.transactionType === "earning" ? "green" : "red")};
 `;
 
 const DateText = styled.div`
@@ -35,6 +34,8 @@ const DateText = styled.div`
 `;
 
 const ActionsContainer = styled.div`
+  margin-top: 32px;
+  
   > span {
     cursor: pointer;
   }
@@ -46,9 +47,9 @@ const TransactionItem = props => {
       <Description> {props.description} </Description>
       <CategoryContainer>
         <CategoryName>{props.category.name}</CategoryName>
-        <CategoryColor color={props.category.color}/>
+        <CategoryColor color={props.category.color} />
       </CategoryContainer>
-      <Value> R$ {props.value} </Value>
+      <Value transactionType={props.transactionType}> R$ {props.value} </Value>
       <DateText> {props.date} </DateText>
       <ActionsContainer>
         <span> Edit </span>

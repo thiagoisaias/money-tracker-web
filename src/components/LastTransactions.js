@@ -8,6 +8,7 @@ const Container = styled.div`
   margin: 0 auto;
   border-right: 1px solid #f2f2f2;
   color: #484848;
+  padding: 16px 0;
 
   @media (max-width: 736px) {
 
@@ -15,7 +16,7 @@ const Container = styled.div`
 
   @media (min-width: 737px) {
     margin: 32px auto;
-    border-radius: 5px;
+    border-radius: 3px;
   }
 `;
 

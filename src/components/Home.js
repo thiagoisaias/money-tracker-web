@@ -1,10 +1,9 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import LastTransactions from "./LastTransactions";
 import CurrentBalance from "./CurrentBalance";
-import TransactionForm from "./TransactionForm";
 
 const transactions = [
   {
@@ -17,7 +16,7 @@ const transactions = [
       color: "#59d9a4"
     },
     value: "1000.00",
-    type: "earning"
+    transactionType: "earning"
   },
   {
     id: 2,
@@ -29,7 +28,7 @@ const transactions = [
       color: "#f478b8"
     },
     value: "200.00",
-    type: "earning"
+    transactionType: "earning"
   },
   {
     id: 3,
@@ -41,7 +40,7 @@ const transactions = [
       color: "#59d4d9"
     },
     value: "16.57",
-    type: "expense"
+    transactionType: "expense"
   },
   {
     id: 4,
@@ -53,7 +52,7 @@ const transactions = [
       color: "#59d4d9"
     },
     value: "27.57",
-    type: "expense"
+    transactionType: "expense"
   },
   {
     id: 5,
@@ -65,7 +64,7 @@ const transactions = [
       color: "#8378f4"
     },
     value: "16.57",
-    type: "expense"
+    transactionType: "expense"
   },
   {
     id: 6,
@@ -77,7 +76,7 @@ const transactions = [
       color: "#8378f4"
     },
     value: "16.57",
-    type: "expense"
+    transactionType: "expense"
   }
 ];
 
@@ -90,7 +89,7 @@ const TransactionButton = styled.div`
   background-color: #8378f4;
   text-align: center;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 3px;
   color: #f2f2f2;
 
   &:hover {
@@ -106,9 +105,9 @@ const Home = props => {
   return (
     <Fragment>
       <CurrentBalance currentBalance={currentBalance} />
-      <Link to="/transaction">
+      <NavLink to="/transaction">
         <TransactionButton> Add Transaction </TransactionButton>
-      </Link>
+      </NavLink>
       <LastTransactions transactionsList={transactions} />
     </Fragment>
   );
