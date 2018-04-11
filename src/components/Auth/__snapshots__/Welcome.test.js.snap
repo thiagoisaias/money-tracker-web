@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome renders properly 1`] = `
+<styled.section>
+  <styled.div>
+    <SignupForm
+      toggleNewAccount={[Function]}
+    />
+  </styled.div>
+  <styled.div>
+    <styled.h2>
+      Welcome to 
+      <span>
+        Wallet
+      </span>
+    </styled.h2>
+    <styled.p>
+      Lorem Ipsum Ole Ola Dolores Omnia Vanitas
+    </styled.p>
+    <styled.span>
+      Photo by Romello Williams on Unsplash
+    </styled.span>
+  </styled.div>
+</styled.section>
+`;

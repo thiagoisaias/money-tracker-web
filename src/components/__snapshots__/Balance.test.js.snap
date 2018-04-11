@@ -1,125 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Balance renders properly 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Balance />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "children": Array [
-        <styled.p>
-           Current Balance 
-</styled.p>,
-        <styled.p>
-          R$ 
-           
-</styled.p>,
-      ],
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "children": " Current Balance ",
-        },
-        "ref": null,
-        "rendered": " Current Balance ",
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "children": Array [
-            "R$ ",
-            undefined,
-            " ",
-          ],
-        },
-        "ref": null,
-        "rendered": Array [
-          "R$ ",
-          undefined,
-          " ",
-        ],
-        "type": [Function],
-      },
-    ],
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": Array [
-          <styled.p>
-             Current Balance 
-</styled.p>,
-          <styled.p>
-            R$ 
-             
-</styled.p>,
-        ],
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": " Current Balance ",
-          },
-          "ref": null,
-          "rendered": " Current Balance ",
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": Array [
-              "R$ ",
-              undefined,
-              " ",
-            ],
-          },
-          "ref": null,
-          "rendered": Array [
-            "R$ ",
-            undefined,
-            " ",
-          ],
-          "type": [Function],
-        },
-      ],
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+<styled.div>
+  <styled.p>
+     Current Balance 
+  </styled.p>
+  <styled.p>
+    R$ 
+     
+  </styled.p>
+</styled.div>
 `;

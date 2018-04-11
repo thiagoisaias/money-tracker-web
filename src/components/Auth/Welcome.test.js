@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from 'enzyme-to-json';
-import Header from "./Header";
+import Welcome from "./Welcome";
 
-describe("Header", () => {
-  const component = shallow(<Header />);
+describe("Welcome", () => {
+  const component = shallow(<Welcome />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();
