@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Layout from "./components/Layout";
-import NotFound from "./components/NotFound";
-
-import TransactionForm from "./components/TransactionForm";
+import { Route, Switch } from "react-router-dom";
+import Home from "./Home";
+import Layout from "./Layout";
+import Login from "./Auth/Login";
+import TransactionForm from "./TransactionForm";
 
 class App extends Component {
   render() {

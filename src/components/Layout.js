@@ -1,9 +1,8 @@
-import React, { Fragment } from 'react';
-import Header from './Header';
-import styled from 'styled-components';
+import React, { Fragment } from "react";
+import Header from "./Header";
+import styled from "styled-components";
 
-const PageWrapper = styled.div`  
-
+const PageWrapper = styled.div`
   @media (min-width: 737px) {
     width: 80vw;
     max-width: 900px;
@@ -11,16 +10,13 @@ const PageWrapper = styled.div`
   }
 `;
 
-
-const Layout = (props) => {
+const Layout = props => {
   return (
     <Fragment>
-      <Header/>
-      <PageWrapper>
-        {props.children}
-      </PageWrapper>
+      <Header />
+      <PageWrapper>{props.children}</PageWrapper>
     </Fragment>
-  )
-}
+  );
+};
 
 export default Layout;

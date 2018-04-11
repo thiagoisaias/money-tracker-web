@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import DatePicker from "react-datepicker";
 import moment from "moment";
+import axios from "axios";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const FormContainer = styled.form`
   background-color: #fff;
-  border: 1px solid #f2f2f2;
-  
+  box-shadow: 0.5px 1px 1px 1px #ddd;
+
 
   > h2 {
     font-size: 1.5em;
@@ -22,7 +23,7 @@ const FormContainer = styled.form`
     max-width: 900px;
     padding: 32px;
     margin: 32px auto;
-    border-radius: 3px;
+    border-radius: 2px;
   }
 `;
 
@@ -32,7 +33,7 @@ const TransactionDatePicker = styled(DatePicker)`
   width: 150px;
   padding-left: 16px;
   border: 1px solid #e2e2e2;
-  border-radius: 3px;
+  border-radius: 2px;
   margin: 8px 0;
   font-size: 14px;
   cursor: pointer;
@@ -51,7 +52,7 @@ const FormInput = styled.input`
   height: 30px;
   padding-left: 16px;
   border: 1px solid #e2e2e2;
-  border-radius: 3px;
+  border-radius: 2px;
   margin: 8px 0;
   font-size: 14px;
   width: ${props => (props.bigger ? "300px" : null)};
@@ -62,15 +63,14 @@ const FormSelect = styled.select`
   margin: 8px 0;
 `;
 
-const SubmitButton = styled.div`
-  width: 150px;
-  height: 50px;
-  line-height: 50px;
+const SubmitButton = styled.button`
+  width: 125px;
+  height: 40px;
   background-color: #8378f4;
-  text-align: center;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 2px;
   color: #f2f2f2;
+  font-size: 12px;
 
   &:hover {
     opacity: 0.9;
@@ -85,44 +85,37 @@ const SubmitButton = styled.div`
   }
 `;
 
-const categories = [
-  {
-    id: 1,
-    name: "Salary",
-    color: "#59d9a4"
-  },
-  {
-    id: 2,
-    name: "Other",
-    color: "#f478b8"
-  },
-  {
-    id: 3,
-    name: "Food",
-    color: "#8378f4"
-  },
-  {
-    id: 4,
-    name: "Transport",
-    color: "#59d4d9"
-  }
-];
-
 class TransactionForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      description: "",
-      value: "",
-      category: "",
-      transactionType: "",
-      date: moment()
+      categoriesList: [],
+      formData: {
+        description: "",
+        value: "",
+        category: 0,
+        transactionType: 0,
+        date: moment()
+      }
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+  }
+
+  componentDidMount() {
+    axios
+      .get("/categories")
+      .then(response => {
+        this.setState({
+          categoriesList: response.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   handleInputChange(event) {
@@ -131,27 +124,33 @@ class TransactionForm extends Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+      formData: {
+        ...this.state.formData,
+        [name]: value
+      }
     });
   }
 
   handleDateChange(event) {
     const selectedDate = event;
     this.setState({
-      date: selectedDate
+      formData: {
+        ...this.state.formData,
+        date: selectedDate
+      }
     });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("Send form data to API", this.state);
-    this.props.history.replace("/home");
+    console.log("Send form data to API", this.state.formData);
+    // this.props.history.replace("/");
   }
 
   render() {
-    const options = categories.map(category => {
+    const options = this.state.categoriesList.map(category => {
       return (
-        <option key={category.id} value={category.name}>
+        <option key={category.id} value={category.id}>
           {category.name}
         </option>
       );
@@ -163,8 +162,8 @@ class TransactionForm extends Component {
         <FormGroup>
           <FormLabel>Transaction Type</FormLabel>
           <FormSelect name="transactionType" onChange={this.handleInputChange}>
-            <option value="expense">Expense</option>
-            <option value="earning">Earning</option>
+            <option value="0">Expense</option>
+            <option value="1">Earning</option>
           </FormSelect>
         </FormGroup>
         <FormGroup>
@@ -185,12 +184,12 @@ class TransactionForm extends Component {
           />
         </FormGroup>
         <FormGroup>
-          <FormLabel>Data</FormLabel>
+          <FormLabel>Date</FormLabel>
           <TransactionDatePicker
             name="date"
             dateFormat="DD/MM/YYYY"
             onChange={this.handleDateChange}
-            selected={this.state.date}
+            selected={this.state.formData.date}
           />
         </FormGroup>
         <FormGroup>

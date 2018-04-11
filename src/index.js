@@ -1,21 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import axios from "axios";
+import App from "./components/App";
+import "./index.css";
 
-import registerServiceWorker from './registerServiceWorker';
-import './index.css';
+axios.defaults.baseURL = "https://money-management-api.herokuapp.com";
 
-import axios from 'axios';
-
-
-axios.defaults.baseURL = 'https://api.example.com';
-
-
-
-ReactDOM.render((
+ReactDOM.render(
   <BrowserRouter>
     <App />
-  </BrowserRouter>
-), document.getElementById('root'));
-registerServiceWorker();
+  </BrowserRouter>,
+  document.getElementById("root")
+);
+
+if (module.hot) {
+  module.hot.accept();
+}

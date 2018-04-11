@@ -1,96 +1,19 @@
-import React, { Fragment } from "react";
-import styled from "styled-components";
+import React, { Component, Fragment } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import styled from "styled-components";
 
-import LastTransactions from "./LastTransactions";
-import CurrentBalance from "./CurrentBalance";
+import TransactionList from "./TransactionList";
+import Balance from "./Balance";
 
-const transactions = [
-  {
-    id: 1,
-    description: "Monthly income from freelance jobs",
-    date: "05/11/2017",
-    category: {
-      id: 1,
-      name: "Salary",
-      color: "#59d9a4"
-    },
-    value: "1000.00",
-    transactionType: "earning"
-  },
-  {
-    id: 2,
-    description: "Transference to pay mom",
-    date: "08/11/2017",
-    category: {
-      id: 2,
-      name: "Other",
-      color: "#f478b8"
-    },
-    value: "200.00",
-    transactionType: "earning"
-  },
-  {
-    id: 3,
-    description: "Uber from work to home",
-    date: "30/11/2017",
-    category: {
-      id: 4,
-      name: "Transport",
-      color: "#59d4d9"
-    },
-    value: "16.57",
-    transactionType: "expense"
-  },
-  {
-    id: 4,
-    description: "Uber from home to supermarket",
-    date: "10/11/2017",
-    category: {
-      id: 4,
-      name: "Transport",
-      color: "#59d4d9"
-    },
-    value: "27.57",
-    transactionType: "expense"
-  },
-  {
-    id: 5,
-    description: "Quintal da Varjota",
-    date: "10/11/2017",
-    category: {
-      id: 3,
-      name: "Food",
-      color: "#8378f4"
-    },
-    value: "16.57",
-    transactionType: "expense"
-  },
-  {
-    id: 6,
-    description: "Monte Carlo",
-    date: "30/11/2017",
-    category: {
-      id: 3,
-      name: "Food",
-      color: "#8378f4"
-    },
-    value: "16.57",
-    transactionType: "expense"
-  }
-];
-
-const currentBalance = 2456.54;
-
-const TransactionButton = styled.div`
-  width: 150px;
-  height: 50px;
-  line-height: 50px;
+const TransactionButton = styled.button`
+  width: 125px;
+  height: 40px;
   background-color: #8378f4;
-  text-align: center;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 2px;
   color: #f2f2f2;
+  font-size: 12px;
 
   &:hover {
     opacity: 0.9;
@@ -101,16 +24,37 @@ const TransactionButton = styled.div`
   }
 `;
 
-const Home = props => {
-  return (
-    <Fragment>
-      <CurrentBalance currentBalance={currentBalance} />
-      <NavLink to="/transaction">
-        <TransactionButton> Add Transaction </TransactionButton>
-      </NavLink>
-      <LastTransactions transactionsList={transactions} />
-    </Fragment>
-  );
-};
+const ACCOUNT_ID = 1;
+
+class Home extends Component {
+  state = {
+    currentBalance: ""
+  };
+
+  componentDidMount() {
+    axios
+      .get("/accounts/" + ACCOUNT_ID + "/current_balance")
+      .then(response => {
+        this.setState({
+          currentBalance: response.data.current_balance
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Balance currentBalance={this.state.currentBalance} />
+        <NavLink to="/transaction">
+          <TransactionButton> Add Transaction </TransactionButton>
+        </NavLink>
+        <TransactionList />
+      </Fragment>
+    );
+  }
+}
 
 export default Home;
