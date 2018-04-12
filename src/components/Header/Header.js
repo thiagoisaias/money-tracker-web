@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { devices } from "../../utils/devices";
 
 const Container = styled.header`
   height: 70px;
@@ -10,11 +11,11 @@ const Container = styled.header`
   background-color: #2d2d2d;
   color: #f2f2f2;
 
-  @media (max-width: 736px) {
+  @media ${devices.small} {
     padding: 0 32px;
   }
 
-  @media (min-width: 737px) {
+  @media ${devices.mediumUp} {
     padding: 0 55px;
   }
 `;

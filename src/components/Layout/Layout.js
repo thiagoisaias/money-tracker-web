@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
 import Header from "../Header/Header";
 import styled from "styled-components";
+import { devices } from "../../utils/devices";
 
 const PageWrapper = styled.div`
-  @media (min-width: 737px) {
+  @media ${devices.mediumUp} {
     width: 80vw;
     max-width: 900px;
     margin: 0 auto;

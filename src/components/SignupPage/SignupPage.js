@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import image from "../../assets/images/welcome.jpg";
 import { devices } from "../../utils/devices";
-import image from "../../images/welcome.jpg";
+
 import LoginForm from "../LoginForm/LoginForm";
 import SignupForm from "../SignupForm/SignupForm";
 
-const Container = styled.section`
+const Container = styled.div`
   display: flex;
   align-items: center;
   height: 100vh;

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { devices } from "../../utils/devices";
 
 import TransactionList from "../TransactionList/TransactionList";
 import Balance from "../Balance/Balance";

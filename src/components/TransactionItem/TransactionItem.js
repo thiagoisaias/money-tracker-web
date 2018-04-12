@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+import { devices } from "../../utils/devices";
 
 const Container = styled.div`
   border: 1px solid #f2f2f2;
@@ -14,7 +16,7 @@ const ItemInfoContainer = styled.div`
   align-items: center;
   line-height: 24px;
 
-  @media (max-width: 736px) {
+  @media ${devices.small} {
     flex-wrap: wrap;
   }
 `;
@@ -80,6 +82,16 @@ const TransactionItem = props => {
       </ActionsContainer>
     </Container>
   );
+};
+
+TransactionItem.propTypes = {
+  date: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  category: PropTypes.shape({
+    name: PropTypes.string,
+    color: PropTypes.string
+  }),
+  transaction_type: PropTypes.string
 };
 
 export default TransactionItem;
