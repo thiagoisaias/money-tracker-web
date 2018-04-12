@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Welcome renders properly 1`] = `
+exports[`SignupPage renders properly 1`] = `
 <styled.section>
   <styled.div>
     <SignupForm
@@ -15,7 +15,7 @@ exports[`Welcome renders properly 1`] = `
       </span>
     </styled.h2>
     <styled.p>
-      Lorem Ipsum Ole Ola Dolores Omnia Vanitas
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit
     </styled.p>
     <styled.span>
       Photo by Romello Williams on Unsplash

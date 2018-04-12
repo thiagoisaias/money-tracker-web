@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-import TransactionList from "./TransactionList";
-import Balance from "./Balance";
+import TransactionList from "../TransactionList/TransactionList";
+import Balance from "../Balance/Balance";
 
 const TransactionButton = styled.button`
   width: 125px;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import TransactionItem from "./TransactionItem";
+import TransactionItem from "../TransactionItem/TransactionItem";
 
 const Container = styled.div`
   background-color: #fff;

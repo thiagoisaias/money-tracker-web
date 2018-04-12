@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
-import toJson from 'enzyme-to-json';
-import Welcome from "./Welcome";
+import toJson from "enzyme-to-json";
+import SignupPage from "./SignupPage";
 
-describe("Welcome", () => {
-  const component = shallow(<Welcome />);
+describe("SignupPage", () => {
+  const component = shallow(<SignupPage />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();

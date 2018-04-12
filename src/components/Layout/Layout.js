@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Header from "./Header";
+import Header from "../Header/Header";
 import styled from "styled-components";
 
 const PageWrapper = styled.div`

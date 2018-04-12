@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { devices } from "../../utils/devices";
 import image from "../../images/welcome.jpg";
-import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm";
+import LoginForm from "../LoginForm/LoginForm";
+import SignupForm from "../SignupForm/SignupForm";
 
 const Container = styled.section`
   display: flex;
@@ -54,7 +54,7 @@ const PictureTitle = styled.h2`
 const PictureSubtitle = styled.p`
   font-size: 16px;
   color: #ddd;
-  opacity: 0.8;
+  opacity: 0.9;
   margin-left: 57px;
 `;
 
@@ -99,7 +99,7 @@ class Welcome extends Component {
             Welcome to <span>Wallet</span>
           </PictureTitle>
           <PictureSubtitle>
-            Lorem Ipsum Ole Ola Dolores Omnia Vanitas
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit
           </PictureSubtitle>
           <PhotoCredit>Photo by Romello Williams on Unsplash</PhotoCredit>
         </PictureContainer>
