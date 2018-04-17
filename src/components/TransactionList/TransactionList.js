@@ -28,16 +28,16 @@ class TransactionList extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get("/accounts/" + ACCOUNT_ID + "/transactions")
-      .then(response => {
-        this.setState({
-          transactionList: response.data
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    // axios
+    //   .get("/accounts/" + ACCOUNT_ID + "/transactions")
+    //   .then(response => {
+    //     this.setState({
+    //       transactionList: response.data
+    //     });
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   }
 
   handleDelete(transactionId) {

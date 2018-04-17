@@ -4,22 +4,22 @@ import moment from "moment";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { devices } from "../../utils/devices";
 
 const FormContainer = styled.form`
   background-color: #fff;
   box-shadow: 0.5px 1px 1px 1px #ddd;
-
 
   > h2 {
     font-size: 1.5em;
     margin-bottom: 32px;
   }
 
-  @media (max-width: 736px) {
+  @media ${devices.small} {
     padding: 16px;
   }
 
-  @media (min-width: 737px) {
+  @media ${devices.mediumUp} {
     max-width: 900px;
     padding: 32px;
     margin: 32px auto;
@@ -76,11 +76,11 @@ const SubmitButton = styled.button`
     opacity: 0.9;
   }
 
-  @media (max-width: 736px) {
+  @media ${devices.small} {
     margin: 32px auto;
   }
 
-  @media (min-width: 737px) {
+  @media ${devices.mediumUp} {
     margin-top: 55px;
   }
 `;
@@ -91,7 +91,7 @@ class TransactionForm extends Component {
 
     this.state = {
       categoriesList: [],
-      formData: {
+      transactionData: {
         description: "",
         value: "",
         category: 0,
@@ -106,16 +106,16 @@ class TransactionForm extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get("/categories")
-      .then(response => {
-        this.setState({
-          categoriesList: response.data
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    // axios
+    //   .get("/categories")
+    //   .then(response => {
+    //     this.setState({
+    //       categoriesList: response.data
+    //     });
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   }
 
   handleInputChange(event) {
@@ -124,8 +124,8 @@ class TransactionForm extends Component {
     const name = target.name;
 
     this.setState({
-      formData: {
-        ...this.state.formData,
+      transactionData: {
+        ...this.state.transactionData,
         [name]: value
       }
     });
@@ -134,8 +134,8 @@ class TransactionForm extends Component {
   handleDateChange(event) {
     const selectedDate = event;
     this.setState({
-      formData: {
-        ...this.state.formData,
+      transactionData: {
+        ...this.state.transactionData,
         date: selectedDate
       }
     });
@@ -143,8 +143,7 @@ class TransactionForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("Send form data to API", this.state.formData);
-    // this.props.history.replace("/");
+    console.log("Send form data to API", this.state.transactionData);
   }
 
   render() {
@@ -189,7 +188,7 @@ class TransactionForm extends Component {
             name="date"
             dateFormat="DD/MM/YYYY"
             onChange={this.handleDateChange}
-            selected={this.state.formData.date}
+            selected={this.state.transactionData.date}
           />
         </FormGroup>
         <FormGroup>

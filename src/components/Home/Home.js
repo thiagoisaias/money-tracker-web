@@ -20,7 +20,7 @@ const TransactionButton = styled.button`
     opacity: 0.9;
   }
 
-  @media (max-width: 736px) {
+  @media ${devices.small} {
     margin: 16px auto;
   }
 `;
@@ -33,16 +33,16 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get("/accounts/" + ACCOUNT_ID + "/current_balance")
-      .then(response => {
-        this.setState({
-          currentBalance: response.data.current_balance
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    // axios
+    //   .get("/accounts/" + ACCOUNT_ID + "/current_balance")
+    //   .then(response => {
+    //     this.setState({
+    //       currentBalance: response.data.current_balance
+    //     });
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   }
 
   render() {
