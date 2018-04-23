@@ -1,10 +1,10 @@
 const sizes = {
-  "medium": "750px",
-  "large": "990px",
-  "widescreen": "1400px",
+  medium: "750px",
+  large: "990px",
+  widescreen: "1400px"
 };
 
-export const devices = {  
+export const devices = {
   small: `(max-width: ${sizes.medium})`,
   medium: `(min-width: ${sizes.medium}) and (max-width: ${sizes.large})`,
   mediumDown: `(max-width: ${sizes.large})`,
