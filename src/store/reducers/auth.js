@@ -5,7 +5,8 @@ const initialState = {
   userName: null,
   accessToken: null,
   error: null,
-  isLoading: false
+  isLoading: false,
+  isAuthenticated: false
 };
 
 const auth = (state = initialState, action) => {
@@ -19,10 +20,11 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        isAuthenticated: true,
         error: null,
         userId: action.userId,
         userName: action.userName,
-        accessToken: action.accessToken
+        accessToken: action.accessToken,
       };
     case actionTypes.SIGNUP_FAIL:
       return {
@@ -39,6 +41,7 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        isAuthenticated: true,
         error: null,
         userId: action.userId,
         userName: action.userName,
