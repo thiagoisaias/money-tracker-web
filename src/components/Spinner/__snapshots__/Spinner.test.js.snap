@@ -4,14 +4,14 @@ exports[`Spinner renders properly 1`] = `
 <styled.div>
   <styled.svg
     height={24}
-    viewBox="0 0 50 50"
+    viewBox="0 0 48 48"
     width={24}
   >
     <styled.circle
-      cx="25"
-      cy="25"
+      cx={24}
+      cy={24}
       fill="none"
-      r="15"
+      r={12}
     />
   </styled.svg>
 </styled.div>
