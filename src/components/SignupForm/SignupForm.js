@@ -1,5 +1,16 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Spinner from "../Spinner/Spinner";
+import { Redirect } from "react-router-dom";
+import { signup } from "../../store/actions/auth";
+
+const ErrorMessage = styled.p`
+  color: #e75252;
+  font-size: 14px;
+  margin: 12px 1px;
+`;
 
 const Form = styled.form`
   max-width: 500px;
@@ -58,16 +69,14 @@ class SignupForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: "",
       email: "",
       password: "",
       passwordConfirmation: ""
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -75,18 +84,30 @@ class SignupForm extends Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
-  }
+    if (this.props.isLoading) {
+      return;
+    }
+    this.props.onSignup(this.state);
+  };
 
   render() {
-    const { toggleNewAccount } = this.props;
+    const { toggleNewAccount, isLoading, error } = this.props;
     return (
       <Fragment>
         <Title>Create Account</Title>
+        {error && <ErrorMessage> {error.full_messages[0]} </ErrorMessage>}
         <Form onSubmit={this.handleSubmit}>
+          <Input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={this.state.name}
+            onChange={this.handleChange}
+          />
           <Input
             type="text"
             name="email"
@@ -108,7 +129,9 @@ class SignupForm extends Component {
             value={this.state.passwordConfirmation}
             onChange={this.handleChange}
           />
-          <SubmitButton onClick={this.handleLogin}> Sign Up </SubmitButton>
+          <SubmitButton onClick={this.handleSubmit}>
+            {isLoading ? <Spinner width={35} height={35} /> : "Sign Up"}
+          </SubmitButton>
         </Form>
         <Alternate>
           Already have an account?{" "}
@@ -119,4 +142,26 @@ class SignupForm extends Component {
   }
 }
 
-export default SignupForm;
+SignupForm.propTypes = {
+  toggleNewAccount: PropTypes.func.isRequired,
+  onSignup: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
+  error: PropTypes.object
+};
+
+const mapStateToProps = state => {
+  return {
+    isLoading: state.auth.isLoading,
+    error: state.auth.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSignup: signupData => {
+      dispatch(signup(signupData));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);

@@ -3,7 +3,7 @@
 exports[`SignupPage renders properly 1`] = `
 <styled.div>
   <styled.div>
-    <SignupForm
+    <Connect(SignupForm)
       toggleNewAccount={[Function]}
     />
   </styled.div>

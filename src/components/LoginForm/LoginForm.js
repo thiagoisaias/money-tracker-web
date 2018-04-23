@@ -1,5 +1,16 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Spinner from "../Spinner/Spinner";
+import { Redirect } from "react-router-dom";
+import { login } from "../../store/actions/auth";
+
+const ErrorMessage = styled.p`
+  color: #e75252;
+  font-size: 14px;
+  margin: 12px 1px;
+`;
 
 const Form = styled.form`
   max-width: 500px;
@@ -57,13 +68,13 @@ const Alternate = styled.div`
 class LoginForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { someKey: "someValue" };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      email: "",
+      password: ""
+    };
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -71,19 +82,22 @@ class LoginForm extends Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
-  handleLogin() {}
-
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
-  }
+    if (this.props.isLoading) {
+      return;
+    }
+    this.props.onLogin(this.state);
+  };
 
   render() {
-    const { toggleNewAccount } = this.props;
+    const { toggleNewAccount, isLoading, error } = this.props;
     return (
       <Fragment>
         <Title>Sign in</Title>
+        {error && <ErrorMessage> {error.full_messages[0]} </ErrorMessage>}
         <Form onSubmit={this.handleSubmit}>
           <Input
             type="text"
@@ -110,4 +124,26 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+LoginForm.propTypes = {
+  toggleNewAccount: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
+  error: PropTypes.object
+};
+
+const mapStateToProps = state => {
+  return {
+    isLoading: state.auth.isLoading,
+    error: state.auth.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogin: loginData => {
+      dispatch(login(loginData));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
