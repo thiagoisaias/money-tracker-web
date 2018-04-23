@@ -93,9 +93,12 @@ class LoginForm extends Component {
   };
 
   render() {
-    const { toggleNewAccount, isLoading, error } = this.props;
+    const { toggleNewAccount, isLoading, isAuthenticated, error } = this.props;
+    const authRedirect = <Redirect to="/" />;
+
     return (
       <Fragment>
+        {isAuthenticated ? authRedirect : null}
         <Title>Sign in</Title>
         {error && <ErrorMessage> {error.full_messages[0]} </ErrorMessage>}
         <Form onSubmit={this.handleSubmit}>
@@ -127,13 +130,15 @@ class LoginForm extends Component {
 LoginForm.propTypes = {
   toggleNewAccount: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
+  isAuthenticated: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   error: PropTypes.object
 };
 
 const mapStateToProps = state => {
   return {
     isLoading: state.auth.isLoading,
+    isAuthenticated: state.auth.isAuthenticated,
     error: state.auth.error
   };
 };
