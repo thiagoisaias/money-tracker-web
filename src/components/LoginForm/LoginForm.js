@@ -2,9 +2,10 @@ import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Spinner from "../Spinner/Spinner";
 import { Redirect } from "react-router-dom";
+
 import { login } from "../../store/actions/auth";
+import Spinner from "../Spinner/Spinner";
 
 const ErrorMessage = styled.p`
   color: #e75252;
@@ -116,7 +117,9 @@ class LoginForm extends Component {
             value={this.state.password}
             onChange={this.handleChange}
           />
-          <SubmitButton onClick={this.handleLogin}> Log In </SubmitButton>
+          <SubmitButton onClick={this.handleSubmit}>
+            {isLoading ? <Spinner width={35} height={35} /> : "Log in"}
+          </SubmitButton>
         </Form>
         <Alternate>
           Doesn´t have an account?{" "}
