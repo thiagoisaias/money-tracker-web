@@ -1,23 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App renders properly 1`] = `
-<Switch>
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/login"
-  />
-  <Layout>
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/transaction"
-    />
-  </Layout>
-</Switch>
+<Route
+  render={[Function]}
+/>
 `;
