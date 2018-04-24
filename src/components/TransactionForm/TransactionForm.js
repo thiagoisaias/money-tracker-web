@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import styled from "styled-components";
-import moment from "moment";
 import axios from "axios";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import styled from "styled-components";
 import { devices } from "../../utils/devices";
+
+import Layout from "../Layout/Layout";
 
 const FormContainer = styled.form`
   background-color: #fff;
@@ -25,18 +24,6 @@ const FormContainer = styled.form`
     margin: 32px auto;
     border-radius: 2px;
   }
-`;
-
-const TransactionDatePicker = styled(DatePicker)`
-  display: block;
-  height: 30px;
-  width: 150px;
-  padding-left: 16px;
-  border: 1px solid #e2e2e2;
-  border-radius: 2px;
-  margin: 8px 0;
-  font-size: 14px;
-  cursor: pointer;
 `;
 
 const FormGroup = styled.div`
@@ -96,29 +83,12 @@ class TransactionForm extends Component {
         value: "",
         category: 0,
         transactionType: 0,
-        date: moment()
+        date: Date.now()
       }
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  componentDidMount() {
-    // axios
-    //   .get("/categories")
-    //   .then(response => {
-    //     this.setState({
-    //       categoriesList: response.data
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
-  }
-
-  handleInputChange(event) {
+  handleInputChange = event => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -129,9 +99,9 @@ class TransactionForm extends Component {
         [name]: value
       }
     });
-  }
+  };
 
-  handleDateChange(event) {
+  handleDateChange = event => {
     const selectedDate = event;
     this.setState({
       transactionData: {
@@ -139,12 +109,12 @@ class TransactionForm extends Component {
         date: selectedDate
       }
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
     console.log("Send form data to API", this.state.transactionData);
-  }
+  };
 
   render() {
     const options = this.state.categoriesList.map(category => {
@@ -156,49 +126,53 @@ class TransactionForm extends Component {
     });
 
     return (
-      <FormContainer>
-        <h2>Transaction</h2>
-        <FormGroup>
-          <FormLabel>Transaction Type</FormLabel>
-          <FormSelect name="transactionType" onChange={this.handleInputChange}>
-            <option value="0">Expense</option>
-            <option value="1">Earning</option>
-          </FormSelect>
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Description</FormLabel>
-          <FormInput
-            bigger
-            name="description"
-            type="text"
-            onChange={this.handleInputChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Value</FormLabel>
-          <FormInput
-            name="value"
-            type="number"
-            onChange={this.handleInputChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Date</FormLabel>
-          <TransactionDatePicker
-            name="date"
-            dateFormat="DD/MM/YYYY"
-            onChange={this.handleDateChange}
-            selected={this.state.transactionData.date}
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Category</FormLabel>
-          <FormSelect name="category" onChange={this.handleInputChange}>
-            {options}
-          </FormSelect>
-        </FormGroup>
-        <SubmitButton onClick={this.handleSubmit}> Submit </SubmitButton>
-      </FormContainer>
+      <Layout>
+        <FormContainer>
+          <h2>Transaction</h2>
+          <FormGroup>
+            <FormLabel>Transaction Type</FormLabel>
+            <FormSelect
+              name="transactionType"
+              onChange={this.handleInputChange}
+            >
+              <option value="0">Expense</option>
+              <option value="1">Earning</option>
+            </FormSelect>
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Description</FormLabel>
+            <FormInput
+              bigger
+              name="description"
+              type="text"
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Value</FormLabel>
+            <FormInput
+              name="value"
+              type="number"
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Date</FormLabel>
+            <FormInput
+              name="date"
+              type="date"
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Category</FormLabel>
+            <FormSelect name="category" onChange={this.handleInputChange}>
+              {options}
+            </FormSelect>
+          </FormGroup>
+          <SubmitButton onClick={this.handleSubmit}> Submit </SubmitButton>
+        </FormContainer>
+      </Layout>
     );
   }
 }
