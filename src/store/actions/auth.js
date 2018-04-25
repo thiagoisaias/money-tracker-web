@@ -1,81 +1,91 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 
-export const loginStart = () => {
-  return {
-    type: actionTypes.LOGIN_START
-  };
-};
-
-export const loginSuccess = (data, headers) => {
-  return {
-    type: actionTypes.LOGIN_SUCCESS,
-    accessToken: headers["access-token"],
-    userId: data.data.id,
-    userName: data.data.name
-  };
-};
-
-export const loginFail = error => {
-  return {
-    type: actionTypes.LOGIN_FAIL,
-    error
-  };
-};
-
 export const login = loginData => {
   return dispatch => {
     const { email, password } = loginData;
-    dispatch(loginStart());
+    dispatch(authStart());
     axios
       .post("/auth/sign_in", { email, password })
       .then(response => {
-        dispatch(loginSuccess(response.data, response.headers));
+        localStorage.setItem("accessToken", response.headers["access-token"]);
+        localStorage.setItem("userId", response.data.data.id);
+        localStorage.setItem("userName", response.data.data.name);
+        const authData = {
+          accessToken: response.headers["access-token"],
+          user: response.data.data
+        };
+        dispatch(authSuccess(authData));
       })
       .catch(error => {
-        dispatch(loginFail(error.response.data.errors));
+        dispatch(authFail(error.response.data.errors));
       });
-  };
-};
-
-export const signupStart = () => {
-  return {
-    type: actionTypes.SIGNUP_START
-  };
-};
-
-export const signupSuccess = (data, headers) => {
-  return {
-    type: actionTypes.SIGNUP_SUCCESS,
-    accessToken: headers["access-token"],
-    userId: data.data.id,
-    userName: data.data.name
-  };
-};
-
-export const signupFail = error => {
-  return {
-    type: actionTypes.SIGNUP_FAIL,
-    error
   };
 };
 
 export const signup = signupData => {
   return dispatch => {
     const { name, email, password, passwordConfirmation } = signupData;
-    dispatch(signupStart());
+    dispatch(authStart());
     axios
       .post("/auth", { name, email, password, passwordConfirmation })
       .then(response => {
-        dispatch(signupSuccess(response.data, response.headers));
+        localStorage.setItem("accessToken", response.headers["access-token"]);
+        localStorage.setItem("userId", response.data.data.id);
+        localStorage.setItem("userName", response.data.data.name);
+        const authData = {
+          accessToken: response.headers["access-token"],
+          user: response.data.data
+        };
+        dispatch(authSuccess(authData));
       })
       .catch(error => {
-        dispatch(signupFail(error.response.data.errors));
+        dispatch(authFail(error.response.data.errors));
       });
   };
 };
 
+export const authStart = () => {
+  return {
+    type: actionTypes.AUTH_START
+  };
+};
+
+export const authSuccess = authData => {
+  return {
+    type: actionTypes.AUTH_SUCCESS,
+    accessToken: authData.accessToken,
+    user: authData.user
+  };
+};
+
+export const authFail = authError => {
+  return {
+    type: actionTypes.AUTH_FAIL,
+    error: authError
+  };
+};
+
+export const checkAuthStorage = () => {
+  return dispatch => {
+    const accessToken = localStorage.getItem("accessToken");
+    const user = {
+      id: localStorage.getItem("userId"),
+      name: localStorage.getItem("userName")
+    };
+    const authData = { accessToken, user };
+    if (!accessToken) {
+      dispatch(logout());
+    } else {
+      dispatch(authSuccess(authData));
+    }
+  };
+};
+
 export const logout = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("userName");
   return {
     type: actionTypes.LOGOUT
   };

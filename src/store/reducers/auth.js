@@ -1,53 +1,32 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
+  accessToken: null,
   userId: null,
   userName: null,
-  accessToken: null,
   error: null,
-  isLoading: false,
-  isAuthenticated: false
+  isAuthenticated: false,
+  isLoading: false
 };
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SIGNUP_START:
+    case actionTypes.AUTH_START:
       return {
         ...state,
         isLoading: true
       };
-    case actionTypes.SIGNUP_SUCCESS:
+    case actionTypes.AUTH_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        isAuthenticated: true,
-        error: null,
-        userId: action.userId,
-        userName: action.userName,
         accessToken: action.accessToken,
-      };
-    case actionTypes.SIGNUP_FAIL:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.error
-      };
-    case actionTypes.LOGIN_START:
-      return {
-        ...state,
-        isLoading: true
-      };
-    case actionTypes.LOGIN_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        isAuthenticated: true,
+        userId: action.user.id,
+        userName: action.user.name,
         error: null,
-        userId: action.userId,
-        userName: action.userName,
-        accessToken: action.accessToken
+        isAuthenticated: true,
+        isLoading: false
       };
-    case actionTypes.LOGIN_FAIL:
+    case actionTypes.AUTH_FAIL:
       return {
         ...state,
         isLoading: false,
@@ -56,6 +35,7 @@ const auth = (state = initialState, action) => {
     case actionTypes.LOGOUT:
       return {
         ...state,
+        isAuthenticated: false,
         userId: null,
         accessToken: null
       };

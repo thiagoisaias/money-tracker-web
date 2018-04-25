@@ -2,56 +2,37 @@ import * as actionTypes from "./actionTypes";
 import * as actions from "./auth";
 
 describe("Auth actions", () => {
-  it("should create loginStart action", () => {
+  it("should create authStart action", () => {
     const expectedAction = {
-      type: actionTypes.LOGIN_START
+      type: actionTypes.AUTH_START
     };
-    expect(actions.loginStart()).toEqual(expectedAction);
+    expect(actions.authStart()).toEqual(expectedAction);
   });
 
-  it("should create loginSuccess action", () => {
+  it("should create authSuccess action", () => {
     const expectedAction = {
-      type: actionTypes.LOGIN_SUCCESS,
+      type: actionTypes.AUTH_SUCCESS
     };
-    expect(actions.loginSuccess()).toEqual(expectedAction);
+    expect(actions.authSuccess()).toEqual(expectedAction);
   });
 
-  it("should create loginFail action", () => {
+  it("should create authFail action", () => {
     const expectedAction = {
-      type: actionTypes.LOGIN_FAIL
+      type: actionTypes.AUTH_FAIL
     };
-    expect(actions.loginFail()).toEqual(expectedAction);
+    expect(actions.authFail()).toEqual(expectedAction);
   });
 
   it("should create login (async) action", () => {
     // Async action creator
   });
 
-  it("should create signupStart action", () => {
-    const expectedAction = {
-      type: actionTypes.SIGNUP_START
-    };
-    expect(actions.signupStart()).toEqual(expectedAction);
-  });
-
-  it("should create signupSuccess action", () => {
-    const expectedAction = {
-      type: actionTypes.SIGNUP_SUCCESS,
-      accessToken: "123",
-      userId: "123"
-    };
-    expect(actions.signupSuccess()).toEqual(expectedAction);
-  });
-
-  it("should create signupFail action", () => {
-    const expectedAction = {
-      type: actionTypes.SIGNUP_FAIL
-    };
-    expect(actions.signupFail()).toEqual(expectedAction);
-  });
-
   it("should create signup (async) action", () => {
     // Async action creator
+  });
+
+  it("should create checkAuthStorage action", () => {
+    // Async action
   });
 
   it("should create logout action", () => {
