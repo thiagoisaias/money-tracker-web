@@ -2,6 +2,15 @@ import * as actionTypes from "./actionTypes";
 import * as actions from "./auth";
 
 describe("Auth actions", () => {
+  const authData = {
+    accessToken: "UHAD2131-12*(AH",
+    user: {
+      id: "1",
+      name: "Lorem Foo"
+    }
+  };
+  const error = "Error";
+
   it("should create authStart action", () => {
     const expectedAction = {
       type: actionTypes.AUTH_START
@@ -11,28 +20,31 @@ describe("Auth actions", () => {
 
   it("should create authSuccess action", () => {
     const expectedAction = {
-      type: actionTypes.AUTH_SUCCESS
+      type: actionTypes.AUTH_SUCCESS,
+      accessToken: authData.accessToken,
+      user: authData.user
     };
-    expect(actions.authSuccess()).toEqual(expectedAction);
+    expect(actions.authSuccess(authData)).toEqual(expectedAction);
   });
 
   it("should create authFail action", () => {
     const expectedAction = {
-      type: actionTypes.AUTH_FAIL
+      type: actionTypes.AUTH_FAIL,
+      error: error
     };
-    expect(actions.authFail()).toEqual(expectedAction);
+    expect(actions.authFail(error)).toEqual(expectedAction);
   });
 
-  it("should create login (async) action", () => {
-    // Async action creator
+  xit("should create login (async) action", () => {
+    //TODO: Async action
   });
 
-  it("should create signup (async) action", () => {
-    // Async action creator
+  xit("should create signup (async) action", () => {
+    //TODO: Async action
   });
 
-  it("should create checkAuthStorage action", () => {
-    // Async action
+  xit("should create checkAuthStorage action", () => {
+    //TODO: Async action
   });
 
   it("should create logout action", () => {
