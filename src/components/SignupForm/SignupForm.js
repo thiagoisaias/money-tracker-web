@@ -95,9 +95,12 @@ class SignupForm extends Component {
   };
 
   render() {
-    const { toggleNewAccount, isLoading, error } = this.props;
+    const { toggleNewAccount, isAuthenticated, isLoading, error } = this.props;
+    const authRedirect = <Redirect to="/" />;
+
     return (
       <Fragment>
+        {isAuthenticated ? authRedirect : null}
         <Title>Create Account</Title>
         {error && <ErrorMessage> {error.full_messages[0]} </ErrorMessage>}
         <Form onSubmit={this.handleSubmit}>
@@ -145,12 +148,14 @@ class SignupForm extends Component {
 SignupForm.propTypes = {
   toggleNewAccount: PropTypes.func.isRequired,
   onSignup: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
+  isAuthenticated: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   error: PropTypes.object
 };
 
 const mapStateToProps = state => {
   return {
+    isAuthenticated: state.auth.isAuthenticated,
     isLoading: state.auth.isLoading,
     error: state.auth.error
   };
