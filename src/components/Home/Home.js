@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from "react";
-import { NavLink } from "react-router-dom";
-import axios from "axios";
+import React from "react";
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 import { devices } from "../../utils/devices";
 
-import TransactionList from "../TransactionList/TransactionList";
 import Balance from "../Balance/Balance";
+import Layout from "../Layout/Layout";
+import TransactionList from "../TransactionList/TransactionList";
 
 const TransactionButton = styled.button`
   width: 125px;
@@ -25,37 +25,16 @@ const TransactionButton = styled.button`
   }
 `;
 
-const ACCOUNT_ID = 1;
-
-class Home extends Component {
-  state = {
-    currentBalance: ""
-  };
-
-  componentDidMount() {
-    // axios
-    //   .get("/accounts/" + ACCOUNT_ID + "/current_balance")
-    //   .then(response => {
-    //     this.setState({
-    //       currentBalance: response.data.current_balance
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
-  }
-
-  render() {
-    return (
-      <Fragment>
-        <Balance currentBalance={this.state.currentBalance} />
-        <NavLink to="/transaction">
-          <TransactionButton> Add Transaction </TransactionButton>
-        </NavLink>
-        <TransactionList />
-      </Fragment>
-    );
-  }
-}
+const Home = props => {
+  return (
+    <Layout>
+      <Balance />
+      <NavLink to="/transaction">
+        <TransactionButton> Add Transaction </TransactionButton>
+      </NavLink>
+      <TransactionList />
+    </Layout>
+  );
+};
 
 export default Home;

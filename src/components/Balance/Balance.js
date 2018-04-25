@@ -39,7 +39,7 @@ const Balance = props => {
 };
 
 Balance.propTypes = {
-  currentBalance: PropTypes.number.isRequired
+  currentBalance: PropTypes.number
 };
 
 export default Balance;

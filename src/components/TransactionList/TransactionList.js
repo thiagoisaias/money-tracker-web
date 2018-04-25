@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
-import axios from "axios";
 import TransactionItem from "../TransactionItem/TransactionItem";
 
 const Container = styled.div`
@@ -20,43 +20,24 @@ const Container = styled.div`
   }
 `;
 
-const ACCOUNT_ID = 1;
-
-class TransactionList extends Component {
-  state = {
-    transactionList: []
-  };
-
-  componentDidMount() {
-    // axios
-    //   .get("/accounts/" + ACCOUNT_ID + "/transactions")
-    //   .then(response => {
-    //     this.setState({
-    //       transactionList: response.data
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+const TransactionList = props => {
+  if (!props.transactionList) {
+    return null;
   }
+  const transactions = props.transactionList.map(transaction => {
+    return (
+      <TransactionItem
+        key={transaction.id}
+        handleDelete={this.handleDelete}
+        {...transaction}
+      />
+    );
+  });
+  return <Container>{transactions}</Container>;
+};
 
-  handleDelete(transactionId) {
-    axios.delete("/transactions/" + transactionId).then(response => {
-    });
-  }
-
-  render() {
-    const transactions = this.state.transactionList.map(transaction => {
-      return (
-        <TransactionItem
-          key={transaction.id}
-          handleDelete={this.handleDelete}
-          {...transaction}
-        />
-      );
-    });
-    return <Container>{transactions}</Container>;
-  }
-}
+TransactionList.propTypes = {
+  transactionList: PropTypes.array
+};
 
 export default TransactionList;
