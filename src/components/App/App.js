@@ -2,12 +2,17 @@ import React, { Component, Fragment } from "react";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { checkAuthStorage } from "../../store/actions/auth";
 
 import Home from "../Home/Home";
 import SignupPage from "../SignupPage/SignupPage";
 import TransactionForm from "../TransactionForm/TransactionForm";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.checkAuthStorage();
+  }
+
   render() {
     let authRedirect = null;
     if (!this.props.isAuthenticated) {
@@ -38,4 +43,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(App));
+const mapDispatchToProps = dispatch => {
+  return {
+    checkAuthStorage: () => {
+      dispatch(checkAuthStorage());
+    }
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
