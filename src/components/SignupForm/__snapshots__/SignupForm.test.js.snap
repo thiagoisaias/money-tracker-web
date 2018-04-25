@@ -1,17 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoginForm renders properly 1`] = `
+exports[`SignupForm renders properly 1`] = `
 <React.Fragment>
   <Redirect
     push={false}
     to="/"
   />
   <styled.h2>
-    Sign in
+    Create Account
   </styled.h2>
   <styled.form
     onSubmit={[Function]}
   >
+    <styled.input
+      name="name"
+      onChange={[Function]}
+      placeholder="Name"
+      type="text"
+      value=""
+    />
     <styled.input
       name="email"
       onChange={[Function]}
@@ -26,19 +33,26 @@ exports[`LoginForm renders properly 1`] = `
       type="password"
       value=""
     />
+    <styled.input
+      name="passwordConfirmation"
+      onChange={[Function]}
+      placeholder="Confirm your password"
+      type="password"
+      value=""
+    />
     <styled.button
       onClick={[Function]}
     >
-      Log in
+      Sign Up
     </styled.button>
   </styled.form>
   <styled.div>
-    Doesn´t have an account?
+    Already have an account?
      
     <strong
       onClick={[Function]}
     >
-      Sign up here 
+      Log in here 
     </strong>
   </styled.div>
 </React.Fragment>

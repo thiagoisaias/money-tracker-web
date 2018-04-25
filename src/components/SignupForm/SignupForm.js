@@ -65,7 +65,7 @@ const Alternate = styled.div`
   }
 `;
 
-class SignupForm extends Component {
+export class SignupForm extends Component {
   constructor(props) {
     super(props);
     this.state = {

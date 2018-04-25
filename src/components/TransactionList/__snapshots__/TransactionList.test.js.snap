@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TransactionList renders properly 1`] = `<styled.div />`;
+exports[`TransactionList renders properly 1`] = `""`;

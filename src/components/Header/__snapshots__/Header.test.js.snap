@@ -11,5 +11,10 @@ exports[`Header renders properly 1`] = `
       Wallet's Logo
     </styled.div>
   </NavLink>
+  <styled.div>
+    Hi, 
+    Lorem Foo
+     ▼
+  </styled.div>
 </styled.header>
 `;

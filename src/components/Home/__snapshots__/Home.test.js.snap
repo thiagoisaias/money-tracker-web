@@ -1,10 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home renders properly 1`] = `
-<React.Fragment>
-  <Balance
-    currentBalance=""
-  />
+<Layout>
+  <Balance />
   <NavLink
     activeClassName="active"
     ariaCurrent="true"
@@ -15,5 +13,5 @@ exports[`Home renders properly 1`] = `
     </styled.button>
   </NavLink>
   <TransactionList />
-</React.Fragment>
+</Layout>
 `;

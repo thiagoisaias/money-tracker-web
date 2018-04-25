@@ -2,7 +2,7 @@
 
 exports[`Layout renders properly 1`] = `
 <React.Fragment>
-  <Header />
+  <Connect(Component) />
   <styled.div />
 </React.Fragment>
 `;
