@@ -6,7 +6,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "./store/reducers/rootReducer";
 import axios from "axios";
 import thunk from "redux-thunk";
-import App from "./components/App/App";
+import Root from "./containers/Root/Root";
 import "./assets/index.css";
 
 axios.defaults.baseURL = "https://money-management-api.herokuapp.com";
@@ -21,7 +21,7 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <Root />
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")
