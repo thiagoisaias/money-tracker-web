@@ -6,7 +6,7 @@ import { Header } from "./Header";
 
 describe("Header", () => {
   const mockProps = {
-    userName: "Lorem Foo"
+    onLogout: jest.fn()
   };
 
   const component = shallow(<Header {...mockProps} />);
