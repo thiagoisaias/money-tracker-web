@@ -51,7 +51,12 @@ button {
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
+	color: inherit;
+}
+
+a:hover {
+	opacity: 0.9;
 }
 
 input, select {
@@ -62,4 +67,6 @@ body {
 	font-family: 'Muli', sans-serif;
 	background-color: #f2f2f2;
 	color: #484848;
+	font-size: 14px;
+	min-width: 320px;
 }

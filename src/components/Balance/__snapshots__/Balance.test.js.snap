@@ -3,10 +3,12 @@
 exports[`Balance renders properly 1`] = `
 <styled.div>
   <styled.p>
-     Current Balance 
+     
+    Current Balance
   </styled.p>
   <styled.p>
-    R$ 
+    $ 
+    55,127.32
      
   </styled.p>
 </styled.div>

@@ -41,17 +41,13 @@ const SubmitButton = styled.button`
   border-radius: 3px;
   color: #fff;
   margin-top: 32px;
-
-  &:hover {
-    opacity: 0.9;
-  }
 `;
 
 const Title = styled.h2`
   text-align: center;
-  font-size: 1.2em;
   font-weight: 600;
   margin-bottom: 32px;
+  font-size: 22px;
 `;
 
 const Alternate = styled.div`

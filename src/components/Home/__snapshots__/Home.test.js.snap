@@ -3,15 +3,6 @@
 exports[`Home renders properly 1`] = `
 <Layout>
   <Balance />
-  <NavLink
-    activeClassName="active"
-    ariaCurrent="true"
-    to="/transaction"
-  >
-    <styled.button>
-       Add Transaction 
-    </styled.button>
-  </NavLink>
   <TransactionList />
 </Layout>
 `;
