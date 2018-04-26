@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import Home from "../Home/Home";
 import SignupPage from "../SignupPage/SignupPage";
-import TransactionForm from "../TransactionForm/TransactionForm";
+import TransactionForm from "../Transactions/TransactionForm/TransactionForm";
 
 class App extends Component {
   render() {
