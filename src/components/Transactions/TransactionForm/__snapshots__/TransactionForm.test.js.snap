@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionForm renders properly 1`] = `
+<Layout>
+  <styled.form>
+    <h2>
+      Transaction
+    </h2>
+    <styled.div>
+      <styled.label>
+        Transaction Type
+      </styled.label>
+      <styled.select
+        name="transactionType"
+        onChange={[Function]}
+      >
+        <option
+          value="0"
+        >
+          Expense
+        </option>
+        <option
+          value="1"
+        >
+          Earning
+        </option>
+      </styled.select>
+    </styled.div>
+    <styled.div>
+      <styled.label>
+        Description
+      </styled.label>
+      <styled.input
+        bigger={true}
+        name="description"
+        onChange={[Function]}
+        type="text"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.label>
+        Value
+      </styled.label>
+      <styled.input
+        name="value"
+        onChange={[Function]}
+        type="number"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.label>
+        Date
+      </styled.label>
+      <styled.input
+        name="date"
+        onChange={[Function]}
+        type="date"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.label>
+        Category
+      </styled.label>
+      <styled.select
+        name="category"
+        onChange={[Function]}
+      />
+    </styled.div>
+    <styled.button
+      onClick={[Function]}
+    >
+       Submit 
+    </styled.button>
+  </styled.form>
+</Layout>
+`;
