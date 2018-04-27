@@ -13,7 +13,8 @@ describe("TransactionItem", () => {
       name: "Home",
       color: "#777"
     },
-    transaction_type: "earning"
+    transaction_type: "earning",
+    handleActiveItem: jest.fn()
   };
 
   const component = shallow(<TransactionItem {...mockProps} />);
