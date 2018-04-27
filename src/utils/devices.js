@@ -1,16 +1,16 @@
 const sizes = {
-  medium: "750px",
-  large: "990px",
-  widescreen: "1400px"
+  medium: 750,
+  large: 990,
+  widescreen: 1400
 };
 
 export const devices = {
-  small: `(max-width: ${sizes.medium})`,
-  medium: `(min-width: ${sizes.medium}) and (max-width: ${sizes.large})`,
-  mediumDown: `(max-width: ${sizes.large})`,
-  mediumUp: `(min-width: ${sizes.medium})`,
-  large: `(min-width: ${sizes.large}) and (max-width: ${sizes.widescreen})`,
-  largeDown: `(max-width: ${sizes.widescreen})`,
-  largeUp: `(min-width: ${sizes.large})`,
-  widescreen: `(min-width: ${sizes.widescreen})`
+  small: `(max-width: ${sizes.medium - 1}px)`,
+  medium: `(min-width: ${sizes.medium}px) and (max-width: ${sizes.large - 1}px)`,
+  mediumDown: `(max-width: ${sizes.large - 1}px)`,
+  mediumUp: `(min-width: ${sizes.medium}px)`,
+  large: `(min-width: ${sizes.large}px) and (max-width: ${sizes.widescreen - 1}px)`,
+  largeDown: `(max-width: ${sizes.widescreen - 1}px)`,
+  largeUp: `(min-width: ${sizes.large}px)`,
+  widescreen: `(min-width: ${sizes.widescreen}px)`
 };
