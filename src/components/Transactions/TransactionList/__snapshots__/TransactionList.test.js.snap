@@ -33,7 +33,9 @@ exports[`TransactionList renders properly 1`] = `
     }
     date="2018-04-22"
     description="Uber"
+    handleActiveItem={[Function]}
     id="AA8236$@"
+    isActive={false}
     key="AA8236$@"
     transaction_type="expense"
     value={150.67}
@@ -47,7 +49,9 @@ exports[`TransactionList renders properly 1`] = `
     }
     date="2018-04-23"
     description="Lorem Ipsum Dolor Transaction Mousepad Monitor"
+    handleActiveItem={[Function]}
     id="BB8236$@"
+    isActive={false}
     key="BB8236$@"
     transaction_type="earning"
     value={200.43}
@@ -61,7 +65,9 @@ exports[`TransactionList renders properly 1`] = `
     }
     date="2018-04-24"
     description="Lorem Ipsum Dolor"
+    handleActiveItem={[Function]}
     id="CC8236$@"
+    isActive={false}
     key="CC8236$@"
     transaction_type="expense"
     value={8.34}

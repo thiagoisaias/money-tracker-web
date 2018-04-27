@@ -71,12 +71,14 @@ const MonthSelector = styled.div`
 
   @media ${devices.mediumUp} {
     position: absolute;
-    left: calc(50% - 148.28px);
+    left: calc(50% - 153.28px);
   }
 `;
 
 const Arrow = styled.div`
-  margin: 0 32px;
+  margin: 0 24px;
+  text-align: center;
+  width: 32px;
   font-size: 32px;
   line-height: 27px;
   font-weight: 600;
@@ -87,7 +89,7 @@ const Arrow = styled.div`
 `;
 
 const CurrentMonth = styled.div`
-  width: 150px;
+  width: 160px;
   text-align: center;
 `;
 
@@ -143,7 +145,8 @@ class TransactionList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: new Date()
+      selectedDate: new Date(),
+      activeItemId: null
     };
   }
 
@@ -159,14 +162,28 @@ class TransactionList extends Component {
     });
   };
 
+  handleActiveItem = itemId => {
+    if (this.state.activeItemId === itemId) {
+      this.setState({
+        activeItemId: null
+      });
+    } else {
+      this.setState({
+        activeItemId: itemId
+      });
+    }
+  };
+
   render() {
     //const mockList = [];
     const mockList = mockProps.transactionList;
     const transactions = mockList.map(transaction => {
+      const isActive = this.state.activeItemId === transaction.id;
       return (
         <TransactionItem
           key={transaction.id}
-          handleDelete={this.handleDelete}
+          handleActiveItem={this.handleActiveItem}
+          isActive={isActive}
           {...transaction}
         />
       );

@@ -6,9 +6,12 @@ import { format } from "date-fns";
 
 const Container = styled.div`
   margin: 8px 0;
+  padding: 4px 0;
   font-size: 13px;
   cursor: default;
-  transition: ease 0.2s;
+  transition: ease 0.25s;
+  overflow: hidden;
+  height: ${props => (props.isActive ? "44px" : "24px")};
 
   &:hover {
     cursor: pointer;
@@ -31,7 +34,6 @@ const ItemInfoContainer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  padding: 4px 0;
 `;
 
 const TransactionType = styled.div`
@@ -61,7 +63,7 @@ const Description = styled.div`
   }
 
   @media ${devices.mediumUp} {
-    width: 40%;
+    width: 55%;
   }
 `;
 
@@ -71,9 +73,10 @@ const CategoryContainer = styled.div`
   @media ${devices.small} {
     width: 30%;
   }
-
+  
   @media ${devices.mediumUp} {
-    width: 30%;
+    width: 20%;
+    justify-content: flex-end;
   }
 `;
 
@@ -99,13 +102,14 @@ const Value = styled.div`
     props.transactionType === "earning" ? "#68B168" : "#FC6669"};
 
   @media ${devices.small} {
-    width: 22%;
+    width: 30%;
     text-align: right;
   }
 
   @media ${devices.mediumUp} {
     width: 15%;
     text-align: right;
+    margin-right: 16px;
   }
 `;
 
@@ -114,17 +118,44 @@ const DateText = styled.div`
   font-weight: 600;
 
   @media ${devices.small} {
+    width: 5%;
     margin-right: 8px;
   }
 
   @media ${devices.mediumUp} {
+    width: 5%;
     margin-right: 16px;
+  }
+`;
+
+const ActionsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  color: #777;
+  font-size: 12px;
+  margin-top: 8px;
+
+  @media ${devices.mediumUp} {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+`;
+
+const Action = styled.div`
+  margin-left: 16px;
+  &:hover {
+    font-weight: 600;
   }
 `;
 
 const TransactionItem = props => {
   return (
-    <Container>
+    <Container
+      isActive={props.isActive}
+      onClick={() => {
+        props.handleActiveItem(props.id);
+      }}
+    >
       <ItemInfoContainer>
         <TransactionType type={props.transaction_type} />
         <DateText>{format(new Date(props.date), "DD")}</DateText>
@@ -134,10 +165,13 @@ const TransactionItem = props => {
           <CategoryName>{props.category.name}</CategoryName>
         </CategoryContainer>
         <Value transactionType={props.transaction_type}>
-          {" "}
-          $ {props.value.toLocaleString()}{" "}
+          {`${props.value.toLocaleString()}`}
         </Value>
       </ItemInfoContainer>
+      <ActionsContainer>
+        <Action>{"Edit"}</Action>
+        <Action>{"Delete"}</Action>
+      </ActionsContainer>
     </Container>
   );
 };
@@ -150,7 +184,8 @@ TransactionItem.propTypes = {
     color: PropTypes.string
   }).isRequired,
   value: PropTypes.number.isRequired,
-  transaction_type: PropTypes.string.isRequired
+  transaction_type: PropTypes.string.isRequired,
+  handleActiveItem: PropTypes.func.isRequired
 };
 
 export default TransactionItem;
