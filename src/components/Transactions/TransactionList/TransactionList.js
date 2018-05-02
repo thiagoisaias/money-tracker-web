@@ -6,6 +6,7 @@ import { format, addMonths, subMonths } from "date-fns";
 
 import { devices } from "../../../utils/devices";
 import TransactionItem from "../TransactionItem/TransactionItem";
+import withExpandableItem from "../../../hoc/ExpandableItem/ExpandableItem";
 
 const Container = styled.div`
   background-color: #fff;
@@ -82,6 +83,7 @@ const Arrow = styled.div`
   font-size: 32px;
   line-height: 27px;
   font-weight: 600;
+  user-select: none;
   &:hover {
     cursor: pointer;
     opacity: 0.7;
@@ -145,8 +147,7 @@ class TransactionList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: new Date(),
-      activeItemId: null
+      selectedDate: new Date()
     };
   }
 
@@ -162,27 +163,15 @@ class TransactionList extends Component {
     });
   };
 
-  handleActiveItem = itemId => {
-    if (this.state.activeItemId === itemId) {
-      this.setState({
-        activeItemId: null
-      });
-    } else {
-      this.setState({
-        activeItemId: itemId
-      });
-    }
-  };
-
   render() {
-    //const mockList = [];
+    // const mockList = [];
     const mockList = mockProps.transactionList;
     const transactions = mockList.map(transaction => {
-      const isActive = this.state.activeItemId === transaction.id;
+      const isActive = this.props.activeItemId === transaction.id;
       return (
         <TransactionItem
           key={transaction.id}
-          handleActiveItem={this.handleActiveItem}
+          handleActiveItem={this.props.handleActiveItem}
           isActive={isActive}
           {...transaction}
         />
@@ -216,7 +205,9 @@ class TransactionList extends Component {
 }
 
 TransactionList.propTypes = {
-  transactionList: PropTypes.array.isRequired
+  transactionList: PropTypes.array.isRequired,
+  activeItemId: PropTypes.string,
+  handleActiveItem: PropTypes.func.isRequired
 };
 
-export default TransactionList;
+export default withExpandableItem(TransactionList);
