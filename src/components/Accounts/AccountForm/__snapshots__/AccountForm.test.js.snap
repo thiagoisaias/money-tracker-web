@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountForm renders properly 1`] = `
+<Layout>
+  <styled.div>
+    <styled.h2>
+      New Account
+    </styled.h2>
+    <styled.form
+      onSubmit={[Function]}
+    >
+      <styled.div>
+        <styled.label>
+          Name
+        </styled.label>
+        <styled.input
+          name="name"
+          onChange={[Function]}
+          type="text"
+        />
+      </styled.div>
+      <styled.div>
+        <styled.label>
+          Initial Balance
+        </styled.label>
+        <styled.input
+          name="initialBalance"
+          onChange={[Function]}
+          type="number"
+        />
+      </styled.div>
+    </styled.form>
+    <Button
+      onClick={[Function]}
+    >
+      Submit
+    </Button>
+  </styled.div>
+</Layout>
+`;

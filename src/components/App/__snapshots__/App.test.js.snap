@@ -14,6 +14,16 @@ exports[`App renders properly 1`] = `
   />
   <Route
     component={[Function]}
+    exact={true}
+    path="/accounts"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/accounts/new"
+  />
+  <Route
+    component={[Function]}
   />
 </Switch>
 `;
