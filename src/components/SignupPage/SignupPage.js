@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
-import image from "../../assets/images/welcome.jpg";
 import { devices } from "../../utils/devices";
+import { connect } from "react-redux";
 
+import image from "../../assets/images/welcome.jpg";
 import LoginForm from "../LoginForm/LoginForm";
 import SignupForm from "../SignupForm/SignupForm";
 
@@ -68,7 +70,7 @@ const PhotoCredit = styled.span`
   cursor: default;
 `;
 
-class Welcome extends Component {
+export class SignupPage extends Component {
   constructor(props) {
     super(props);
 
@@ -78,6 +80,9 @@ class Welcome extends Component {
   }
 
   toggleNewAccount = () => {
+    if (this.props.isLoading) {
+      return;
+    }
     this.setState(prevState => {
       return {
         isNewAccount: !prevState.isNewAccount
@@ -96,17 +101,25 @@ class Welcome extends Component {
           )}
         </FormContainer>
         <PictureContainer>
-          <PictureTitle>
-            Welcome to <span>Wallet</span>
-          </PictureTitle>
+          <PictureTitle>{"Welcome to Wallet"}</PictureTitle>
           <PictureSubtitle>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            {"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
           </PictureSubtitle>
-          <PhotoCredit>Photo by Romello Williams on Unsplash</PhotoCredit>
+          <PhotoCredit>{"Photo by Romello Williams on Unsplash"}</PhotoCredit>
         </PictureContainer>
       </Container>
     );
   }
 }
 
-export default Welcome;
+SignupPage.propTypes = {
+  isLoading: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    isLoading: state.auth.isLoading
+  };
+};
+
+export default connect(mapStateToProps)(SignupPage);

@@ -9,10 +9,7 @@ exports[`SignupPage renders properly 1`] = `
   </styled.div>
   <styled.div>
     <styled.h2>
-      Welcome to 
-      <span>
-        Wallet
-      </span>
+      Welcome to Wallet
     </styled.h2>
     <styled.p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit
