@@ -4,7 +4,7 @@ exports[`SignupForm renders properly 1`] = `
 <React.Fragment>
   <Redirect
     push={false}
-    to="/"
+    to="/accounts/new"
   />
   <styled.h2>
     Create Account
