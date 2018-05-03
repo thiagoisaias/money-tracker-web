@@ -24,12 +24,18 @@ const Input = styled.input`
   width: calc(100% - 12px);
   border: 1px solid #eee;
   border-radius: 3px;
+  font-family: inherit;
+  color: inherit;
   font-size: 14px;
   margin: 6px 0;
   padding-left: 12px;
 
   &:focus {
     border: 1px solid #d2d2d2;
+  }
+
+  &::placeholder {
+    opacity: 0.7;
   }
 `;
 
@@ -41,7 +47,7 @@ const SubmitButton = styled.button`
   cursor: pointer;
   border-radius: 3px;
   color: #fff;
-  margin-top: 32px;
+  margin-top: 16px;
 `;
 
 const Title = styled.h2`
