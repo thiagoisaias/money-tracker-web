@@ -3,7 +3,11 @@ import * as actions from "./auth";
 
 describe("Auth actions", () => {
   const authData = {
-    accessToken: "UHAD2131-12*(AH",
+    accessToken: "TK123",
+    tokenType: "Bearer",
+    client: "sds87d3h34g247sd",
+    expiry: "12312334",
+    uid: "mock@email.com",
     user: {
       id: "1",
       name: "Lorem Foo"
@@ -21,8 +25,7 @@ describe("Auth actions", () => {
   it("should create authSuccess action", () => {
     const expectedAction = {
       type: actionTypes.AUTH_SUCCESS,
-      accessToken: authData.accessToken,
-      user: authData.user
+      authData: authData,
     };
     expect(actions.authSuccess(authData)).toEqual(expectedAction);
   });
