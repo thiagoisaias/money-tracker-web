@@ -1,12 +1,14 @@
 import { combineReducers } from "redux";
+import accounts from "./accounts";
 import auth from "./auth";
 import transactions from "./transactions";
-import accounts from "./accounts";
+import { routerReducer } from "react-router-redux";
 
 const rootReducer = combineReducers({
   auth,
   transactions,
-  accounts
+  accounts,
+  router: routerReducer
 });
 
 export default rootReducer;
