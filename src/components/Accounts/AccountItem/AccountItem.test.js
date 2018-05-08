@@ -6,10 +6,9 @@ import AccountItem from "./AccountItem";
 
 describe("AccountItem", () => {
   const mockProps = {
-    id: "#UA12",
+    id: 1,
     name: "Mock Account",
-    initialBalance: 999,
-    currentBalance: 500.32,
+    initial_balance: "94569",
     isActive: false,
     handleActiveItem: jest.fn()
   };

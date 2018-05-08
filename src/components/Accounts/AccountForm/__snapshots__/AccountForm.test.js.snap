@@ -10,31 +10,33 @@ exports[`AccountForm renders properly 1`] = `
       onSubmit={[Function]}
     >
       <styled.div>
-        <styled.label>
-          Name
-        </styled.label>
-        <styled.input
-          name="name"
-          onChange={[Function]}
-          type="text"
-        />
+        <styled.div>
+          <styled.label>
+            Name
+          </styled.label>
+          <styled.input
+            name="name"
+            onChange={[Function]}
+            type="text"
+          />
+        </styled.div>
+        <styled.div>
+          <styled.label>
+            Initial Balance
+          </styled.label>
+          <styled.input
+            name="initial_balance"
+            onChange={[Function]}
+            type="number"
+          />
+        </styled.div>
       </styled.div>
-      <styled.div>
-        <styled.label>
-          Initial Balance
-        </styled.label>
-        <styled.input
-          name="initialBalance"
-          onChange={[Function]}
-          type="number"
-        />
-      </styled.div>
+      <Button
+        onClick={[Function]}
+      >
+        Submit
+      </Button>
     </styled.form>
-    <Button
-      onClick={[Function]}
-    >
-      Submit
-    </Button>
   </styled.div>
 </Layout>
 `;

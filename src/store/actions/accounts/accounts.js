@@ -1,5 +1,6 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
+import { push } from "react-router-redux";
 
 export const createAccount = (accountData, userId, authHeaders) => {
   return dispatch => {
@@ -19,11 +20,11 @@ export const createAccount = (accountData, userId, authHeaders) => {
         }
       )
       .then(response => {
-        console.log("RESPONSE", response.data);
         dispatch(createAccountSuccess(response.data));
+        dispatch(push("/accounts"));
       })
       .catch(error => {
-        console.log(error);
+        // TODO: Display proper error message
         const customErrorMessage = "Something went wrong.";
         dispatch(createAccountFail(customErrorMessage));
       });
@@ -50,9 +51,26 @@ export const createAccountFail = error => {
   };
 };
 
-export const fetchAccounts = data => {
+export const fetchAccounts = (userId, authHeaders) => {
   return dispatch => {
     dispatch(fetchAccountsStart());
+    axios
+      .get(`/users/${userId}/accounts`, {
+        headers: {
+          "access-token": authHeaders.accessToken,
+          client: authHeaders.client,
+          expiry: authHeaders.expiry,
+          "token-type": authHeaders.tokenType,
+          uid: authHeaders.uid
+        }
+      })
+      .then(response => {
+        dispatch(fetchAccountsSuccess(response.data));
+      })
+      .catch(error => {
+        const customErrorMessage = "Something went wrong.";
+        dispatch(fetchAccountsFail(customErrorMessage));
+      });
   };
 };
 
@@ -123,5 +141,11 @@ export const deleteAccountFail = error => {
   return {
     type: actionTypes.DELETE_ACCOUNT_FAIL,
     error
+  };
+};
+
+export const clearAccountState = () => {
+  return {
+    type: actionTypes.CLEAR_ACCOUNT_STATE
   };
 };

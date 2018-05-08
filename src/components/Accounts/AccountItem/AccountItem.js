@@ -6,6 +6,7 @@ import { devices } from "../../../utils/devices";
 const Container = styled.div`
   margin: 16px 0;
   padding: 6px 0;
+  border-radius: 2px;
   height: ${props => (props.isActive ? "56px" : "36px")};
   transition: ease 0.25s;
   overflow: hidden;
@@ -57,7 +58,7 @@ const AccountItem = props => {
       onClick={() => props.handleActiveItem(props.id)}
     >
       <Name>{props.name}</Name>
-      <Balance>{`$ ${props.currentBalance.toLocaleString()}`}</Balance>
+      <Balance>{`$ ${props.initial_balance.toLocaleString()}`}</Balance>
       <ActionsContainer>
         <Action
           onClick={() => {
@@ -79,10 +80,9 @@ const AccountItem = props => {
 };
 
 AccountItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  initialBalance: PropTypes.number.isRequired,
-  currentBalance: PropTypes.number.isRequired,
+  initial_balance: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
   handleActiveItem: PropTypes.func.isRequired
 };

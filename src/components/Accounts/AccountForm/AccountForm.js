@@ -1,9 +1,17 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import { devices } from "../../../utils/devices";
 import Button from "../../Button/Button";
 import Layout from "../../Layout/Layout";
+import Spinner from "../../Spinner/Spinner";
+
+import {
+  createAccount,
+  clearAccountState
+} from "../../../store/actions/accounts/accounts";
 
 const Container = styled.div`
   background-color: #fff;
@@ -29,13 +37,7 @@ const Title = styled.h2`
   letter-spacing: 0.5px;
 `;
 
-const FormContainer = styled.form`
-  padding-top: 32px;
-
-  @media ${devices.mediumUp} {
-    display: flex;
-  }
-`;
+const FormContainer = styled.form``;
 
 const FormGroup = styled.div`
   display: flex;
@@ -73,16 +75,31 @@ const Input = styled.input`
   }
 `;
 
-class AccountForm extends Component {
+const Row = styled.div`
+  @media ${devices.mediumUp} {
+    display: flex;
+    justify-content: space-between;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  color: #e75252;
+  font-size: 14px;
+  margin-top: 16px;
+`;
+
+export class AccountForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      accountData: {
-        name: null,
-        initialBalance: null
-      }
+      name: null,
+      initial_balance: null
     };
+  }
+
+  componentWillUnmount() {
+    this.props.onClearAccountState();
   }
 
   handleInputChange = event => {
@@ -91,46 +108,97 @@ class AccountForm extends Component {
     const name = target.name;
 
     this.setState({
-      accountData: {
-        ...this.state.transactionData,
-        [name]: value
-      }
+      [name]: value
     });
   };
 
   handleSubmit = event => {
+    const {
+      accessToken,
+      client,
+      expiry,
+      tokenType,
+      uid,
+      isLoading,
+      userId,
+      onCreateAccount
+    } = this.props;
+
+    const authHeaders = { accessToken, client, expiry, tokenType, uid };
+
     event.preventDefault();
-    console.log("Send form data to API", this.state.accountData);
+
+    if (isLoading) {
+      return;
+    }
+    onCreateAccount(this.state, userId, authHeaders);
   };
 
   render() {
+    const { error, isLoading } = this.props;
     return (
       <Layout>
         <Container>
           <Title>{"New Account"}</Title>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
           <FormContainer onSubmit={this.handleSubmit}>
-            <FormGroup>
-              <Label>{"Name"}</Label>
-              <Input
-                type="text"
-                name="name"
-                onChange={this.handleInputChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>{"Initial Balance"}</Label>
-              <Input
-                type="number"
-                name="initialBalance"
-                onChange={this.handleInputChange}
-              />
-            </FormGroup>
+            <Row>
+              <FormGroup>
+                <Label>{"Name"}</Label>
+                <Input
+                  type="text"
+                  name="name"
+                  onChange={this.handleInputChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label>{"Initial Balance"}</Label>
+                <Input
+                  type="number"
+                  name="initial_balance"
+                  onChange={this.handleInputChange}
+                />
+              </FormGroup>
+            </Row>
+            <Button onClick={this.handleSubmit}>
+              {isLoading ? <Spinner height={34} width={34} /> : "Submit"}
+            </Button>
           </FormContainer>
-          <Button onClick={this.handleSubmit}>{"Submit"}</Button>
         </Container>
       </Layout>
     );
   }
 }
 
-export default AccountForm;
+AccountForm.propTypes = {
+  userId: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.array,
+  onCreateAccount: PropTypes.func.isRequired,
+  onClearAccountState: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    accessToken: state.auth.accessToken,
+    client: state.auth.client,
+    expiry: state.auth.expiry,
+    uid: state.auth.uid,
+    userId: state.auth.userId,
+    isLoading: state.accounts.isLoading,
+    error: state.accounts.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onCreateAccount: (accountData, userId, authHeaders) => {
+      dispatch(createAccount(accountData, userId, authHeaders));
+    },
+    onClearAccountState: () => {
+      dispatch(clearAccountState());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountForm);

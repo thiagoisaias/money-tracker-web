@@ -9,7 +9,7 @@ exports[`AccountItem renders properly 1`] = `
     Mock Account
   </styled.div>
   <styled.div>
-    $ 500.32
+    $ 94569
   </styled.div>
   <styled.div>
     <styled.div

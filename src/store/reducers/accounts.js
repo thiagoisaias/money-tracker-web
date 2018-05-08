@@ -23,7 +23,7 @@ const accounts = (state = initialState, action) => {
     case actionTypes.CREATE_ACCOUNT_FAIL:
       return {
         ...state,
-        errors: action.errors,
+        error: action.error,
         isLoading: false
       };
     case actionTypes.FETCH_ACCOUNTS_START:
@@ -79,6 +79,10 @@ const accounts = (state = initialState, action) => {
         ...state,
         error: action.error,
         isLoading: false
+      };
+    case actionTypes.CLEAR_ACCOUNT_STATE:
+      return {
+        ...initialState
       };
     default:
       return state;

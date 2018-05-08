@@ -1,8 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AccountList renders properly 1`] = `
-<AccountList
-  activeItemId={null}
-  handleActiveItem={[Function]}
-/>
+<Layout>
+  <styled.div>
+    <React.Fragment>
+      <styled.div>
+        <styled.h2>
+           
+          Accounts
+           
+        </styled.h2>
+        <Styled(NavLink)
+          to="/accounts/new"
+        >
+          New Account
+        </Styled(NavLink)>
+      </styled.div>
+      <AccountItem
+        handleActiveItem={[Function]}
+        id={1}
+        initial_balance="34534"
+        isActive={true}
+        key="1"
+        name="Lorem One"
+      />
+      <AccountItem
+        handleActiveItem={[Function]}
+        id={2}
+        initial_balance="94834"
+        isActive={false}
+        key="2"
+        name="Lorem Two"
+      />
+    </React.Fragment>
+  </styled.div>
+</Layout>
 `;
