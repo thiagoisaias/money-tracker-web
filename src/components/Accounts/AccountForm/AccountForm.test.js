@@ -9,8 +9,7 @@ describe("AccountForm", () => {
     userId: "UASDH19283",
     isLoading: false,
     error: null,
-    onCreateAccount: jest.fn(),
-    onClearAccountState: jest.fn()
+    onCreateAccount: jest.fn()
   };
   const component = shallow(<AccountForm {...mockProps} />);
 

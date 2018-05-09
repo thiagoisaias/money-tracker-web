@@ -25,7 +25,7 @@ exports[`AccountForm renders properly 1`] = `
             Initial Balance
           </styled.label>
           <styled.input
-            name="initial_balance"
+            name="initialBalance"
             onChange={[Function]}
             type="number"
           />

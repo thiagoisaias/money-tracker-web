@@ -9,8 +9,7 @@ import Layout from "../../Layout/Layout";
 import Spinner from "../../Spinner/Spinner";
 
 import {
-  createAccount,
-  clearAccountState
+  createAccount
 } from "../../../store/actions/accounts/accounts";
 
 const Container = styled.div`
@@ -94,12 +93,8 @@ export class AccountForm extends Component {
 
     this.state = {
       name: null,
-      initial_balance: null
+      initialBalance: null
     };
-  }
-
-  componentWillUnmount() {
-    this.props.onClearAccountState();
   }
 
   handleInputChange = event => {
@@ -155,7 +150,7 @@ export class AccountForm extends Component {
                 <Label>{"Initial Balance"}</Label>
                 <Input
                   type="number"
-                  name="initial_balance"
+                  name="initialBalance"
                   onChange={this.handleInputChange}
                 />
               </FormGroup>
@@ -174,8 +169,7 @@ AccountForm.propTypes = {
   userId: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   error: PropTypes.array,
-  onCreateAccount: PropTypes.func.isRequired,
-  onClearAccountState: PropTypes.func.isRequired
+  onCreateAccount: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -194,9 +188,6 @@ const mapDispatchToProps = dispatch => {
   return {
     onCreateAccount: (accountData, userId, authHeaders) => {
       dispatch(createAccount(accountData, userId, authHeaders));
-    },
-    onClearAccountState: () => {
-      dispatch(clearAccountState());
     }
   };
 };

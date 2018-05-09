@@ -1,6 +1,7 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
 import { push } from "react-router-redux";
+import humps from "humps";
 
 export const createAccount = (accountData, userId, authHeaders) => {
   return dispatch => {
@@ -8,7 +9,7 @@ export const createAccount = (accountData, userId, authHeaders) => {
     axios
       .post(
         `/users/${userId}/accounts`,
-        { account: accountData },
+        { account: humps.decamelizeKeys(accountData) },
         {
           headers: {
             "access-token": authHeaders.accessToken,
@@ -68,6 +69,7 @@ export const fetchAccounts = (userId, authHeaders) => {
         dispatch(fetchAccountsSuccess(response.data));
       })
       .catch(error => {
+        // TODO: Display proper error message
         const customErrorMessage = "Something went wrong.";
         dispatch(fetchAccountsFail(customErrorMessage));
       });
@@ -141,11 +143,5 @@ export const deleteAccountFail = error => {
   return {
     type: actionTypes.DELETE_ACCOUNT_FAIL,
     error
-  };
-};
-
-export const clearAccountState = () => {
-  return {
-    type: actionTypes.CLEAR_ACCOUNT_STATE
   };
 };

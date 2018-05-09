@@ -109,11 +109,4 @@ describe("Transaction actions", () => {
     //TODO: Async action
   });
 
-  it("should create clearAccountState action", () => {
-    const expectedAction = {
-      type: actionTypes.CLEAR_ACCOUNT_STATE,
-    };
-    expect(actions.clearAccountState()).toEqual(expectedAction);
-  });
-
 });

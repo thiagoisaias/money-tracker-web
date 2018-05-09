@@ -80,10 +80,6 @@ const accounts = (state = initialState, action) => {
         error: action.error,
         isLoading: false
       };
-    case actionTypes.CLEAR_ACCOUNT_STATE:
-      return {
-        ...initialState
-      };
     default:
       return state;
   }
