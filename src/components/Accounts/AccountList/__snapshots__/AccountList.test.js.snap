@@ -19,7 +19,7 @@ exports[`AccountList renders properly 1`] = `
       <AccountItem
         handleActiveItem={[Function]}
         id={1}
-        initial_balance="34534"
+        initialBalance="34534"
         isActive={true}
         key="1"
         name="Lorem One"
@@ -27,7 +27,7 @@ exports[`AccountList renders properly 1`] = `
       <AccountItem
         handleActiveItem={[Function]}
         id={2}
-        initial_balance="94834"
+        initialBalance="94834"
         isActive={false}
         key="2"
         name="Lorem Two"

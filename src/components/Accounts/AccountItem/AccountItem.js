@@ -58,7 +58,7 @@ const AccountItem = props => {
       onClick={() => props.handleActiveItem(props.id)}
     >
       <Name>{props.name}</Name>
-      <Balance>{`$ ${props.initial_balance.toLocaleString()}`}</Balance>
+      <Balance>{`$ ${props.initialBalance.toLocaleString()}`}</Balance>
       <ActionsContainer>
         <Action
           onClick={() => {
@@ -82,7 +82,7 @@ const AccountItem = props => {
 AccountItem.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  initial_balance: PropTypes.string.isRequired,
+  initialBalance: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
   handleActiveItem: PropTypes.func.isRequired
 };

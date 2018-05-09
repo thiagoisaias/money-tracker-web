@@ -7,8 +7,8 @@ import { AccountList } from "./AccountList";
 describe("AccountList", () => {
   const mockProps = {
     accountList: [
-      { id: 1, initial_balance: "34534", name: "Lorem One" },
-      { id: 2, initial_balance: "94834", name: "Lorem Two" }
+      { id: 1, initialBalance: "34534", name: "Lorem One" },
+      { id: 2, initialBalance: "94834", name: "Lorem Two" }
     ],
     userId: "UIA812",
     error: null,

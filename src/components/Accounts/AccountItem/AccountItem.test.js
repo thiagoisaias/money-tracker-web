@@ -8,7 +8,7 @@ describe("AccountItem", () => {
   const mockProps = {
     id: 1,
     name: "Mock Account",
-    initial_balance: "94569",
+    initialBalance: "94569",
     isActive: false,
     handleActiveItem: jest.fn()
   };

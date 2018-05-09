@@ -154,7 +154,7 @@ AccountList.propTypes = {
   accountList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      initial_balance: PropTypes.string.isRequired,
+      initialBalance: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired
     })
   ).isRequired,
