@@ -13,7 +13,7 @@ import rootReducer from "./store/reducers/rootReducer";
 import Root from "./containers/Root/Root";
 import "./assets/index.css";
 
-axios.defaults.baseURL = "https://money-management-api.herokuapp.com";
+axios.defaults.baseURL = "https://money-management-api.herokuapp.com/api/v1";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const history = createHistory();
@@ -32,7 +32,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-
-if (module.hot) {
-  module.hot.accept();
-}
