@@ -2,15 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import AccountForm from "./AccountForm";
+import { AccountFormContainer } from "./AccountFormContainer";
 
-describe("AccountForm", () => {
+describe("AccountFormContainer", () => {
   const mockProps = {
-    isLoading: false,
+    userId: 1,
     error: null,
-    submitData: jest.fn()
+    isLoading: false,
+    onCreateAccount: jest.fn()
   };
-  const component = shallow(<AccountForm {...mockProps} />);
+  const component = shallow(<AccountFormContainer {...mockProps} />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();

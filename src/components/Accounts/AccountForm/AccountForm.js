@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
@@ -7,10 +6,6 @@ import { devices } from "../../../utils/devices";
 import Button from "../../Button/Button";
 import Layout from "../../Layout/Layout";
 import Spinner from "../../Spinner/Spinner";
-
-import {
-  createAccount
-} from "../../../store/actions/accounts/accounts";
 
 const Container = styled.div`
   background-color: #fff;
@@ -87,7 +82,7 @@ const ErrorMessage = styled.p`
   margin-top: 16px;
 `;
 
-export class AccountForm extends Component {
+class AccountForm extends Component {
   constructor(props) {
     super(props);
 
@@ -108,25 +103,12 @@ export class AccountForm extends Component {
   };
 
   handleSubmit = event => {
-    const {
-      accessToken,
-      client,
-      expiry,
-      tokenType,
-      uid,
-      isLoading,
-      userId,
-      onCreateAccount
-    } = this.props;
-
-    const authHeaders = { accessToken, client, expiry, tokenType, uid };
-
+    const { isLoading, submitData } = this.props;
     event.preventDefault();
-
     if (isLoading) {
       return;
     }
-    onCreateAccount(this.state, userId, authHeaders);
+    submitData(this.state);
   };
 
   render() {
@@ -166,30 +148,9 @@ export class AccountForm extends Component {
 }
 
 AccountForm.propTypes = {
-  userId: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   error: PropTypes.array,
-  onCreateAccount: PropTypes.func.isRequired
+  submitData: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    accessToken: state.auth.accessToken,
-    client: state.auth.client,
-    expiry: state.auth.expiry,
-    uid: state.auth.uid,
-    userId: state.auth.userId,
-    isLoading: state.accounts.isLoading,
-    error: state.accounts.error
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onCreateAccount: (accountData, userId, authHeaders) => {
-      dispatch(createAccount(accountData, userId, authHeaders));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AccountForm);
+export default AccountForm;
