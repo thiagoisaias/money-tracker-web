@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
+import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -10,8 +9,6 @@ import AccountItem from "../AccountItem/AccountItem";
 import Layout from "../../Layout/Layout";
 import Spinner from "../../Spinner/Spinner";
 import withExpandableItem from "../../../hoc/ExpandableItem/ExpandableItem";
-
-import { fetchAccounts } from "../../../store/actions/accounts/accounts";
 
 const Container = styled.div`
   background-color: #fff;
@@ -83,72 +80,54 @@ const BlankStateMessage = styled.p`
   margin-left: 16px;
 `;
 
-export class AccountList extends Component {
-  componentDidMount() {
-    const {
-      accessToken,
-      client,
-      expiry,
-      tokenType,
-      uid,
-      userId,
-      onFetchAccountList
-    } = this.props;
+const AccountList = props => {
+  const {
+    accountList,
+    activeItemId,
+    handleActiveItem,
+    error,
+    isLoading
+  } = props;
 
-    const authHeaders = { accessToken, client, expiry, tokenType, uid };
-
-    onFetchAccountList(userId, authHeaders);
-  }
-
-  render() {
-    const {
-      accountList,
-      activeItemId,
-      handleActiveItem,
-      error,
-      isLoading
-    } = this.props;
-
-    const list = accountList.map(account => {
-      const isActive = activeItemId === account.id;
-      return (
-        <AccountItem
-          key={account.id}
-          handleActiveItem={handleActiveItem}
-          isActive={isActive}
-          {...account}
-        />
-      );
-    });
-
+  const list = accountList.map(account => {
+    const isActive = activeItemId === account.id;
     return (
-      <Layout>
-        <Container>
-          {isLoading ? (
-            <Spinner height={72} width={72} />
-          ) : (
-            <Fragment>
-              <Header>
-                <Title> {"Accounts"} </Title>
-                <NewAccountLink to="/accounts/new">
-                  {"New Account"}
-                </NewAccountLink>
-              </Header>
-              {error && <ErrorMessage>{error}</ErrorMessage>}
-              {list.length === 0 && !error ? (
-                <BlankStateMessage>
-                  &#9888;{"There are no accounts registered yet."}
-                </BlankStateMessage>
-              ) : (
-                list
-              )}
-            </Fragment>
-          )}
-        </Container>
-      </Layout>
+      <AccountItem
+        key={account.id}
+        handleActiveItem={handleActiveItem}
+        isActive={isActive}
+        {...account}
+      />
     );
-  }
-}
+  });
+
+  return (
+    <Layout>
+      <Container>
+        {isLoading ? (
+          <Spinner height={72} width={72} />
+        ) : (
+          <Fragment>
+            <Header>
+              <Title> {"Accounts"} </Title>
+              <NewAccountLink to="/accounts/new">
+                {"New Account"}
+              </NewAccountLink>
+            </Header>
+            {error && <ErrorMessage>{error}</ErrorMessage>}
+            {list.length === 0 && !error ? (
+              <BlankStateMessage>
+                &#9888;{"There are no accounts registered yet."}
+              </BlankStateMessage>
+            ) : (
+              list
+            )}
+          </Fragment>
+        )}
+      </Container>
+    </Layout>
+  );
+};
 
 AccountList.propTypes = {
   accountList: PropTypes.arrayOf(
@@ -158,35 +137,10 @@ AccountList.propTypes = {
       name: PropTypes.string.isRequired
     })
   ).isRequired,
+  activeItemId: PropTypes.number,
   error: PropTypes.string,
-  userId: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  onFetchAccountList: PropTypes.func.isRequired,
-  handleActiveItem: PropTypes.func.isRequired,
-  activeItemId: PropTypes.number
+  handleActiveItem: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    accessToken: state.auth.accessToken,
-    client: state.auth.client,
-    expiry: state.auth.expiry,
-    uid: state.auth.uid,
-    userId: state.auth.userId,
-    isLoading: state.accounts.isLoading,
-    error: state.accounts.error,
-    accountList: state.accounts.accountList
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onFetchAccountList: (userId, authHeaders) => {
-      dispatch(fetchAccounts(userId, authHeaders));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withExpandableItem(AccountList)
-);
+export default withExpandableItem(AccountList);

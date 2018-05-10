@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AccountList renders properly 1`] = `
-<AccountList
+exports[`AccountListContainer renders properly 1`] = `
+<Component
   accountList={
     Array [
       Object {
@@ -16,9 +16,7 @@ exports[`AccountList renders properly 1`] = `
       },
     ]
   }
-  activeItemId={1}
   error={null}
-  handleActiveItem={[Function]}
   isLoading={false}
 />
 `;
