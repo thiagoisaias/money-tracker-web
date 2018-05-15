@@ -5,12 +5,12 @@ exports[`AccountListContainer renders properly 1`] = `
   accountList={
     Array [
       Object {
-        "id": 1,
+        "id": "1",
         "initialBalance": "34534",
         "name": "Lorem One",
       },
       Object {
-        "id": 2,
+        "id": "2",
         "initialBalance": "94834",
         "name": "Lorem Two",
       },
