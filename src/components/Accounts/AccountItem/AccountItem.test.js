@@ -10,7 +10,8 @@ describe("AccountItem", () => {
     name: "Mock Account",
     initialBalance: "94569",
     isActive: false,
-    handleActiveItem: jest.fn()
+    handleActiveItem: jest.fn(),
+    onDeleteAccount: jest.fn()
   };
 
   const component = shallow(<AccountItem {...mockProps} />);

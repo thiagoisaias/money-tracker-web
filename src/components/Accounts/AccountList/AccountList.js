@@ -86,7 +86,8 @@ const AccountList = props => {
     activeItemId,
     handleActiveItem,
     error,
-    isLoading
+    isLoading,
+    onDeleteAccount
   } = props;
 
   const list = accountList.map(account => {
@@ -95,6 +96,7 @@ const AccountList = props => {
       <AccountItem
         key={account.id}
         handleActiveItem={handleActiveItem}
+        onDeleteAccount={onDeleteAccount}
         isActive={isActive}
         {...account}
       />
@@ -140,7 +142,8 @@ AccountList.propTypes = {
   activeItemId: PropTypes.number,
   error: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
-  handleActiveItem: PropTypes.func.isRequired
+  handleActiveItem: PropTypes.func.isRequired,
+  onDeleteAccount: PropTypes.func.isRequired
 };
 
 export default withExpandableItem(AccountList);

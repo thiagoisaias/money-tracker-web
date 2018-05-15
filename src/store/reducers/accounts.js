@@ -71,6 +71,9 @@ const accounts = (state = initialState, action) => {
       // TODO: depends on the account ID
       return {
         ...state,
+        accountList: state.accountList.filter(item => {
+          return item.id !== action.accountId;
+        }),
         error: null,
         isLoading: false
       };

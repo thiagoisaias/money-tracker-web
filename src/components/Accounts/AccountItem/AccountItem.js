@@ -52,13 +52,19 @@ const Action = styled.div`
 `;
 
 const AccountItem = props => {
+  const {
+    id,
+    name,
+    initialBalance,
+    isActive,
+    handleActiveItem,
+    onDeleteAccount
+  } = props;
+
   return (
-    <Container
-      isActive={props.isActive}
-      onClick={() => props.handleActiveItem(props.id)}
-    >
-      <Name>{props.name}</Name>
-      <Balance>{`$ ${props.initialBalance.toLocaleString()}`}</Balance>
+    <Container isActive={isActive} onClick={() => handleActiveItem(id)}>
+      <Name>{name}</Name>
+      <Balance>{`$ ${initialBalance.toLocaleString()}`}</Balance>
       <ActionsContainer>
         <Action
           onClick={() => {
@@ -69,7 +75,7 @@ const AccountItem = props => {
         </Action>
         <Action
           onClick={() => {
-            console.log("Delete");
+            onDeleteAccount(id);
           }}
         >
           {"Delete"}
@@ -84,7 +90,8 @@ AccountItem.propTypes = {
   name: PropTypes.string.isRequired,
   initialBalance: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
-  handleActiveItem: PropTypes.func.isRequired
+  handleActiveItem: PropTypes.func.isRequired,
+  onDeleteAccount: PropTypes.func.isRequired
 };
 
 export default AccountItem;

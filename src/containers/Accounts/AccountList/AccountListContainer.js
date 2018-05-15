@@ -4,7 +4,10 @@ import PropTypes from "prop-types";
 
 import AccountList from "../../../components/Accounts/AccountList/AccountList";
 
-import { fetchAccounts } from "../../../store/actions/accounts/accounts";
+import {
+  fetchAccounts,
+  deleteAccount
+} from "../../../store/actions/accounts/accounts";
 
 export class AccountListContainer extends Component {
   componentDidMount() {
@@ -14,8 +17,8 @@ export class AccountListContainer extends Component {
   }
 
   render() {
-    const { accountList, error, isLoading } = this.props;
-    const propsToPass = { accountList, error, isLoading };
+    const { accountList, error, isLoading, onDeleteAccount } = this.props;
+    const propsToPass = { accountList, error, isLoading, onDeleteAccount };
     return <AccountList {...propsToPass} />;
   }
 }
@@ -31,7 +34,8 @@ AccountListContainer.propTypes = {
   error: PropTypes.string,
   userId: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  onFetchAccountList: PropTypes.func.isRequired
+  onFetchAccountList: PropTypes.func.isRequired,
+  onDeleteAccount: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -45,8 +49,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchAccountList: (userId, authHeaders) => {
-      dispatch(fetchAccounts(userId, authHeaders));
+    onFetchAccountList: userId => {
+      dispatch(fetchAccounts(userId));
+    },
+    onDeleteAccount: accountId => {
+      dispatch(deleteAccount(accountId));
     }
   };
 };

@@ -44,7 +44,7 @@ export const createAccountFail = error => {
   };
 };
 
-export const fetchAccounts = (userId) => {
+export const fetchAccounts = userId => {
   return (dispatch, getState) => {
     dispatch(fetchAccountsStart());
     axios
@@ -107,9 +107,21 @@ export const updateAccountFail = error => {
   };
 };
 
-export const deleteAccount = data => {
-  return dispatch => {
+export const deleteAccount = accountId => {
+  return (dispatch, getState) => {
     dispatch(deleteAccountStart());
+    axios
+      .delete(`/accounts/${accountId}`, {
+        headers: decamelizeKeys(getState().auth.headers)
+      })
+      .then(response => {
+        dispatch(deleteAccountSuccess(accountId));
+      })
+      .catch(error => {
+        // TODO: Display proper error message
+        const customErrorMessage = "Something went wrong.";
+        dispatch(deleteAccountFail(customErrorMessage));
+      });
   };
 };
 
@@ -119,9 +131,10 @@ export const deleteAccountStart = () => {
   };
 };
 
-export const deleteAccountSuccess = () => {
+export const deleteAccountSuccess = accountId => {
   return {
-    type: actionTypes.DELETE_ACCOUNT_SUCCESS
+    type: actionTypes.DELETE_ACCOUNT_SUCCESS,
+    accountId
   };
 };
 

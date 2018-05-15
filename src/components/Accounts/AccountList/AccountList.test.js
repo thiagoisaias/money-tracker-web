@@ -10,10 +10,11 @@ describe("AccountList", () => {
       { id: 1, initialBalance: "34534", name: "Lorem One" },
       { id: 2, initialBalance: "94834", name: "Lorem Two" }
     ],
+    activeItemId: 1,
     error: null,
     isLoading: false,
     handleActiveItem: jest.fn(),
-    activeItemId: 1
+    onDeleteAccount: jest.fn()
   };
   const component = shallow(<AccountList {...mockProps} />);
 
