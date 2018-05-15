@@ -12,9 +12,9 @@ const Container = styled.div`
   transition: ease 0.25s;
   overflow: hidden;
   height: ${props => (props.isActive ? "44px" : "24px")};
+  user-select: none;
 
   &:hover {
-    cursor: pointer;
     border-color: #ddd;
   }
 
@@ -34,6 +34,10 @@ const ItemInfoContainer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const TransactionType = styled.div`
@@ -73,7 +77,7 @@ const CategoryContainer = styled.div`
   @media ${devices.small} {
     width: 30%;
   }
-  
+
   @media ${devices.mediumUp} {
     width: 20%;
     justify-content: flex-end;
@@ -118,7 +122,7 @@ const DateText = styled.div`
   font-weight: 600;
 
   @media ${devices.small} {
-    width: 5%;
+    width: 7%;
     margin-right: 8px;
   }
 
@@ -145,18 +149,22 @@ const Action = styled.div`
   margin-left: 16px;
   &:hover {
     font-weight: 600;
+    cursor: pointer;
   }
 `;
 
+const actionClick = action => {
+  console.log(`Clicked ${action}`);
+};
+
 const TransactionItem = props => {
   return (
-    <Container
-      isActive={props.isActive}
-      onClick={() => {
-        props.handleActiveItem(props.id);
-      }}
-    >
-      <ItemInfoContainer>
+    <Container isActive={props.isActive}>
+      <ItemInfoContainer
+        onClick={() => {
+          props.handleActiveItem(props.id);
+        }}
+      >
         <TransactionType type={props.transaction_type} />
         <DateText>{format(new Date(props.date), "DD")}</DateText>
         <Description> {props.description} </Description>
@@ -169,8 +177,20 @@ const TransactionItem = props => {
         </Value>
       </ItemInfoContainer>
       <ActionsContainer>
-        <Action>{"Edit"}</Action>
-        <Action>{"Delete"}</Action>
+        <Action
+          onClick={() => {
+            actionClick("Edit");
+          }}
+        >
+          {"Edit"}
+        </Action>
+        <Action
+          onClick={() => {
+            actionClick("Delete");
+          }}
+        >
+          {"Delete"}
+        </Action>
       </ActionsContainer>
     </Container>
   );

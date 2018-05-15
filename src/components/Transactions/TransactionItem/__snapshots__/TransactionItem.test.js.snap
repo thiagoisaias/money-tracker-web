@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TransactionItem renders properly 1`] = `
-<styled.div
-  onClick={[Function]}
->
-  <styled.div>
+<styled.div>
+  <styled.div
+    onClick={[Function]}
+  >
     <styled.div
       type="earning"
     />
@@ -31,10 +31,14 @@ exports[`TransactionItem renders properly 1`] = `
     </styled.div>
   </styled.div>
   <styled.div>
-    <styled.div>
+    <styled.div
+      onClick={[Function]}
+    >
       Edit
     </styled.div>
-    <styled.div>
+    <styled.div
+      onClick={[Function]}
+    >
       Delete
     </styled.div>
   </styled.div>

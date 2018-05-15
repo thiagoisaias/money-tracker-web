@@ -42,13 +42,16 @@ const Header = styled.div`
 
 const TransactionLink = styled(NavLink)`
   display: block;
-  height: 32px;
-  line-height: 32px;
+  width: 125px;
+  height: 35px;
+  line-height: 35px;
   padding: 0 8px;
   border-radius: 2px;
   background-color: #add8e6;
   color: #fff;
   font-size: 13px;
+  text-align: center;
+  
   &:hover {
     cursor: pointer;
     background-color: #a9cdd8;
@@ -95,7 +98,7 @@ const CurrentMonth = styled.div`
   text-align: center;
 `;
 
-const EmptyStateMessage = styled.p`
+const BlankStateMessage = styled.p`
   display: block;
   color: #999;
   font-size: 14px;
@@ -195,9 +198,9 @@ class TransactionList extends Component {
         {transactions.length > 0 ? (
           transactions
         ) : (
-          <EmptyStateMessage>
+          <BlankStateMessage>
             &#9888;{"There are no transactions in this period."}
-          </EmptyStateMessage>
+          </BlankStateMessage>
         )}
       </Container>
     );
@@ -205,7 +208,7 @@ class TransactionList extends Component {
 }
 
 TransactionList.propTypes = {
-  transactionList: PropTypes.array.isRequired,
+  transactionList: PropTypes.array,
   activeItemId: PropTypes.string,
   handleActiveItem: PropTypes.func.isRequired
 };
