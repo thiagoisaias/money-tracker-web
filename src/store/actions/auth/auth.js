@@ -1,4 +1,4 @@
-import * as actionTypes from "./actionTypes";
+import * as actionTypes from "../actionTypes";
 import axios from "axios";
 import { push } from "react-router-redux";
 
