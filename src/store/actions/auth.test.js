@@ -25,7 +25,7 @@ describe("Auth actions", () => {
   it("should create authSuccess action", () => {
     const expectedAction = {
       type: actionTypes.AUTH_SUCCESS,
-      authData: authData,
+      authData: authData
     };
     expect(actions.authSuccess(authData)).toEqual(expectedAction);
   });
@@ -50,10 +50,14 @@ describe("Auth actions", () => {
     //TODO: Async action
   });
 
-  it("should create logout action", () => {
+  it("should create logoutStart action", () => {
     const expectedAction = {
-      type: actionTypes.LOGOUT
+      type: actionTypes.LOGOUT_START
     };
-    expect(actions.logout()).toEqual(expectedAction);
+    expect(actions.logoutStart()).toEqual(expectedAction);
+  });
+
+  xit("should create logout action", () => {
+    //TODO: Async action
   });
 });

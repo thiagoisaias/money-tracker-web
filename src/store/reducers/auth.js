@@ -40,7 +40,7 @@ const auth = (state = initialState, action) => {
         isLoading: false,
         error: action.error
       };
-    case actionTypes.LOGOUT:
+    case actionTypes.LOGOUT_START:
       return {
         ...state,
         isAuthenticated: false,

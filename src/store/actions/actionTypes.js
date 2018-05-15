@@ -4,7 +4,7 @@ export const AUTH_START = "AUTH_START";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_FAIL = "AUTH_FAIL";
 export const CHECK_AUTH_STORAGE = "CHECK_AUTH_STORAGE";
-export const LOGOUT = "LOGOUT";
+export const LOGOUT_START = "LOGOUT_START";
 
 /* ACCOUNT ACTIONS */
 
