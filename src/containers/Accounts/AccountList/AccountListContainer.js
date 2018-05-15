@@ -29,7 +29,7 @@ AccountListContainer.propTypes = {
     })
   ).isRequired,
   error: PropTypes.string,
-  userId: PropTypes.string.isRequired,
+  userId: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   onFetchAccountList: PropTypes.func.isRequired
 };

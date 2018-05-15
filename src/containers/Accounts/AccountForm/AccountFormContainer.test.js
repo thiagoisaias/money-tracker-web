@@ -6,7 +6,7 @@ import { AccountFormContainer } from "./AccountFormContainer";
 
 describe("AccountFormContainer", () => {
   const mockProps = {
-    userId: "1",
+    userId: 1,
     error: null,
     isLoading: false,
     onCreateAccount: jest.fn()

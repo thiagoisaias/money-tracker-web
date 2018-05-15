@@ -28,7 +28,7 @@ export class AccountFormContainer extends Component {
 AccountFormContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   error: PropTypes.string,
-  userId: PropTypes.string.isRequired,
+  userId: PropTypes.number.isRequired,
   onCreateAccount: PropTypes.func.isRequired
 };
 
