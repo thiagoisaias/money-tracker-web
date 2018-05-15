@@ -10,12 +10,17 @@ export const login = loginData => {
       .post("/auth/sign_in", { email, password })
       .then(response => {
         const authData = {
-          accessToken: response.headers["access-token"],
-          tokenType: response.headers["token-type"],
-          client: response.headers["client"],
-          expiry: response.headers["expiry"],
-          uid: response.headers["uid"],
-          user: response.data.data
+          headers: {
+            accessToken: response.headers["access-token"],
+            client: response.headers["client"],
+            expiry: response.headers["expiry"],
+            tokenType: response.headers["token-type"],
+            uid: response.headers["uid"]
+          },
+          user: {
+            id: response.data.data.id,
+            name: response.data.data.name
+          }
         };
         dispatch(authSuccess(authData));
         dispatch(push("/"));
@@ -34,15 +39,20 @@ export const signup = signupData => {
       .post("/auth", { name, email, password, passwordConfirmation })
       .then(response => {
         const authData = {
-          accessToken: response.headers["access-token"],
-          tokenType: response.headers["token-type"],
-          client: response.headers["client"],
-          expiry: response.headers["expiry"],
-          uid: response.headers["uid"],
-          user: response.data.data
+          headers: {
+            accessToken: response.headers["access-token"],
+            client: response.headers["client"],
+            expiry: response.headers["expiry"],
+            tokenType: response.headers["token-type"],
+            uid: response.headers["uid"]
+          },
+          user: {
+            id: response.data.data.id,
+            name: response.data.data.name
+          }
         };
         dispatch(authSuccess(authData));
-        dispatch(push("/"));
+        dispatch(push("/accounts/new"));
       })
       .catch(error => {
         dispatch(authFail(error.response.data.errors));

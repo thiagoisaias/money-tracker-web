@@ -1,13 +1,17 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  accessToken: null,
-  client: null,
-  expiry: null,
-  tokenType: null,
-  uid: null,
-  userId: null,
-  userName: null,
+  headers: {
+    accessToken: null,
+    client: null,
+    expiry: null,
+    tokenType: null,
+    uid: null
+  },
+  user: {
+    id: null,
+    name: null
+  },
   error: null,
   isAuthenticated: false,
   isLoading: false
@@ -18,18 +22,19 @@ const auth = (state = initialState, action) => {
     case actionTypes.AUTH_START:
       return {
         ...state,
+        headers: {
+          ...state.headers
+        },
+        user: {
+          ...state.user
+        },
         isLoading: true
       };
     case actionTypes.AUTH_SUCCESS:
       return {
         ...state,
-        accessToken: action.authData.accessToken,
-        client: action.authData.client,
-        expiry: action.authData.expiry,
-        tokenType: action.authData.tokenType,
-        uid: action.authData.uid,
-        userId: action.authData.user.id,
-        userName: action.authData.user.name,
+        headers: action.authData.headers,
+        user: action.authData.user,
         error: null,
         isAuthenticated: true,
         isLoading: false
@@ -37,19 +42,18 @@ const auth = (state = initialState, action) => {
     case actionTypes.AUTH_FAIL:
       return {
         ...state,
+        headers: {
+          ...state.headers
+        },
+        user: {
+          ...state.user
+        },
         isLoading: false,
         error: action.error
       };
     case actionTypes.LOGOUT_START:
       return {
-        ...state,
-        isAuthenticated: false,
-        userId: null,
-        userName: null,
-        accessToken: null,
-        tokenType: null,
-        client: null,
-        expiry: null
+        ...initialState
       };
     default:
       return state;
