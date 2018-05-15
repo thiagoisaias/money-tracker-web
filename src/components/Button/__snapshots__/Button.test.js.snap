@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders properly 1`] = `
+<styled.button>
+   
+   
+</styled.button>
+`;
