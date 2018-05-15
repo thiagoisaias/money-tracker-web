@@ -2,33 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import axios from "axios";
-import { createStore, applyMiddleware, compose } from "redux";
-import { ConnectedRouter, routerMiddleware } from "react-router-redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-
 import createHistory from "history/createBrowserHistory";
 
-import rootReducer from "./store/reducers/rootReducer";
-import Root from "./containers/Root/Root";
+import configureStore from "./configureStore";
+import Root from "./components/Root/Root";
 import "./assets/index.css";
 
 axios.defaults.baseURL = "https://money-management-api.herokuapp.com/api/v1";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const history = createHistory();
-const router = routerMiddleware(history);
-
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk, router))
-);
+const store = configureStore(history);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <Root />
-    </ConnectedRouter>
-  </Provider>,
+  <Root store={store} history={history} />,
   document.getElementById("root")
 );

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Root renders properly 1`] = `
+<Provider
+  store={null}
+>
+  <ConnectedRouter
+    history={null}
+  >
+    <App />
+  </ConnectedRouter>
+</Provider>
+`;

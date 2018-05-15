@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import { Root } from "./Root";
+import Root from "./Root";
 
 describe("Root", () => {
   const mockProps = {
-    isAuthenticated: true,
-    checkAuthStorage: jest.fn()
+    history: null,
+    store: null
   };
   const component = shallow(<Root {...mockProps} />);
 
