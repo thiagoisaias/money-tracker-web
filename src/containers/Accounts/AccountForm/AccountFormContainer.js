@@ -8,18 +8,9 @@ import { createAccount } from "../../../store/actions/accounts/accounts";
 
 export class AccountFormContainer extends Component {
   submitData = formData => {
-    const {
-      accessToken,
-      client,
-      expiry,
-      tokenType,
-      uid,
-      userId,
-      onCreateAccount
-    } = this.props;
-
-    const authHeaders = { accessToken, client, expiry, tokenType, uid };
-    onCreateAccount(formData, userId, authHeaders);
+    const { userId, onCreateAccount } = this.props;
+    
+    onCreateAccount(formData, userId);
   };
 
   render() {
@@ -43,11 +34,7 @@ AccountFormContainer.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    accessToken: state.auth.accessToken,
-    client: state.auth.client,
-    expiry: state.auth.expiry,
-    uid: state.auth.uid,
-    userId: state.auth.userId,
+    userId: state.auth.user.id,
     isLoading: state.accounts.isLoading,
     error: state.accounts.error
   };
@@ -55,8 +42,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCreateAccount: (accountData, userId, authHeaders) => {
-      dispatch(createAccount(accountData, userId, authHeaders));
+    onCreateAccount: (accountData, userId) => {
+      dispatch(createAccount(accountData, userId));
     }
   };
 };

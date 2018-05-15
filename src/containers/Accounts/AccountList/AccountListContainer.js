@@ -8,19 +8,9 @@ import { fetchAccounts } from "../../../store/actions/accounts/accounts";
 
 export class AccountListContainer extends Component {
   componentDidMount() {
-    const {
-      accessToken,
-      client,
-      expiry,
-      tokenType,
-      uid,
-      userId,
-      onFetchAccountList
-    } = this.props;
+    const { userId, onFetchAccountList } = this.props;
 
-    const authHeaders = { accessToken, client, expiry, tokenType, uid };
-
-    onFetchAccountList(userId, authHeaders);
+    onFetchAccountList(userId);
   }
 
   render() {
@@ -46,11 +36,7 @@ AccountListContainer.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    accessToken: state.auth.accessToken,
-    client: state.auth.client,
-    expiry: state.auth.expiry,
-    uid: state.auth.uid,
-    userId: state.auth.userId,
+    userId: state.auth.user.id,
     isLoading: state.accounts.isLoading,
     error: state.accounts.error,
     accountList: state.accounts.accountList

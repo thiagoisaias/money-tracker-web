@@ -1,24 +1,16 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
 import { push } from "react-router-redux";
-import humps from "humps";
+import { decamelizeKeys } from "humps";
 
-export const createAccount = (accountData, userId, authHeaders) => {
-  return dispatch => {
+export const createAccount = (accountData, userId) => {
+  return (dispatch, getState) => {
     dispatch(createAccountStart());
     axios
       .post(
         `/users/${userId}/accounts`,
-        { account: humps.decamelizeKeys(accountData) },
-        {
-          headers: {
-            "access-token": authHeaders.accessToken,
-            client: authHeaders.client,
-            expiry: authHeaders.expiry,
-            "token-type": authHeaders.tokenType,
-            uid: authHeaders.uid
-          }
-        }
+        { account: decamelizeKeys(accountData) },
+        { headers: decamelizeKeys(getState().auth.headers) }
       )
       .then(response => {
         dispatch(createAccountSuccess(response.data));
@@ -52,18 +44,12 @@ export const createAccountFail = error => {
   };
 };
 
-export const fetchAccounts = (userId, authHeaders) => {
-  return dispatch => {
+export const fetchAccounts = (userId) => {
+  return (dispatch, getState) => {
     dispatch(fetchAccountsStart());
     axios
       .get(`/users/${userId}/accounts`, {
-        headers: {
-          "access-token": authHeaders.accessToken,
-          client: authHeaders.client,
-          expiry: authHeaders.expiry,
-          "token-type": authHeaders.tokenType,
-          uid: authHeaders.uid
-        }
+        headers: decamelizeKeys(getState().auth.headers)
       })
       .then(response => {
         dispatch(fetchAccountsSuccess(response.data));
