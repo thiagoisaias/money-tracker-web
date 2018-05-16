@@ -1,9 +1,8 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
-import { push } from "react-router-redux";
 import { decamelizeKeys } from "humps";
 
-export const createAccount = (accountData, userId) => {
+export const createAccount = (accountData, userId, history) => {
   return (dispatch, getState) => {
     dispatch(createAccountStart());
     axios
@@ -14,7 +13,7 @@ export const createAccount = (accountData, userId) => {
       )
       .then(response => {
         dispatch(createAccountSuccess(response.data));
-        dispatch(push("/accounts"));
+        history.push("/accounts");
       })
       .catch(error => {
         // TODO: Display proper error message

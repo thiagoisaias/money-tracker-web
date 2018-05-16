@@ -1,8 +1,7 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
-import { push } from "react-router-redux";
 
-export const login = loginData => {
+export const login = (loginData, history) => {
   return dispatch => {
     const { email, password } = loginData;
     dispatch(authStart());
@@ -23,7 +22,7 @@ export const login = loginData => {
           }
         };
         dispatch(authSuccess(authData));
-        dispatch(push("/"));
+        history.push("/");
       })
       .catch(error => {
         dispatch(authFail(error.response.data.errors));
@@ -31,7 +30,7 @@ export const login = loginData => {
   };
 };
 
-export const signup = signupData => {
+export const signup = (signupData, history) => {
   return dispatch => {
     const { name, email, password, passwordConfirmation } = signupData;
     dispatch(authStart());
@@ -52,7 +51,7 @@ export const signup = signupData => {
           }
         };
         dispatch(authSuccess(authData));
-        dispatch(push("/accounts/new"));
+        history.push("/accounts/new");
       })
       .catch(error => {
         dispatch(authFail(error.response.data.errors));
@@ -86,9 +85,9 @@ export const logoutStart = () => {
   };
 };
 
-export const logout = () => {
+export const logout = history => {
   return dispatch => {
     dispatch(logoutStart());
-    dispatch(push("/auth"));
+    history.push("/auth");
   };
 };

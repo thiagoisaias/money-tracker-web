@@ -1,24 +1,22 @@
 import React from "react";
-import { ConnectedRouter } from "react-router-redux";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import PropTypes from "prop-types";
 
 import App from "../../containers/App/App";
 
 const Root = props => {
-  const { store, history } = props;
   return (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
+    <Provider store={props.store}>
+      <BrowserRouter>
         <App />
-      </ConnectedRouter>
+      </BrowserRouter>
     </Provider>
   );
 };
 
 Root.propTypes = {
-  store: PropTypes.object,
-  history: PropTypes.object
+  store: PropTypes.object
 };
 
 export default Root;

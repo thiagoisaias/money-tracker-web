@@ -2,9 +2,9 @@ import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
-import { login } from "../../store/actions/auth";
+import { login } from "../../store/actions/auth/auth";
 import Spinner from "../Spinner/Spinner";
 
 const ErrorMessage = styled.p`
@@ -89,21 +89,20 @@ export class LoginForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const { onLogin, history } = this.props;
     if (this.props.isLoading) {
       return;
     }
-    this.props.onLogin(this.state);
+    onLogin(this.state, history);
   };
 
   render() {
-    const { toggleNewAccount, isLoading, isAuthenticated, error } = this.props;
-    const authRedirect = <Redirect to="/" />;
+    const { toggleNewAccount, isLoading, error } = this.props;
 
     return (
       <Fragment>
-        {isAuthenticated ? authRedirect : null}
         <Title>Sign in</Title>
-        {error && <ErrorMessage> {error.full_messages[0]} </ErrorMessage>}
+        {error && <ErrorMessage> {error} </ErrorMessage>}
         <Form onSubmit={this.handleSubmit}>
           <Input
             type="text"
@@ -135,25 +134,26 @@ export class LoginForm extends Component {
 LoginForm.propTypes = {
   toggleNewAccount: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  error: PropTypes.object
+  error: PropTypes.object,
+  history: PropTypes.object
 };
 
 const mapStateToProps = state => {
   return {
     isLoading: state.auth.isLoading,
-    isAuthenticated: state.auth.isAuthenticated,
     error: state.auth.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogin: loginData => {
-      dispatch(login(loginData));
+    onLogin: (loginData, history) => {
+      dispatch(login(loginData, history));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+);

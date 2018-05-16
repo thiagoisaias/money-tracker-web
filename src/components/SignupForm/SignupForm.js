@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
 import Spinner from "../Spinner/Spinner";
-import { Redirect } from "react-router-dom";
-import { signup } from "../../store/actions/auth";
+import { signup } from "../../store/actions/auth/auth";
 
 const ErrorMessage = styled.p`
   color: #e75252;
@@ -90,21 +91,19 @@ export class SignupForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const { onSignup, history } = this.props;
     if (this.props.isLoading) {
       return;
     }
-    this.props.onSignup(this.state);
+    onSignup(this.state, history);
   };
 
   render() {
-    const { toggleNewAccount, isAuthenticated, isLoading, error } = this.props;
-    const authRedirect = <Redirect to="/accounts/new" />;
-
+    const { toggleNewAccount, isLoading, error } = this.props;
     return (
       <Fragment>
-        {isAuthenticated ? authRedirect : null}
         <Title>Create Account</Title>
-        {error && <ErrorMessage> {error.full_messages[0]} </ErrorMessage>}
+        {error && <ErrorMessage> {error} </ErrorMessage>}
         <Form onSubmit={this.handleSubmit}>
           <Input
             type="text"
@@ -150,14 +149,13 @@ export class SignupForm extends Component {
 SignupForm.propTypes = {
   toggleNewAccount: PropTypes.func.isRequired,
   onSignup: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  error: PropTypes.object
+  error: PropTypes.object,
+  history: PropTypes.object
 };
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
     isLoading: state.auth.isLoading,
     error: state.auth.error
   };
@@ -165,10 +163,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSignup: signupData => {
-      dispatch(signup(signupData));
+    onSignup: (signupData, history) => {
+      dispatch(signup(signupData, history));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SignupForm)
+);

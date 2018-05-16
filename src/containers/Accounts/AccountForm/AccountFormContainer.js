@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import AccountForm from "../../../components/Accounts/AccountForm/AccountForm";
 
@@ -8,9 +9,9 @@ import { createAccount } from "../../../store/actions/accounts/accounts";
 
 export class AccountFormContainer extends Component {
   submitData = formData => {
-    const { userId, onCreateAccount } = this.props;
-    
-    onCreateAccount(formData, userId);
+    const { userId, onCreateAccount, history } = this.props;
+
+    onCreateAccount(formData, userId, history);
   };
 
   render() {
@@ -42,12 +43,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCreateAccount: (accountData, userId) => {
-      dispatch(createAccount(accountData, userId));
+    onCreateAccount: (accountData, userId, history) => {
+      dispatch(createAccount(accountData, userId, history));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  AccountFormContainer
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AccountFormContainer)
 );

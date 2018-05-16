@@ -2,10 +2,6 @@
 
 exports[`LoginForm renders properly 1`] = `
 <React.Fragment>
-  <Redirect
-    push={false}
-    to="/"
-  />
   <styled.h2>
     Sign in
   </styled.h2>

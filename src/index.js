@@ -10,10 +10,6 @@ import "./assets/index.css";
 
 axios.defaults.baseURL = "https://money-management-api.herokuapp.com/api/v1";
 
-const history = createHistory();
-const store = configureStore(history);
+const store = configureStore();
 
-ReactDOM.render(
-  <Root store={store} history={history} />,
-  document.getElementById("root")
-);
+ReactDOM.render(<Root store={store} />, document.getElementById("root"));
