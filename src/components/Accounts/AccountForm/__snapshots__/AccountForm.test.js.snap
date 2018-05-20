@@ -1,44 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AccountForm renders properly 1`] = `
-<Layout>
-  <styled.div>
-    <styled.h2>
-      Edit Account
-    </styled.h2>
-    <styled.form
-      onSubmit={[Function]}
-    >
-      <styled.div>
-        <styled.div>
-          <styled.label>
-            Name
-          </styled.label>
-          <styled.input
-            name="name"
-            onChange={[Function]}
-            type="text"
-            value="Lorem"
-          />
-        </styled.div>
-        <styled.div>
-          <styled.label>
-            Initial Balance
-          </styled.label>
-          <styled.input
-            name="initialBalance"
-            onChange={[Function]}
-            type="number"
-            value="32423.43"
-          />
-        </styled.div>
-      </styled.div>
-      <Button
-        onClick={[Function]}
-      >
-        Submit
-      </Button>
-    </styled.form>
-  </styled.div>
-</Layout>
+<AccountForm
+  error={null}
+  handleInputChange={[Function]}
+  id={1}
+  initialBalance="32423.43"
+  isLoading={false}
+  match={
+    Object {
+      "path": "/path",
+    }
+  }
+  name="Lorem"
+  submitData={[Function]}
+/>
 `;

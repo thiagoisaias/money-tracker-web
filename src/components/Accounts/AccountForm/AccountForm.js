@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { devices } from "../../../utils/devices";
 import Layout from "../../Layout/Layout";
 import Spinner from "../../UI/Spinner/Spinner";
+import withFormInputHandler from "../../../hoc/withFormInputHandler/withFormInputHandler";
 
 const Container = styled.div`
   background-color: #fff;
@@ -131,9 +132,10 @@ class AccountForm extends Component {
             placeholder: "Enter initial balance"
           },
           name: "Initial Balance",
-          value: this.props.name || "",
+          value: this.props.initialBalance || "",
           validation: {
-            required: true
+            required: true,
+            nonNegative: true
           },
           isValid: false,
           touched: false
@@ -142,42 +144,17 @@ class AccountForm extends Component {
     };
   }
 
-  handleInputChange = event => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-
-    const currentFormField = this.state.formFields[name];
-
-    const updatedField = {
-      ...currentFormField,
-      value: value,
-      isValid: this.checkFieldValidity(value, currentFormField.validation),
-      touched: true
-    };
-    const updatedFormFields = {
-      ...this.state.formFields,
-      [name]: updatedField
-    };
-
-    // Verify if all fields are valid
-    let isFormValid = true;
-    for (let fieldKey in updatedFormFields) {
-      isFormValid =
-        this.checkFieldValidity(
-          updatedFormFields[fieldKey].value,
-          updatedFormFields[fieldKey].validation
-        ) && isFormValid;
-    }
-
-    console.log("Form is valid", isFormValid);
-
+  onInputChange = event => {
+    const { handleInputChange } = this.props;
+    const formFields = { ...this.state.formFields };
+    const checkFieldValidity = this.checkFieldValidity;
+    const updatedFormState = handleInputChange(
+      event,
+      formFields,
+      checkFieldValidity
+    );
     this.setState({
-      ...this.state,
-      isFormValid: isFormValid,
-      formFields: {
-        ...updatedFormFields
-      }
+      ...updatedFormState
     });
   };
 
@@ -186,6 +163,10 @@ class AccountForm extends Component {
 
     if (rules.required) {
       isValid = value.trim() !== "" && isValid;
+    }
+
+    if (rules.nonNegative) {
+      isValid = value >= 0 && isValid;
     }
 
     return isValid;
@@ -230,7 +211,7 @@ class AccountForm extends Component {
             value={formField.value}
             touched={formField.touched}
             isValid={formField.isValid}
-            onChange={this.handleInputChange}
+            onChange={this.onInputChange}
           />
         </FormGroup>
       );
@@ -266,10 +247,11 @@ AccountForm.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
   error: PropTypes.array,
+  handleInputChange: PropTypes.func.isRequired,
   initialBalance: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
   submitData: PropTypes.func.isRequired
 };
 
-export default AccountForm;
+export default withFormInputHandler(AccountForm);

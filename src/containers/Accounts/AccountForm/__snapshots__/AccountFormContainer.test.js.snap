@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AccountFormContainer renders properly 1`] = `
-<AccountForm
+<Component
   error={null}
   id={1}
   initialBalance="25345.00"
