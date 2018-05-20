@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import { devices } from "../../../utils/devices";
-import Button from "../../Button/Button";
 import Layout from "../../Layout/Layout";
 import Spinner from "../../UI/Spinner/Spinner";
 
@@ -25,10 +24,28 @@ const Container = styled.div`
   }
 `;
 
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Message = styled.div`
+  font-size: 12px;
+  color: #777;
+`;
+
+const ColoredMark = styled.span`
+  font-size: 14px;
+  font-weight: 600;
+  color: #add8e6;
+`;
+
 const Title = styled.h2`
   font-size: 24px;
   font-weight: 600;
   letter-spacing: 0.5px;
+  margin-bottom: 32px;
 `;
 
 const FormContainer = styled.form``;
@@ -36,18 +53,7 @@ const FormContainer = styled.form``;
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 16px 0;
-
-  @media ${devices.small} {
-    width: 100%;
-  }
-
-  @media ${devices.mediumUp} {
-    width: 45%;
-    &:first-child {
-      margin-right: 24px;
-    }
-  }
+  margin: 24px 0;
 `;
 
 const Label = styled.label`
@@ -57,7 +63,10 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  border: 1px solid #f2f2f2;
+  border: ${props =>
+    !props.isValid && props.touched
+      ? "1px solid #f9b498"
+      : "1px solid #f2f2f2"};
   border-radius: 2px;
   padding: 6px;
   font: inherit;
@@ -66,12 +75,25 @@ const Input = styled.input`
   &:focus {
     border: 1px solid #ddd;
   }
+
+  &::placeholder {
+    opacity: 0.6;
+  }
 `;
 
-const Row = styled.div`
-  @media ${devices.mediumUp} {
-    display: flex;
-    justify-content: space-between;
+const SubmitButton = styled.button`
+  font-size: 13px;
+  padding: 6px;
+  border-radius: 2px;
+  color: #fff;
+  background-color: #add8e6;
+  width: 125px;
+  height: 35px;
+  opacity: ${props => (props.disabled ? 0.6 : 1)};
+
+  &:hover {
+    cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
+    background-color: ${props => (props.disabled ? "#add8e6" : "#a9cdd8")};
   }
 `;
 
@@ -86,8 +108,37 @@ class AccountForm extends Component {
     super(props);
 
     this.state = {
-      name: this.props.name || "",
-      initialBalance: this.props.initialBalance || ""
+      isFormValid: false,
+      formFields: {
+        name: {
+          elementType: "input",
+          elementConfig: {
+            type: "text",
+            placeholder: "Enter account name"
+          },
+          name: "Name",
+          value: this.props.name || "",
+          validation: {
+            required: true
+          },
+          isValid: false,
+          touched: false
+        },
+        initialBalance: {
+          elementType: "input",
+          elementConfig: {
+            type: "number",
+            placeholder: "Enter initial balance"
+          },
+          name: "Initial Balance",
+          value: this.props.name || "",
+          validation: {
+            required: true
+          },
+          isValid: false,
+          touched: false
+        }
+      }
     };
   }
 
@@ -96,53 +147,114 @@ class AccountForm extends Component {
     const value = target.value;
     const name = target.name;
 
+    const currentFormField = this.state.formFields[name];
+
+    const updatedField = {
+      ...currentFormField,
+      value: value,
+      isValid: this.checkFieldValidity(value, currentFormField.validation),
+      touched: true
+    };
+    const updatedFormFields = {
+      ...this.state.formFields,
+      [name]: updatedField
+    };
+
+    // Verify if all fields are valid
+    let isFormValid = true;
+    for (let fieldKey in updatedFormFields) {
+      isFormValid =
+        this.checkFieldValidity(
+          updatedFormFields[fieldKey].value,
+          updatedFormFields[fieldKey].validation
+        ) && isFormValid;
+    }
+
+    console.log("Form is valid", isFormValid);
+
     this.setState({
-      [name]: value
+      ...this.state,
+      isFormValid: isFormValid,
+      formFields: {
+        ...updatedFormFields
+      }
     });
+  };
+
+  checkFieldValidity = (value, rules) => {
+    let isValid = true;
+
+    if (rules.required) {
+      isValid = value.trim() !== "" && isValid;
+    }
+
+    return isValid;
   };
 
   handleSubmit = event => {
     const { isLoading, submitData } = this.props;
     event.preventDefault();
+
+    const formData = {};
+    for (let fieldKey in this.state.formFields) {
+      formData[fieldKey] = this.state.formFields[fieldKey].value;
+    }
+
     if (isLoading) {
       return;
     }
-    submitData(this.state);
+
+    submitData(formData);
   };
 
   render() {
     const { error, isLoading, match } = this.props;
+    const formTitle =
+      match.path === "/accounts/new" ? "New Account" : "Edit Account";
+
+    const keyList = [];
+    for (let key in this.state.formFields) {
+      keyList.push(key);
+    }
+
+    const inputList = keyList.map(key => {
+      const formField = this.state.formFields[key];
+      return (
+        <FormGroup key={key}>
+          <Label>
+            {formField.name} <ColoredMark>*</ColoredMark>
+          </Label>
+          <Input
+            {...formField.elementConfig}
+            name={key}
+            value={formField.value}
+            touched={formField.touched}
+            isValid={formField.isValid}
+            onChange={this.handleInputChange}
+          />
+        </FormGroup>
+      );
+    });
+
     return (
       <Layout>
         <Container>
-          <Title>
-            {match.path === "/accounts/new" ? "New Account" : "Edit Account"}
-          </Title>
+          <Title>{formTitle}</Title>
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <FormContainer onSubmit={this.handleSubmit}>
+            {inputList}
             <Row>
-              <FormGroup>
-                <Label>{"Name"}</Label>
-                <Input
-                  type="text"
-                  value={this.state.name}
-                  name="name"
-                  onChange={this.handleInputChange}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label>{"Initial Balance"}</Label>
-                <Input
-                  type="number"
-                  value={this.state.initialBalance}
-                  name="initialBalance"
-                  onChange={this.handleInputChange}
-                />
-              </FormGroup>
+              <SubmitButton
+                disabled={!this.state.isFormValid}
+                onClick={this.handleSubmit}
+              >
+                {isLoading ? <Spinner height={34} width={34} /> : "Submit"}
+              </SubmitButton>
+              <Message>
+                <ColoredMark>*</ColoredMark>
+                {" represent required fields."}
+              </Message>
             </Row>
-            <Button onClick={this.handleSubmit}>
-              {isLoading ? <Spinner height={34} width={34} /> : "Submit"}
-            </Button>
           </FormContainer>
         </Container>
       </Layout>
