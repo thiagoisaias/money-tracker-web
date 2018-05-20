@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
 import axios from "axios";
-import createHistory from "history/createBrowserHistory";
 
 import configureStore from "./configureStore";
 import Root from "./components/Root/Root";

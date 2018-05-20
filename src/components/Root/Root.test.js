@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
 import Root from "./Root";
+import configureStore from "../../configureStore";
 
 describe("Root", () => {
   const mockProps = {
-    history: null,
-    store: null
+    store: configureStore()
   };
   const component = shallow(<Root {...mockProps} />);
 

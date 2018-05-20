@@ -1,7 +1,7 @@
 export const loadAuthState = () => {
   try {
     const serializedState = localStorage.getItem("authState");
-    if (serializedState === null) {
+    if (serializedState === null || serializedState === undefined) {
       return undefined;
     }
     return JSON.parse(serializedState);

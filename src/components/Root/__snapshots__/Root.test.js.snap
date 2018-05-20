@@ -2,12 +2,18 @@
 
 exports[`Root renders properly 1`] = `
 <Provider
-  store={null}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
 >
-  <ConnectedRouter
-    history={null}
-  >
+  <BrowserRouter>
     <App />
-  </ConnectedRouter>
+  </BrowserRouter>
 </Provider>
 `;
