@@ -2,13 +2,13 @@ import React from "react";
 
 import Balance from "../Balance/Balance";
 import Layout from "../Layout/Layout";
-import TransactionList from "../Transactions/TransactionList/TransactionList";
+// import TransactionListContainer from "../../containers/Transactions/TransactionListContainer";
 
 const Home = props => {
   return (
     <Layout>
       <Balance />
-      <TransactionList />
+      {/* <TransactionListContainer /> */}
     </Layout>
   );
 };
