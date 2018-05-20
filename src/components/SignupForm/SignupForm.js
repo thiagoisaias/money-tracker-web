@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import Spinner from "../Spinner/Spinner";
+import Spinner from "../UI/Spinner/Spinner";
 import { signup } from "../../store/actions/auth/auth";
 
 const ErrorMessage = styled.p`

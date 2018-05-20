@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import { login } from "../../store/actions/auth/auth";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "../UI/Spinner/Spinner";
 
 const ErrorMessage = styled.p`
   color: #e75252;

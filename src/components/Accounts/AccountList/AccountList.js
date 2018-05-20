@@ -7,7 +7,7 @@ import { devices } from "../../../utils/devices";
 
 import AccountItemContainer from "../../../containers/Accounts/AccountItem/AccountItemContainer";
 import Layout from "../../Layout/Layout";
-import Spinner from "../../Spinner/Spinner";
+import Spinner from "../../UI/Spinner/Spinner";
 import withExpandableItem from "../../../hoc/ExpandableItem/ExpandableItem";
 
 const Container = styled.div`

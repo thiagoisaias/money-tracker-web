@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { devices } from "../../../utils/devices";
 import Button from "../../Button/Button";
 import Layout from "../../Layout/Layout";
-import Spinner from "../../Spinner/Spinner";
+import Spinner from "../../UI/Spinner/Spinner";
 
 const Container = styled.div`
   background-color: #fff;
