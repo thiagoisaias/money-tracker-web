@@ -3,7 +3,11 @@
 exports[`AccountFormContainer renders properly 1`] = `
 <AccountForm
   error={null}
+  id={1}
+  initialBalance="25345.00"
   isLoading={false}
+  match={Object {}}
+  name="Lorem"
   submitData={[Function]}
 />
 `;

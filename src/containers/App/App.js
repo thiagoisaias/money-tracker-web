@@ -15,6 +15,7 @@ const App = props => {
       <Route exact path="/transaction" component={TransactionForm} />
       <Route exact path="/accounts" component={AccountListContainer} />
       <Route exact path="/accounts/new" component={AccountFormContainer} />
+      <Route exact path="/accounts/:id/edit" component={AccountFormContainer} />
     </Switch>
   );
 };

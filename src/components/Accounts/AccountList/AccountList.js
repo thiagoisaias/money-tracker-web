@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { devices } from "../../../utils/devices";
 
-import AccountItem from "../AccountItem/AccountItem";
+import AccountItemContainer from "../../../containers/Accounts/AccountItem/AccountItemContainer";
 import Layout from "../../Layout/Layout";
 import Spinner from "../../Spinner/Spinner";
 import withExpandableItem from "../../../hoc/ExpandableItem/ExpandableItem";
@@ -86,19 +86,17 @@ const AccountList = props => {
     activeItemId,
     handleActiveItem,
     error,
-    isLoading,
-    onDeleteAccount
+    isLoading
   } = props;
 
   const list = accountList.map(account => {
     const isActive = activeItemId === account.id;
     return (
-      <AccountItem
+      <AccountItemContainer
         key={account.id}
         handleActiveItem={handleActiveItem}
-        onDeleteAccount={onDeleteAccount}
         isActive={isActive}
-        {...account}
+        accountData={account}
       />
     );
   });
@@ -106,26 +104,21 @@ const AccountList = props => {
   return (
     <Layout>
       <Container>
-        {isLoading ? (
-          <Spinner height={72} width={72} />
-        ) : (
-          <Fragment>
-            <Header>
-              <Title> {"Accounts"} </Title>
-              <NewAccountLink to="/accounts/new">
-                {"New Account"}
-              </NewAccountLink>
-            </Header>
-            {error && <ErrorMessage>{error}</ErrorMessage>}
-            {list.length === 0 && !error ? (
+        <Fragment>
+          <Header>
+            <Title> {"Accounts"} </Title>
+            <NewAccountLink to="/accounts/new">{"New Account"}</NewAccountLink>
+          </Header>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          {list.length === 0 &&
+            !error &&
+            !isLoading && (
               <BlankStateMessage>
                 &#9888;{"There are no accounts registered yet."}
               </BlankStateMessage>
-            ) : (
-              list
             )}
-          </Fragment>
-        )}
+          {isLoading ? <Spinner height={72} width={72} /> : list}
+        </Fragment>
       </Container>
     </Layout>
   );
@@ -142,8 +135,7 @@ AccountList.propTypes = {
   activeItemId: PropTypes.number,
   error: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
-  handleActiveItem: PropTypes.func.isRequired,
-  onDeleteAccount: PropTypes.func.isRequired
+  handleActiveItem: PropTypes.func.isRequired
 };
 
 export default withExpandableItem(AccountList);

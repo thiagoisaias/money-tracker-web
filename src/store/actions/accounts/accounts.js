@@ -81,9 +81,25 @@ export const fetchAccountsFail = error => {
   };
 };
 
-export const updateAccount = data => {
-  return dispatch => {
+export const updateAccount = (accountData, accountId, history) => {
+  return (dispatch, getState) => {
     dispatch(updateAccountStart());
+    console.log("sent accountData", accountData);
+    axios
+      .put(
+        `/accounts/${accountId}`,
+        { account: decamelizeKeys(accountData) },
+        { headers: decamelizeKeys(getState().auth.headers) }
+      )
+      .then(response => {
+        dispatch(updateAccountSuccess(response.data));
+        history.push("/accounts");
+      })
+      .catch(error => {
+        dispatch(
+          updateAccountFail("It was not possible to update this account")
+        );
+      });
   };
 };
 
@@ -93,9 +109,10 @@ export const updateAccountStart = () => {
   };
 };
 
-export const updateAccountSuccess = () => {
+export const updateAccountSuccess = accountData => {
   return {
-    type: actionTypes.UPDATE_ACCOUNT_SUCCESS
+    type: actionTypes.UPDATE_ACCOUNT_SUCCESS,
+    accountData
   };
 };
 
@@ -141,5 +158,18 @@ export const deleteAccountFail = error => {
   return {
     type: actionTypes.DELETE_ACCOUNT_FAIL,
     error
+  };
+};
+
+export const setAccountToEdit = accountData => {
+  return {
+    type: actionTypes.SET_ACCOUNT_TO_EDIT,
+    accountData
+  };
+};
+
+export const clearAccountToEdit = () => {
+  return {
+    type: actionTypes.CLEAR_ACCOUNT_TO_EDIT
   };
 };

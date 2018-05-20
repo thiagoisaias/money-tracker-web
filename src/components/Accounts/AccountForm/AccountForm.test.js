@@ -6,8 +6,12 @@ import AccountForm from "./AccountForm";
 
 describe("AccountForm", () => {
   const mockProps = {
-    isLoading: false,
+    id: 1,
+    name: "Lorem",
     error: null,
+    initialBalance: "32423.43",
+    isLoading: false,
+    match: { path: "/path" },
     submitData: jest.fn()
   };
   const component = shallow(<AccountForm {...mockProps} />);

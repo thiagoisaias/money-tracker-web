@@ -27,5 +27,10 @@ exports[`App renders properly 1`] = `
     exact={true}
     path="/accounts/new"
   />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/accounts/:id/edit"
+  />
 </Switch>
 `;

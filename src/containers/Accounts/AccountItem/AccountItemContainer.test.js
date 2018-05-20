@@ -2,22 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import AccountItem from "./AccountItem";
+import { AccountItemContainer } from "./AccountItemContainer";
 
-describe("AccountItem", () => {
+describe("AccountItemContainer", () => {
   const mockProps = {
     accountData: {
       id: 1,
-      initialBalance: "94569",
-      name: "Mock Account",
+      name: "Lorem",
+      initialBalance: "23423.00"
     },
     handleActiveItem: jest.fn(),
-    handleEdit: jest.fn(),
+    history: {},
     isActive: false,
-    onDeleteAccount: jest.fn()
+    onDeleteAccount: jest.fn(),
+    onSetAccountToEdit: jest.fn()
   };
-
-  const component = shallow(<AccountItem {...mockProps} />);
+  const component = shallow(<AccountItemContainer {...mockProps} />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();

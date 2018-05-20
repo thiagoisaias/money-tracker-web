@@ -12,9 +12,8 @@ describe("AccountList", () => {
     ],
     activeItemId: 1,
     error: null,
-    isLoading: false,
     handleActiveItem: jest.fn(),
-    onDeleteAccount: jest.fn()
+    isLoading: false
   };
   const component = shallow(<AccountList {...mockProps} />);
 

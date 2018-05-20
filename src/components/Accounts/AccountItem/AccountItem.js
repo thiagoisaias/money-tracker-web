@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+
 import { devices } from "../../../utils/devices";
 
 const Container = styled.div`
@@ -53,29 +54,31 @@ const Action = styled.div`
 
 const AccountItem = props => {
   const {
-    id,
-    name,
-    initialBalance,
-    isActive,
+    accountData,
     handleActiveItem,
+    handleEdit,
+    isActive,
     onDeleteAccount
   } = props;
 
   return (
-    <Container isActive={isActive} onClick={() => handleActiveItem(id)}>
-      <Name>{name}</Name>
-      <Balance>{`$ ${initialBalance.toLocaleString()}`}</Balance>
+    <Container
+      isActive={isActive}
+      onClick={() => handleActiveItem(accountData.id)}
+    >
+      <Name>{accountData.name}</Name>
+      <Balance>{`$ ${accountData.initialBalance.toLocaleString()}`}</Balance>
       <ActionsContainer>
         <Action
           onClick={() => {
-            console.log("Edit");
+            handleEdit();
           }}
         >
           {"Edit"}
         </Action>
         <Action
           onClick={() => {
-            onDeleteAccount(id);
+            onDeleteAccount(accountData.id);
           }}
         >
           {"Delete"}
@@ -86,11 +89,14 @@ const AccountItem = props => {
 };
 
 AccountItem.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  initialBalance: PropTypes.string.isRequired,
-  isActive: PropTypes.bool.isRequired,
+  accountData: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    initialBalance: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
   handleActiveItem: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
   onDeleteAccount: PropTypes.func.isRequired
 };
 

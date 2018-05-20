@@ -2,7 +2,15 @@ import * as actionTypes from "../actionTypes";
 import * as actions from "./accounts";
 
 describe("Transaction actions", () => {
-  const accountData = {};
+  const accountData = {
+    id: 1,
+    name: "Lorem",
+    initialBalance: "1.99"
+  };
+  const accountList = [
+    { id: 1, name: "Lorem", initialBalance: "1.99" },
+    { id: 2, name: "Lorem 2", initialBalance: "2.99" }
+  ];
   const error = "Error";
 
   it("should create createAccountStart action", () => {
@@ -14,9 +22,10 @@ describe("Transaction actions", () => {
 
   it("should create createAccountSuccess action", () => {
     const expectedAction = {
-      type: actionTypes.CREATE_ACCOUNT_SUCCESS
+      type: actionTypes.CREATE_ACCOUNT_SUCCESS,
+      accountData
     };
-    expect(actions.createAccountSuccess()).toEqual(expectedAction);
+    expect(actions.createAccountSuccess(accountData)).toEqual(expectedAction);
   });
 
   it("should create createAccountFail action", () => {
@@ -30,7 +39,7 @@ describe("Transaction actions", () => {
   xit("should create createAccount (async) action", () => {
     //TODO: Async action
   });
-  
+
   it("should create fetchAccountsStart action", () => {
     const expectedAction = {
       type: actionTypes.FETCH_ACCOUNTS_START
@@ -40,9 +49,10 @@ describe("Transaction actions", () => {
 
   it("should create fetchAccountsSuccess action", () => {
     const expectedAction = {
-      type: actionTypes.FETCH_ACCOUNTS_SUCCESS
+      type: actionTypes.FETCH_ACCOUNTS_SUCCESS,
+      accountList
     };
-    expect(actions.fetchAccountsSuccess()).toEqual(expectedAction);
+    expect(actions.fetchAccountsSuccess(accountList)).toEqual(expectedAction);
   });
 
   it("should create fetchAccountsFail action", () => {
@@ -66,9 +76,10 @@ describe("Transaction actions", () => {
 
   it("should create updateAccountSuccess action", () => {
     const expectedAction = {
-      type: actionTypes.UPDATE_ACCOUNT_SUCCESS
+      type: actionTypes.UPDATE_ACCOUNT_SUCCESS,
+      accountData
     };
-    expect(actions.updateAccountSuccess()).toEqual(expectedAction);
+    expect(actions.updateAccountSuccess(accountData)).toEqual(expectedAction);
   });
 
   it("should create updateAccountFail action", () => {
@@ -109,4 +120,18 @@ describe("Transaction actions", () => {
     //TODO: Async action
   });
 
+  it("should create setAccountToEdit action", () => {
+    const expectedAction = {
+      type: actionTypes.SET_ACCOUNT_TO_EDIT,
+      accountData
+    };
+    expect(actions.setAccountToEdit(accountData)).toEqual(expectedAction);
+  });
+
+  it("should create clearAccountToEdit action", () => {
+    const expectedAction = {
+      type: actionTypes.CLEAR_ACCOUNT_TO_EDIT
+    };
+    expect(actions.clearAccountToEdit()).toEqual(expectedAction);
+  });
 });

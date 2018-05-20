@@ -5,36 +5,82 @@ import { withRouter } from "react-router-dom";
 
 import AccountForm from "../../../components/Accounts/AccountForm/AccountForm";
 
-import { createAccount } from "../../../store/actions/accounts/accounts";
+import {
+  createAccount,
+  updateAccount,
+  setAccountToEdit,
+  clearAccountToEdit
+} from "../../../store/actions/accounts/accounts";
 
 export class AccountFormContainer extends Component {
   submitData = formData => {
-    const { userId, onCreateAccount, history } = this.props;
+    const {
+      accountToEdit,
+      userId,
+      match,
+      onCreateAccount,
+      onUpdateAccount,
+      history
+    } = this.props;
 
-    onCreateAccount(formData, userId, history);
+    if (match.path === "/accounts/new") {
+      onCreateAccount(formData, userId, history);
+    } else if (match.path === "/accounts/:id/edit" && accountToEdit) {
+      onUpdateAccount(formData, accountToEdit.id, history);
+    } else {
+      return;
+    }
   };
 
   render() {
-    const { error, isLoading } = this.props;
+    const { accountToEdit, error, isLoading, match } = this.props;
     return (
       <AccountForm
+        {...accountToEdit}
         submitData={this.submitData}
         error={error}
         isLoading={isLoading}
+        match={match}
       />
     );
+  }
+
+  /* When the page is reloaded and the path is /account/:id/edit, accountToEdit is null, so the
+  app redirects the user back to /accounts
+  */
+  componentDidMount() {
+    const { accountToEdit, history, match } = this.props;
+    if (match.path === "/accounts/:id/edit" && accountToEdit === null) {
+      history.push("/accounts");
+    }
+  }
+
+  // The value of accountToEdit should be null when the user leave /accounts/:id/edit
+  componentWillUnmount() {
+    this.props.onClearAccountToEdit();
   }
 }
 
 AccountFormContainer.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
+  accountToEdit: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    initialBalance: PropTypes.string.isRequired
+  }),
   error: PropTypes.string,
+  history: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  match: PropTypes.object.isRequired,
   userId: PropTypes.number.isRequired,
-  onCreateAccount: PropTypes.func.isRequired
+  onClearAccountToEdit: PropTypes.func.isRequired,
+  onCreateAccount: PropTypes.func.isRequired,
+  onUpdateAccount: PropTypes.func.isRequired,
+  onSetAccountToEdit: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
+    accountToEdit: state.accounts.accountToEdit,
     userId: state.auth.user.id,
     isLoading: state.accounts.isLoading,
     error: state.accounts.error
@@ -45,6 +91,18 @@ const mapDispatchToProps = dispatch => {
   return {
     onCreateAccount: (accountData, userId, history) => {
       dispatch(createAccount(accountData, userId, history));
+    },
+
+    onSetAccountToEdit: account => {
+      dispatch(setAccountToEdit(account));
+    },
+
+    onClearAccountToEdit: () => {
+      dispatch(clearAccountToEdit());
+    },
+
+    onUpdateAccount: (accountData, accountId, history) => {
+      dispatch(updateAccount(accountData, accountId, history));
     }
   };
 };

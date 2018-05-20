@@ -60,8 +60,7 @@ const Input = styled.input`
   border: 1px solid #f2f2f2;
   border-radius: 2px;
   padding: 6px;
-  font-size: 13px;
-  font-family: inherit;
+  font: inherit;
   color: inherit;
 
   &:focus {
@@ -87,8 +86,8 @@ class AccountForm extends Component {
     super(props);
 
     this.state = {
-      name: null,
-      initialBalance: null
+      name: this.props.name || "",
+      initialBalance: this.props.initialBalance || ""
     };
   }
 
@@ -112,11 +111,13 @@ class AccountForm extends Component {
   };
 
   render() {
-    const { error, isLoading } = this.props;
+    const { error, isLoading, match } = this.props;
     return (
       <Layout>
         <Container>
-          <Title>{"New Account"}</Title>
+          <Title>
+            {match.path === "/accounts/new" ? "New Account" : "Edit Account"}
+          </Title>
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <FormContainer onSubmit={this.handleSubmit}>
             <Row>
@@ -124,6 +125,7 @@ class AccountForm extends Component {
                 <Label>{"Name"}</Label>
                 <Input
                   type="text"
+                  value={this.state.name}
                   name="name"
                   onChange={this.handleInputChange}
                 />
@@ -132,6 +134,7 @@ class AccountForm extends Component {
                 <Label>{"Initial Balance"}</Label>
                 <Input
                   type="number"
+                  value={this.state.initialBalance}
                   name="initialBalance"
                   onChange={this.handleInputChange}
                 />
@@ -148,8 +151,12 @@ class AccountForm extends Component {
 }
 
 AccountForm.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
+  id: PropTypes.number,
+  name: PropTypes.string,
   error: PropTypes.array,
+  initialBalance: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
+  match: PropTypes.object.isRequired,
   submitData: PropTypes.func.isRequired
 };
 

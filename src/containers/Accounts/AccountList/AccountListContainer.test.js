@@ -13,8 +13,7 @@ describe("AccountListContainer", () => {
     userId: 1,
     error: null,
     isLoading: false,
-    onFetchAccountList: jest.fn(),
-    onDeleteAccount: jest.fn()
+    onFetchAccountList: jest.fn()
   };
   const component = shallow(<AccountListContainer {...mockProps} />);
 

@@ -6,10 +6,20 @@ import { AccountFormContainer } from "./AccountFormContainer";
 
 describe("AccountFormContainer", () => {
   const mockProps = {
-    userId: 1,
+    accountToEdit: {
+      id: 1,
+      name: "Lorem",
+      initialBalance: "25345.00"
+    },
     error: null,
+    history: {},
     isLoading: false,
-    onCreateAccount: jest.fn()
+    match: {},
+    userId: 1,
+    onClearAccountToEdit: jest.fn(),
+    onCreateAccount: jest.fn(),
+    onUpdateAccount: jest.fn(),
+    onSetAccountToEdit: jest.fn()
   };
   const component = shallow(<AccountFormContainer {...mockProps} />);
 

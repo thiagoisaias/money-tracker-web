@@ -3,6 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   error: null,
   isLoading: false,
+  accountToEdit: null,
   accountList: []
 };
 
@@ -50,9 +51,11 @@ const accounts = (state = initialState, action) => {
         isLoading: true
       };
     case actionTypes.UPDATE_ACCOUNT_SUCCESS:
-      // TODO: depends on the account ID
       return {
         ...state,
+        accountList: state.accountList.map(item => {
+          return item.id === action.accountData.id ? action.accountData : item;
+        }),
         error: null,
         isLoading: false
       };
@@ -68,7 +71,6 @@ const accounts = (state = initialState, action) => {
         isLoading: true
       };
     case actionTypes.DELETE_ACCOUNT_SUCCESS:
-      // TODO: depends on the account ID
       return {
         ...state,
         accountList: state.accountList.filter(item => {
@@ -83,6 +85,16 @@ const accounts = (state = initialState, action) => {
         error: action.error,
         isLoading: false
       };
+    case actionTypes.SET_ACCOUNT_TO_EDIT:
+      return {
+        ...state,
+        accountToEdit: action.accountData
+      };
+    case actionTypes.CLEAR_ACCOUNT_TO_EDIT:
+      return {
+        ...state,
+        accountToEdit: null
+      }
     default:
       return state;
   }
