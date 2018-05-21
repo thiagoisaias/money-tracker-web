@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import AccountFormContainer from "../Accounts/AccountForm/AccountFormContainer";
-import AccountListContainer from "../Accounts/AccountList/AccountListContainer";
-import Home from "../../components/Home/Home";
-import AuthPage from "../../components/Auth/AuthPage/AuthPage";
-import TransactionForm from "../../components/Transactions/TransactionForm/TransactionForm";
+import AccountFormContainer from "../../containers/Accounts/AccountForm/AccountFormContainer";
+import AccountListContainer from "../../containers/Accounts/AccountList/AccountListContainer";
+import Home from "../Home/Home";
+import AuthPage from "../Auth/AuthPage/AuthPage";
+import TransactionForm from "../Transactions/TransactionForm/TransactionForm";
 
 const App = props => {
   return (

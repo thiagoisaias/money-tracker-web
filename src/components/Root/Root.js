@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import PropTypes from "prop-types";
 
-import App from "../../containers/App/App";
+import App from "../../components/App/App";
 
 const Root = props => {
   return (
