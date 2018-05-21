@@ -60,4 +60,11 @@ describe("Auth actions", () => {
   xit("should create logout action", () => {
     //TODO: Async action
   });
+
+  it("should create clearAuthError action", () => {
+    const expectedAction = {
+      type: actionTypes.CLEAR_AUTH_ERROR
+    };
+    expect(actions.clearAuthError()).toEqual(expectedAction);
+  });
 });

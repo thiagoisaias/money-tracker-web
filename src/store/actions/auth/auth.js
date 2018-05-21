@@ -54,7 +54,8 @@ export const signup = (signupData, history) => {
         history.push("/accounts/new");
       })
       .catch(error => {
-        dispatch(authFail(error.response.data.errors));
+        const mockError = "Something went wrong.";
+        dispatch(authFail(mockError));
       });
   };
 };
@@ -89,5 +90,11 @@ export const logout = history => {
   return dispatch => {
     dispatch(logoutStart());
     history.push("/auth");
+  };
+};
+
+export const clearAuthError = () => {
+  return {
+    type: actionTypes.CLEAR_AUTH_ERROR
   };
 };

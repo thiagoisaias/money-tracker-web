@@ -55,6 +55,11 @@ const auth = (state = initialState, action) => {
       return {
         ...initialState
       };
+    case actionTypes.CLEAR_AUTH_ERROR:
+      return {
+        ...state,
+        error: null
+      };
     default:
       return state;
   }
