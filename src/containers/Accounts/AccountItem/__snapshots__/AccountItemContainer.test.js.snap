@@ -10,9 +10,8 @@ exports[`AccountItemContainer renders properly 1`] = `
     }
   }
   handleActiveItem={[Function]}
+  handleDelete={[Function]}
   handleEdit={[Function]}
-  history={Object {}}
   isActive={false}
-  onDeleteAccount={[Function]}
 />
 `;

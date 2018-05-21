@@ -17,22 +17,27 @@ export class AccountItemContainer extends Component {
     history.push(`/accounts/${accountData.id}/edit`);
   };
 
+  handleDelete = () => {
+    const { accountData, onDeleteAccount } = this.props;
+    if (!window.confirm("Are you sure you want to delete this account?")) {
+      return;
+    }
+    onDeleteAccount(accountData.id);
+  };
+
   render() {
     const {
       accountData,
       handleActiveItem,
-      history,
-      isActive,
-      onDeleteAccount
+      isActive
     } = this.props;
     return (
       <AccountItem
         accountData={accountData}
         handleActiveItem={handleActiveItem}
+        handleDelete={this.handleDelete}
         handleEdit={this.handleEdit}
-        history={history}
         isActive={isActive}
-        onDeleteAccount={onDeleteAccount}
       />
     );
   }

@@ -56,9 +56,9 @@ const AccountItem = props => {
   const {
     accountData,
     handleActiveItem,
+    handleDelete,
     handleEdit,
-    isActive,
-    onDeleteAccount
+    isActive
   } = props;
 
   return (
@@ -78,7 +78,7 @@ const AccountItem = props => {
         </Action>
         <Action
           onClick={() => {
-            onDeleteAccount(accountData.id);
+            handleDelete();
           }}
         >
           {"Delete"}
@@ -95,9 +95,9 @@ AccountItem.propTypes = {
     name: PropTypes.string.isRequired
   }).isRequired,
   handleActiveItem: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  onDeleteAccount: PropTypes.func.isRequired
+  isActive: PropTypes.bool.isRequired
 };
 
 export default AccountItem;
