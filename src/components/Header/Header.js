@@ -13,7 +13,7 @@ const Container = styled.header`
   align-items: center;
   justify-content: space-between;
   background-color: #333;
-  color: #f2f2f2;
+  color: #fff;
 
   @media ${devices.small} {
     padding: 0 16px;

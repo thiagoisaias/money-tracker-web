@@ -47,20 +47,18 @@ const Title = styled.h2`
 
 const NewAccountLink = styled(NavLink)`
   display: block;
-  width: 125px;
-  height: 35px;
-  line-height: 35px;
-  padding: 0 8px;
+  width: 130px;
+  height: 40px;
+  line-height: 40px;
   border-radius: 2px;
-  background-color: #add8e6;
+  background-color: #333;
   color: #fff;
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
 
   &:hover {
     cursor: pointer;
-    background-color: #a9cdd8;
-    opacity: 1;
+    opacity: 0.95;
   }
 `;
 

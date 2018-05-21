@@ -83,18 +83,19 @@ const Input = styled.input`
 `;
 
 const SubmitButton = styled.button`
-  font-size: 13px;
-  padding: 6px;
   border-radius: 2px;
+  font: inherit;
+  font-size: 12px;
+  background-color: #333;
   color: #fff;
-  background-color: #add8e6;
-  width: 125px;
-  height: 35px;
-  opacity: ${props => (props.disabled ? 0.6 : 1)};
+  width: 130px;
+  height: 40px;
+
+  background-color: ${props => (props.disabled ? "#777" : "#333")};
 
   &:hover {
     cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
-    background-color: ${props => (props.disabled ? "#add8e6" : "#a9cdd8")};
+    opacity: ${props => (props.disabled ? 1 : 0.95)};
   }
 `;
 
@@ -184,6 +185,17 @@ class AccountForm extends Component {
     submitData(formData);
   };
 
+  componentDidMount() {
+    const { match } = this.props;
+
+    if (match.path === "/accounts/:id/edit") {
+      this.setState({
+        ...this.state,
+        isFormValid: true
+      });
+    }
+  }
+
   render() {
     const { error, isLoading, match } = this.props;
     const formTitle =
@@ -225,7 +237,7 @@ class AccountForm extends Component {
                 disabled={!this.state.isFormValid}
                 onClick={this.handleSubmit}
               >
-                {isLoading ? <Spinner height={34} width={34} /> : "Submit"}
+                {isLoading ? <Spinner size={25} color={"#ddd"} /> : "Submit"}
               </SubmitButton>
               <Message>
                 <ColoredMark>*</ColoredMark>
