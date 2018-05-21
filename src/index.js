@@ -11,3 +11,9 @@ axios.defaults.baseURL = "https://money-management-api.herokuapp.com/api/v1";
 const store = configureStore();
 
 ReactDOM.render(<Root store={store} />, document.getElementById("root"));
+
+if (module.hot) {
+  module.hot.accept("./components/Root/Root", () => {
+    ReactDOM.render(<Root store={store} />, document.getElementById("root"));
+  });
+}

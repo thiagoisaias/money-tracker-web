@@ -23,6 +23,14 @@ const configureStore = () => {
     }, 1000)
   );
 
+  if (process.env.NODE_ENV !== "production") {
+    if (module.hot) {
+      module.hot.accept("./store/reducers/rootReducer", () => {
+        store.replaceReducer(rootReducer);
+      });
+    }
+  }
+
   return store;
 };
 
