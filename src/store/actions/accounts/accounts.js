@@ -2,26 +2,7 @@ import * as actionTypes from "../actionTypes";
 import axios from "axios";
 import { decamelizeKeys } from "humps";
 
-export const createAccount = (accountData, userId, history) => {
-  return (dispatch, getState) => {
-    dispatch(createAccountStart());
-    axios
-      .post(
-        `/users/${userId}/accounts`,
-        { account: decamelizeKeys(accountData) },
-        { headers: decamelizeKeys(getState().auth.headers) }
-      )
-      .then(response => {
-        dispatch(createAccountSuccess(response.data));
-        history.push("/accounts");
-      })
-      .catch(error => {
-        // TODO: Display proper error message
-        const customErrorMessage = "Something went wrong.";
-        dispatch(createAccountFail(customErrorMessage));
-      });
-  };
-};
+/* Create Account */
 
 export const createAccountStart = () => {
   return {
@@ -43,23 +24,32 @@ export const createAccountFail = error => {
   };
 };
 
-export const fetchAccounts = userId => {
+export const createAccount = (accountData, history) => {
   return (dispatch, getState) => {
-    dispatch(fetchAccountsStart());
+    const userId = getState().auth.user.id;
+    const authHeaders = decamelizeKeys(getState().auth.headers);
+
+    dispatch(createAccountStart());
+
     axios
-      .get(`/users/${userId}/accounts`, {
-        headers: decamelizeKeys(getState().auth.headers)
-      })
+      .post(
+        `/users/${userId}/accounts`,
+        { account: decamelizeKeys(accountData) },
+        { headers: authHeaders }
+      )
       .then(response => {
-        dispatch(fetchAccountsSuccess(response.data));
+        dispatch(createAccountSuccess(response.data));
+        history.push("/accounts");
       })
       .catch(error => {
         // TODO: Display proper error message
         const customErrorMessage = "Something went wrong.";
-        dispatch(fetchAccountsFail(customErrorMessage));
+        dispatch(createAccountFail(customErrorMessage));
       });
   };
 };
+
+/* Fetch Accounts */
 
 export const fetchAccountsStart = () => {
   return {
@@ -81,27 +71,27 @@ export const fetchAccountsFail = error => {
   };
 };
 
-export const updateAccount = (accountData, accountId, history) => {
+export const fetchAccounts = () => {
   return (dispatch, getState) => {
-    dispatch(updateAccountStart());
-    console.log("sent accountData", accountData);
+    const userId = getState().auth.user.id;
+    const authHeaders = decamelizeKeys(getState().auth.headers);
+
+    dispatch(fetchAccountsStart());
+
     axios
-      .put(
-        `/accounts/${accountId}`,
-        { account: decamelizeKeys(accountData) },
-        { headers: decamelizeKeys(getState().auth.headers) }
-      )
+      .get(`/users/${userId}/accounts`, { headers: authHeaders })
       .then(response => {
-        dispatch(updateAccountSuccess(response.data));
-        history.push("/accounts");
+        dispatch(fetchAccountsSuccess(response.data));
       })
       .catch(error => {
-        dispatch(
-          updateAccountFail("It was not possible to update this account")
-        );
+        // TODO: Display proper error message
+        const customErrorMessage = "Something went wrong.";
+        dispatch(fetchAccountsFail(customErrorMessage));
       });
   };
 };
+
+/* Update Account */
 
 export const updateAccountStart = () => {
   return {
@@ -123,23 +113,32 @@ export const updateAccountFail = error => {
   };
 };
 
-export const deleteAccount = accountId => {
+export const updateAccount = (accountData, accountId, history) => {
   return (dispatch, getState) => {
-    dispatch(deleteAccountStart());
+    const userId = getState().auth.user.id;
+    const authHeaders = decamelizeKeys(getState().auth.headers);
+
+    dispatch(updateAccountStart());
+
     axios
-      .delete(`/accounts/${accountId}`, {
-        headers: decamelizeKeys(getState().auth.headers)
-      })
+      .put(
+        `/users/${userId}/accounts/${accountId}`,
+        { account: decamelizeKeys(accountData) },
+        { headers: authHeaders }
+      )
       .then(response => {
-        dispatch(deleteAccountSuccess(accountId));
+        dispatch(updateAccountSuccess(response.data));
+        history.push("/accounts");
       })
       .catch(error => {
-        // TODO: Display proper error message
-        const customErrorMessage = "Something went wrong.";
-        dispatch(deleteAccountFail(customErrorMessage));
+        dispatch(
+          updateAccountFail("It was not possible to update this account")
+        );
       });
   };
 };
+
+/* Delete Account */
 
 export const deleteAccountStart = () => {
   return {
@@ -160,6 +159,30 @@ export const deleteAccountFail = error => {
     error
   };
 };
+
+export const deleteAccount = accountId => {
+  return (dispatch, getState) => {
+    const userId = getState().auth.user.id;
+    const authHeaders = decamelizeKeys(getState().auth.headers);
+
+    dispatch(deleteAccountStart());
+
+    axios
+      .delete(`/users/${userId}/accounts/${accountId}`, {
+        headers: authHeaders
+      })
+      .then(response => {
+        dispatch(deleteAccountSuccess(accountId));
+      })
+      .catch(error => {
+        // TODO: Display proper error message
+        const customErrorMessage = "Something went wrong.";
+        dispatch(deleteAccountFail(customErrorMessage));
+      });
+  };
+};
+
+/* Other */
 
 export const setAccountToEdit = accountData => {
   return {
