@@ -204,7 +204,7 @@ export class SignupForm extends Component {
           {error && <ErrorMessage> {error} </ErrorMessage>}
           {inputList}
           <SubmitButton onClick={this.handleSubmit}>
-            {isLoading ? <Spinner width={35} height={35} /> : "Sign Up"}
+            {isLoading ? <Spinner size={25} color={"#ddd"} /> : "Sign Up"}
           </SubmitButton>
         </Form>
         <Alternate>

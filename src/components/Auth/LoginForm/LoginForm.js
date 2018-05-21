@@ -168,7 +168,7 @@ class LoginForm extends Component {
         <Form onSubmit={this.handleSubmit}>
           {inputList}
           <SubmitButton onClick={this.handleSubmit}>
-            {isLoading ? <Spinner width={35} height={35} /> : "Log In"}
+            {isLoading ? <Spinner size={25} color={"#ddd"} /> : "Log In"}
           </SubmitButton>
         </Form>
         <Alternate>
