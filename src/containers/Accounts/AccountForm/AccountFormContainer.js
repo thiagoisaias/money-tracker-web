@@ -20,8 +20,7 @@ export class AccountFormContainer extends Component {
       isLoading,
       match,
       onCreateAccount,
-      onUpdateAccount,
-      userId
+      onUpdateAccount
     } = this.props;
 
     if (isLoading) {
@@ -29,7 +28,7 @@ export class AccountFormContainer extends Component {
     }
 
     if (match.path === "/accounts/new") {
-      onCreateAccount(formData, userId, history);
+      onCreateAccount(formData, history);
     } else if (match.path === "/accounts/:id/edit" && accountToEdit) {
       onUpdateAccount(formData, accountToEdit.id, history);
     } else {
@@ -76,7 +75,6 @@ AccountFormContainer.propTypes = {
   history: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
-  userId: PropTypes.number.isRequired,
   onClearAccountToEdit: PropTypes.func.isRequired,
   onCreateAccount: PropTypes.func.isRequired,
   onUpdateAccount: PropTypes.func.isRequired,
@@ -86,7 +84,6 @@ AccountFormContainer.propTypes = {
 const mapStateToProps = state => {
   return {
     accountToEdit: state.accounts.accountToEdit,
-    userId: state.auth.user.id,
     isLoading: state.accounts.isLoading,
     error: state.accounts.error
   };
@@ -94,8 +91,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCreateAccount: (accountData, userId, history) => {
-      dispatch(createAccount(accountData, userId, history));
+    onCreateAccount: (accountData, history) => {
+      dispatch(createAccount(accountData, history));
     },
 
     onSetAccountToEdit: account => {

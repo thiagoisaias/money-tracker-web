@@ -15,7 +15,6 @@ describe("AccountFormContainer", () => {
     history: {},
     isLoading: false,
     match: {},
-    userId: 1,
     onClearAccountToEdit: jest.fn(),
     onCreateAccount: jest.fn(),
     onUpdateAccount: jest.fn(),

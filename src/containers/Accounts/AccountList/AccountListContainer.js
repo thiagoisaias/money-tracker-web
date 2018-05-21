@@ -8,9 +8,9 @@ import { fetchAccounts } from "../../../store/actions/accounts/accounts";
 
 export class AccountListContainer extends Component {
   componentDidMount() {
-    const { userId, onFetchAccountList } = this.props;
+    const { onFetchAccountList } = this.props;
 
-    onFetchAccountList(userId);
+    onFetchAccountList();
   }
 
   render() {
@@ -33,14 +33,12 @@ AccountListContainer.propTypes = {
     })
   ).isRequired,
   error: PropTypes.string,
-  userId: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   onFetchAccountList: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    userId: state.auth.user.id,
     isLoading: state.accounts.isLoading,
     error: state.accounts.error,
     accountList: state.accounts.accountList
@@ -49,8 +47,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchAccountList: userId => {
-      dispatch(fetchAccounts(userId));
+    onFetchAccountList: () => {
+      dispatch(fetchAccounts());
     }
   };
 };
