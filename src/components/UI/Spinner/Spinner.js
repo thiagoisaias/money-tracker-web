@@ -3,61 +3,69 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  width: ${props => `${props.size}px`};
+  height: ${props => `${props.size}px`};
+  margin: 0px auto;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 
-const StyledSpinner = styled.svg`
-  animation: rotate 2s linear infinite;
-  width: ${props => props.width || "24px"};
-  height: ${props => props.height || "24px"};
+const StyledSpinner = styled.div`
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
 
-  @keyframes rotate {
+  > div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: ${props =>
+      `${props.color} transparent transparent transparent`};
+  }
+  > div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  > div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  > div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
     100% {
       transform: rotate(360deg);
     }
   }
-
-  @keyframes dash {
-    0% {
-      stroke-dasharray: 1, 150;
-      stroke-dashoffset: 0;
-    }
-    50% {
-      stroke-dasharray: 90, 150;
-      stroke-dashoffset: -35;
-    }
-    100% {
-      stroke-dasharray: 90, 150;
-      stroke-dashoffset: -125;
-    }
-  }
-`;
-
-const StyledCircle = styled.circle`
-  stroke: #999;
-  stroke-linecap: round;
-  stroke-width: 1.725;
-  animation: dash 1.5s ease-in-out infinite;
 `;
 
 const Spinner = props => {
-  const { width, height } = props;
+  const { size, color } = props;
   return (
-    <Container>
-      <StyledSpinner width={width} height={height} viewBox={`0 0 ${width*2} ${height*2}`}>
-        <StyledCircle cx={width} cy={height} r={width / 2} fill="none" />
+    <Container size={size}>
+      <StyledSpinner color={color}>
+        <div />
+        <div />
+        <div />
+        <div />
       </StyledSpinner>
     </Container>
   );
 };
 
 Spinner.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  size: PropTypes.number.isRequired,
+  color: PropTypes.string.isRequired
 };
 
 export default Spinner;

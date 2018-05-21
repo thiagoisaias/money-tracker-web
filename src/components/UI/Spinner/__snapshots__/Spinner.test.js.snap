@@ -1,18 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Spinner renders properly 1`] = `
-<styled.div>
-  <styled.svg
-    height={24}
-    viewBox="0 0 48 48"
-    width={24}
+<styled.div
+  size={30}
+>
+  <styled.div
+    color="#FFF"
   >
-    <styled.circle
-      cx={24}
-      cy={24}
-      fill="none"
-      r={12}
-    />
-  </styled.svg>
+    <div />
+    <div />
+    <div />
+    <div />
+  </styled.div>
 </styled.div>
 `;
