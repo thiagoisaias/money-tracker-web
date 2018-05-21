@@ -2,13 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import { SignupPage } from "./SignupPage";
+import AuthPage from "./AuthPage";
 
-describe("SignupPage", () => {
-  const mockProps = {
-    isLoading: false
-  };
-  const component = shallow(<SignupPage {...mockProps} />);
+describe("AuthPage", () => {
+  const component = shallow(<AuthPage />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();

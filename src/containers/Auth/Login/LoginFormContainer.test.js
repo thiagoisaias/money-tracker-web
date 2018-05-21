@@ -2,20 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import { LoginForm } from "./LoginForm";
+import { LoginFormContainer } from "./LoginFormContainer";
 
-describe("LoginForm", () => {
+describe("LoginFormContainer", () => {
   const mockProps = {
-    toggleNewAccount: jest.fn(),
+    error: null,
+    onClearAuthError: jest.fn(),
     onLogin: jest.fn(),
-    isAuthenticated: true,
     isLoading: false,
-    error: null
+    history: {}
   };
+  const component = shallow(<LoginFormContainer {...mockProps} />);
 
-  const component = shallow(<LoginForm {...mockProps} />);
-
-  fit("renders properly", () => {
+  it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();
   });
 });

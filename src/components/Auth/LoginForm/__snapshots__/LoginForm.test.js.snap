@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginForm renders properly 1`] = `
+<LoginForm
+  error={null}
+  handleInputChange={[Function]}
+  isLoading={false}
+  submitData={[Function]}
+/>
+`;

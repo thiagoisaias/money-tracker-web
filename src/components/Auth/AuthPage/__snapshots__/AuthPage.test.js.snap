@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthPage renders properly 1`] = `
+<styled.div>
+  <styled.div>
+    <Switch>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/auth/"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/auth/signup"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/auth/login"
+      />
+    </Switch>
+  </styled.div>
+  <styled.div>
+    <styled.h2>
+      Welcome to Wallet
+    </styled.h2>
+    <styled.p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    </styled.p>
+    <styled.span>
+      Photo by Romello Williams on Unsplash
+    </styled.span>
+  </styled.div>
+</styled.div>
+`;

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginFormContainer renders properly 1`] = `
+<Component
+  error={null}
+  isLoading={false}
+  onLogin={[Function]}
+  submitData={[Function]}
+/>
+`;

@@ -6,11 +6,10 @@ import { SignupForm } from "./SignupForm";
 
 describe("SignupForm", () => {
   const mockProps = {
-    toggleNewAccount: jest.fn(),
-    onSignup: jest.fn(),
-    isAuthenticated: true,
+    error: null,
+    handleInputChange: jest.fn(),
     isLoading: false,
-    error: null
+    submitData: jest.fn()
   };
 
   const component = shallow(<SignupForm {...mockProps} />);

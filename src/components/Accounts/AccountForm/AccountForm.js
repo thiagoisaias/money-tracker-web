@@ -144,20 +144,6 @@ class AccountForm extends Component {
     };
   }
 
-  onInputChange = event => {
-    const { handleInputChange } = this.props;
-    const formFields = { ...this.state.formFields };
-    const checkFieldValidity = this.checkFieldValidity;
-    const updatedFormState = handleInputChange(
-      event,
-      formFields,
-      checkFieldValidity
-    );
-    this.setState({
-      ...updatedFormState
-    });
-  };
-
   checkFieldValidity = (value, rules) => {
     let isValid = true;
 
@@ -172,17 +158,27 @@ class AccountForm extends Component {
     return isValid;
   };
 
+  onInputChange = event => {
+    const { handleInputChange } = this.props;
+    const formFields = { ...this.state.formFields };
+    const checkFieldValidity = this.checkFieldValidity;
+    const updatedFormState = handleInputChange(
+      event,
+      formFields,
+      checkFieldValidity
+    );
+    this.setState({
+      ...updatedFormState
+    });
+  };
+
   handleSubmit = event => {
-    const { isLoading, submitData } = this.props;
+    const { submitData } = this.props;
     event.preventDefault();
 
     const formData = {};
     for (let fieldKey in this.state.formFields) {
       formData[fieldKey] = this.state.formFields[fieldKey].value;
-    }
-
-    if (isLoading) {
-      return;
     }
 
     submitData(formData);
@@ -246,7 +242,7 @@ class AccountForm extends Component {
 AccountForm.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
-  error: PropTypes.array,
+  error: PropTypes.string,
   handleInputChange: PropTypes.func.isRequired,
   initialBalance: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,

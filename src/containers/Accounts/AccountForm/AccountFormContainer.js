@@ -16,12 +16,17 @@ export class AccountFormContainer extends Component {
   submitData = formData => {
     const {
       accountToEdit,
-      userId,
+      history,
+      isLoading,
       match,
       onCreateAccount,
       onUpdateAccount,
-      history
+      userId
     } = this.props;
+
+    if (isLoading) {
+      return;
+    }
 
     if (match.path === "/accounts/new") {
       onCreateAccount(formData, userId, history);
