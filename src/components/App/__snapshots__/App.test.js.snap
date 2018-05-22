@@ -14,11 +14,6 @@ exports[`App renders properly 1`] = `
   <Route
     component={[Function]}
     exact={true}
-    path="/transaction"
-  />
-  <Route
-    component={[Function]}
-    exact={true}
     path="/accounts"
   />
   <Route
@@ -30,6 +25,16 @@ exports[`App renders properly 1`] = `
     component={[Function]}
     exact={true}
     path="/accounts/:id/edit"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/categories"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/transaction"
   />
 </Switch>
 `;

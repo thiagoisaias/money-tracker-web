@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryItem renders properly 1`] = `
+<styled.div
+  isActive={false}
+  onClick={[Function]}
+>
+  <styled.div>
+    <styled.div
+      color="lightblue"
+    />
+    <styled.div>
+      Food
+    </styled.div>
+  </styled.div>
+  <styled.div>
+    <styled.div
+      onClick={[Function]}
+    >
+      Edit
+    </styled.div>
+    <styled.div
+      onClick={[Function]}
+    >
+      Delete
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;

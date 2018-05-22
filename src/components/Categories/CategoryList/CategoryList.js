@@ -1,11 +1,10 @@
 import React, { Fragment } from "react";
-import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-
 import { devices } from "../../../utils/devices";
+import { NavLink } from "react-router-dom";
 
-import AccountItemContainer from "../../../containers/Accounts/AccountItem/AccountItemContainer";
+import CategoryItem from "../CategoryItem/CategoryItem";
 import Layout from "../../Layout/Layout";
 import Spinner from "../../UI/Spinner/Spinner";
 import withExpandableItem from "../../../hoc/withExpandableItem/withExpandableItem";
@@ -78,23 +77,24 @@ const BlankStateMessage = styled.p`
   margin-left: 16px;
 `;
 
-const AccountList = props => {
-  const {
-    accountList,
-    activeItemId,
-    handleActiveItem,
-    error,
-    isLoading
-  } = props;
+const categoryList = [
+  { id: 1, name: "Home", color: "lightblue" },
+  { id: 2, name: "Food", color: "lightsalmon" },
+  { id: 3, name: "Transport", color: "lightgreen" },
+  { id: 4, name: "Education", color: "#777" }
+];
 
-  const list = accountList.map(account => {
-    const isActive = activeItemId === account.id;
+const CategoryList = props => {
+  const { activeItemId, handleActiveItem, error } = props;
+  const isLoading = false;
+  const list = categoryList.map(category => {
+    const isActive = activeItemId === category.id;
     return (
-      <AccountItemContainer
-        key={account.id}
+      <CategoryItem
+        key={category.id}
         handleActiveItem={handleActiveItem}
         isActive={isActive}
-        accountData={account}
+        categoryData={category}
       />
     );
   });
@@ -104,8 +104,8 @@ const AccountList = props => {
       <Container>
         <Fragment>
           <Header>
-            <Title> {"Accounts"} </Title>
-            <LinkButton to="/accounts/new">{"Add Account"}</LinkButton>
+            <Title> {"Categories"} </Title>
+            <LinkButton to="/categories/new">{"Add Category"}</LinkButton>
           </Header>
           {error && <ErrorMessage>{error}</ErrorMessage>}
           {list.length === 0 &&
@@ -122,12 +122,12 @@ const AccountList = props => {
   );
 };
 
-AccountList.propTypes = {
-  accountList: PropTypes.arrayOf(
+CategoryList.propTypes = {
+  categoryList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      initialBalance: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired
     })
   ).isRequired,
   activeItemId: PropTypes.number,
@@ -136,4 +136,4 @@ AccountList.propTypes = {
   handleActiveItem: PropTypes.func.isRequired
 };
 
-export default withExpandableItem(AccountList);
+export default withExpandableItem(CategoryList);

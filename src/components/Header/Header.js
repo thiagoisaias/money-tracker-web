@@ -24,6 +24,13 @@ const Container = styled.header`
   }
 `;
 
+const NavBar = styled.nav`
+  display: flex;
+  > a {
+    margin: 0 6px;
+  }
+`;
+
 const Logo = styled.div`
   color: #fff;
 `;
@@ -44,7 +51,11 @@ export const Header = props => {
       <NavLink to="/">
         <Logo>{"Money Tracker"}</Logo>
       </NavLink>
-      <NavLink to="/accounts">{"Accounts"}</NavLink>
+      <NavBar>
+        <NavLink to="/accounts">{"Accounts"}</NavLink>
+        {"/"}
+        <NavLink to="/categories">{"Categories"}</NavLink>
+      </NavBar>
       <Logout
         onClick={() => {
           onLogout(history);

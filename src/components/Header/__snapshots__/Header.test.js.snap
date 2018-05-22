@@ -11,13 +11,23 @@ exports[`Header renders properly 1`] = `
       Money Tracker
     </styled.div>
   </NavLink>
-  <NavLink
-    activeClassName="active"
-    ariaCurrent="true"
-    to="/accounts"
-  >
-    Accounts
-  </NavLink>
+  <styled.nav>
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      to="/accounts"
+    >
+      Accounts
+    </NavLink>
+    /
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      to="/categories"
+    >
+      Categories
+    </NavLink>
+  </styled.nav>
   <styled.div
     onClick={[Function]}
   >
