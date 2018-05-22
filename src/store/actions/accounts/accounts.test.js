@@ -1,7 +1,7 @@
 import * as actionTypes from "../actionTypes";
 import * as actions from "./accounts";
 
-describe("Transaction actions", () => {
+describe("Accounts actions", () => {
   const accountData = {
     id: 1,
     name: "Lorem",
