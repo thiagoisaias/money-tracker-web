@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryForm renders properly 1`] = `
+<CategoryForm
+  color="red"
+  error={null}
+  handleInputChange={[Function]}
+  id={1}
+  isLoading={false}
+  match={
+    Object {
+      "path": "/path",
+    }
+  }
+  name="Lorem"
+  submitData={[Function]}
+/>
+`;
