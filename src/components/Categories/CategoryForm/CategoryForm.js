@@ -183,9 +183,14 @@ class CategoryForm extends Component {
   };
 
   componentDidMount() {
-    const { match } = this.props;
+    const { match, checkFormValidity } = this.props;
 
-    if (match.path === "/accounts/:id/edit") {
+    const isFormValid = checkFormValidity(
+      this.state.formFields,
+      this.checkFieldValidity
+    );
+
+    if (match.path === "/categories/:id/edit" && isFormValid) {
       this.setState({
         ...this.state,
         isFormValid: true
@@ -249,6 +254,7 @@ class CategoryForm extends Component {
 }
 
 CategoryForm.propTypes = {
+  checkFormValidity: PropTypes.func.isRequired,
   id: PropTypes.number,
   color: PropTypes.string,
   error: PropTypes.string,

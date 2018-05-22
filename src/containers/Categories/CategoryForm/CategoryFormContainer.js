@@ -6,20 +6,33 @@ import { withRouter } from "react-router-dom";
 import {
   clearCategoryToEdit,
   createCategory,
-  updateCategory,
-  setCategoryToEdit
+  updateCategory
 } from "../../../store/actions/categories/categories";
 
 import CategoryForm from "../../../components/Categories/CategoryForm/CategoryForm";
 
 export class CategoryFormContainer extends Component {
-  submitData = categoryData => {
-    const { history, isLoading, onCreateCategory } = this.props;
+  submitData = formData => {
+    const {
+      categoryToEdit,
+      history,
+      isLoading,
+      match,
+      onCreateCategory,
+      onUpdateCategory
+    } = this.props;
 
     if (isLoading) {
       return;
     }
-    onCreateCategory(categoryData, history);
+
+    if (match.path === "/categories/new") {
+      onCreateCategory(formData, history);
+    } else if (match.path === "/categories/:id/edit" && categoryToEdit) {
+      onUpdateCategory(formData, categoryToEdit.id, history);
+    } else {
+      return;
+    }
   };
 
   render() {
@@ -35,7 +48,20 @@ export class CategoryFormContainer extends Component {
     );
   }
 
-  componentDidMount() {}
+  /* When the page is reloaded and the path is /category/:id/edit, categoryToEdit is null, so the
+  app redirects the user back to /categories
+  */
+  componentDidMount() {
+    const { categoryToEdit, history, match } = this.props;
+    if (match.path === "/categories/:id/edit" && categoryToEdit === null) {
+      history.push("/categories");
+    }
+  }
+
+  // The value of categoryToEdit should be null when the user leave /categories/:id/edit
+  componentWillUnmount() {
+    this.props.onClearCategoryToEdit();
+  }
 }
 
 CategoryFormContainer.propTypes = {
@@ -50,8 +76,7 @@ CategoryFormContainer.propTypes = {
   match: PropTypes.object.isRequired,
   onClearCategoryToEdit: PropTypes.func.isRequired,
   onCreateCategory: PropTypes.func.isRequired,
-  onUpdateCategory: PropTypes.func.isRequired,
-  onSetCategoryToEdit: PropTypes.func.isRequired
+  onUpdateCategory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -64,13 +89,17 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClearCategoryToEdit: () => {},
+    onClearCategoryToEdit: () => {
+      dispatch(clearCategoryToEdit());
+    },
+
     onCreateCategory: (categoryData, history) => {
       dispatch(createCategory(categoryData, history));
     },
 
-    onUpdateCategory: () => {},
-    onSetCategoryToEdit: () => {}
+    onUpdateCategory: (categoryData, categoryId, history) => {
+      dispatch(updateCategory(categoryData, categoryId, history));
+    }
   };
 };
 

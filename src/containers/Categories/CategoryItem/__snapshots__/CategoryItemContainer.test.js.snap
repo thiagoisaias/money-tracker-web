@@ -11,6 +11,7 @@ exports[`CategoryItemContainer renders properly 1`] = `
   }
   handleActiveItem={[Function]}
   handleDelete={[Function]}
+  handleEdit={[Function]}
   isActive={false}
 />
 `;

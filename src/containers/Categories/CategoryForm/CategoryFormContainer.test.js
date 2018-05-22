@@ -17,8 +17,7 @@ describe("CategoryFormContainer", () => {
     match: {},
     onClearCategoryToEdit: jest.fn(),
     onCreateCategory: jest.fn(),
-    onUpdateCategory: jest.fn(),
-    onSetCategoryToEdit: jest.fn()
+    onUpdateCategory: jest.fn()
   };
   const component = shallow(<CategoryFormContainer {...mockProps} />);
 

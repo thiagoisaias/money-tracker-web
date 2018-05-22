@@ -108,9 +108,25 @@ export const updateCategoryFail = error => {
   };
 };
 
-export const updateCategory = () => {
+export const updateCategory = (formData, categoryId, history) => {
   return (dispatch, getState) => {
+    const authHeaders = decamelizeKeys(getState().auth.headers);
+
     dispatch(updateCategoryStart());
+
+    axios
+      .put(
+        `/categories/${categoryId}`,
+        { category: decamelizeKeys(formData) },
+        { headers: authHeaders }
+      )
+      .then(response => {
+        dispatch(updateCategorySuccess(response.data));
+        history.push("/categories");
+      })
+      .catch(error => {
+        dispatch(updateCategoryFail("Something went wrong."));
+      });
   };
 };
 

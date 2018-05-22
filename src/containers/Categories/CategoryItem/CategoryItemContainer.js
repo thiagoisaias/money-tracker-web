@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import { deleteCategory } from "../../../store/actions/categories/categories";
+import {
+  deleteCategory,
+  setCategoryToEdit
+} from "../../../store/actions/categories/categories";
 
 import CategoryItem from "../../../components/Categories/CategoryItem/CategoryItem";
 
@@ -19,12 +23,19 @@ export class CategoryItemContainer extends Component {
     onDeleteCategory(categoryData.id);
   };
 
+  handleEdit = () => {
+    const { categoryData, history, onSetCategoryToEdit } = this.props;
+    onSetCategoryToEdit(categoryData);
+    history.push(`/categories/${categoryData.id}/edit`);
+  };
+
   render() {
     const { categoryData, handleActiveItem, isActive } = this.props;
     return (
       <CategoryItem
         categoryData={categoryData}
         handleDelete={this.handleDelete}
+        handleEdit={this.handleEdit}
         handleActiveItem={handleActiveItem}
         isActive={isActive}
       />
@@ -40,7 +51,9 @@ CategoryItemContainer.propTypes = {
   }).isRequired,
   handleActiveItem: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  onDeleteCategory: PropTypes.func.isRequired,
+  onSetCategoryToEdit: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -53,10 +66,14 @@ const mapDispatchToProps = dispatch => {
   return {
     onDeleteCategory: categoryId => {
       dispatch(deleteCategory(categoryId));
+    },
+
+    onSetCategoryToEdit: category => {
+      dispatch(setCategoryToEdit(category));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  CategoryItemContainer
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CategoryItemContainer)
 );
