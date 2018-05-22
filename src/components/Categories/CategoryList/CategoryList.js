@@ -77,16 +77,15 @@ const BlankStateMessage = styled.p`
   margin-left: 16px;
 `;
 
-const categoryList = [
-  { id: 1, name: "Home", color: "lightblue" },
-  { id: 2, name: "Food", color: "lightsalmon" },
-  { id: 3, name: "Transport", color: "lightgreen" },
-  { id: 4, name: "Education", color: "#777" }
-];
-
 const CategoryList = props => {
-  const { activeItemId, handleActiveItem, error } = props;
-  const isLoading = false;
+  const {
+    activeItemId,
+    categoryList,
+    error,
+    handleActiveItem,
+    isLoading
+  } = props;
+
   const list = categoryList.map(category => {
     const isActive = activeItemId === category.id;
     return (
@@ -115,7 +114,7 @@ const CategoryList = props => {
                 &#9888;{"There are no accounts registered yet."}
               </BlankStateMessage>
             )}
-          {isLoading ? <Spinner size={40} color={"#777"} /> : list}
+          {isLoading ? <Spinner size={25} color={"#777"} /> : list}
         </Fragment>
       </Container>
     </Layout>

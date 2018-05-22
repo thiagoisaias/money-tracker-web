@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryListContainer renders properly 1`] = `
+<Component
+  categoryList={
+    Array [
+      Object {
+        "color": "red",
+        "id": 1,
+        "name": "Home",
+      },
+      Object {
+        "color": "blue",
+        "id": 2,
+        "name": "Food",
+      },
+    ]
+  }
+  error={null}
+  isLoading={false}
+/>
+`;
