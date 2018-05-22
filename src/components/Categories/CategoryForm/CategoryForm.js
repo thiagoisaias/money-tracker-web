@@ -151,6 +151,8 @@ class CategoryForm extends Component {
       isValid = value.trim() !== "" && isValid;
     }
 
+    // TODO: should validate color
+
     return isValid;
   };
 
@@ -177,8 +179,7 @@ class CategoryForm extends Component {
       formData[fieldKey] = this.state.formFields[fieldKey].value;
     }
 
-    console.log(formData);
-    // submitData(formData);
+    submitData(formData);
   };
 
   componentDidMount() {

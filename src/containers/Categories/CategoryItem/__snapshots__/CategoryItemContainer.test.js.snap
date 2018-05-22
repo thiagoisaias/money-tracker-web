@@ -1,7 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CategoryItemContainer renders properly 1`] = `
-<p>
-  otherValue
-</p>
+<CategoryItem
+  categoryData={
+    Object {
+      "color": "#A3H7S3",
+      "id": 1,
+      "name": "Lorem",
+    }
+  }
+  handleActiveItem={[Function]}
+  handleDelete={[Function]}
+  isActive={false}
+/>
 `;

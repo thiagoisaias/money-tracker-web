@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryFormContainer renders properly 1`] = `
+<Component
+  color="red"
+  error={null}
+  id={1}
+  isLoading={false}
+  match={Object {}}
+  name="Lorem"
+  submitData={[Function]}
+/>
+`;

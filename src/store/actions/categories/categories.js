@@ -24,9 +24,26 @@ export const createCategoryFail = error => {
   };
 };
 
-export const createCategory = () => {
+export const createCategory = (categoryData, history) => {
   return (dispatch, getState) => {
+    const authHeaders = decamelizeKeys(getState().auth.headers);
+
     dispatch(createCategoryStart());
+
+    axios
+      .post(
+        "/categories",
+        { category: decamelizeKeys(categoryData) },
+        { headers: authHeaders }
+      )
+      .then(response => {
+        dispatch(createCategorySuccess(response.data));
+        history.push("/categories");
+      })
+      .catch(error => {
+        console.log(error.response.data);
+        dispatch(createCategoryFail("Something went wrong."));
+      });
   };
 };
 
@@ -61,11 +78,9 @@ export const fetchCategories = () => {
     axios
       .get("/categories", { headers: authHeaders })
       .then(response => {
-        console.log(response.data);
         dispatch(fetchCategoriesSuccess(response.data));
       })
       .catch(error => {
-        console.log(error.response.data);
         dispatch(fetchCategoriesFail("Something went wrong."));
       });
   };
