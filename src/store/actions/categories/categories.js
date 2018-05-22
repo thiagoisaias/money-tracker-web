@@ -121,9 +121,22 @@ export const deleteCategoryFail = error => {
   };
 };
 
-export const deleteCategory = () => {
+export const deleteCategory = categoryId => {
   return (dispatch, getState) => {
+    const authHeaders = decamelizeKeys(getState().auth.headers);
+
     dispatch(deleteCategoryStart());
+
+    axios
+      .delete(`/categories/${categoryId}`, { headers: authHeaders })
+      .then(response => {
+        console.log("delete 200 ok");
+        dispatch(deleteCategorySuccess(categoryId));
+      })
+      .catch(error => {
+        console.log(error.response.data);
+        dispatch(deleteCategoryFail("Something went wrong."));
+      });
   };
 };
 

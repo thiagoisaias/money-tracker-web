@@ -59,7 +59,7 @@ const Action = styled.div`
 `;
 
 const CategoryItem = props => {
-  const { categoryData, handleActiveItem, isActive } = props;
+  const { categoryData, handleActiveItem, handleDelete, isActive } = props;
 
   return (
     <Container
@@ -80,7 +80,7 @@ const CategoryItem = props => {
         </Action>
         <Action
           onClick={() => {
-            // handleDelete();
+            handleDelete();
           }}
         >
           {"Delete"}

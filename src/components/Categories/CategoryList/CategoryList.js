@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { devices } from "../../../utils/devices";
 import { NavLink } from "react-router-dom";
 
-import CategoryItem from "../CategoryItem/CategoryItem";
+import CategoryItemContainer from "../../../containers/Categories/CategoryItem/CategoryItemContainer";
 import Layout from "../../Layout/Layout";
 import Spinner from "../../UI/Spinner/Spinner";
 import withExpandableItem from "../../../hoc/withExpandableItem/withExpandableItem";
@@ -89,7 +89,7 @@ const CategoryList = props => {
   const list = categoryList.map(category => {
     const isActive = activeItemId === category.id;
     return (
-      <CategoryItem
+      <CategoryItemContainer
         key={category.id}
         handleActiveItem={handleActiveItem}
         isActive={isActive}
