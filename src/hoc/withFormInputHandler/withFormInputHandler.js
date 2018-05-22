@@ -43,15 +43,10 @@ const withFormInputHandler = (WrappedComponent, props) => {
         [name]: updatedField
       };
 
-      // Verify if all fields are valid and then if the form is valid
-      let isFormValid = true;
-      for (let fieldKey in updatedFormFields) {
-        isFormValid =
-          checkFieldValidity(
-            updatedFormFields[fieldKey].value,
-            updatedFormFields[fieldKey].validation
-          ) && isFormValid;
-      }
+      const isFormValid = this.checkFormValidity(
+        updatedFormFields,
+        checkFieldValidity
+      );
 
       return {
         isFormValid: isFormValid,
@@ -61,11 +56,26 @@ const withFormInputHandler = (WrappedComponent, props) => {
       };
     };
 
+    checkFormValidity = (formFields, checkFieldValidity) => {
+      let isFormValid = true;
+
+      for (let fieldKey in formFields) {
+        isFormValid =
+          checkFieldValidity(
+            formFields[fieldKey].value,
+            formFields[fieldKey].validation
+          ) && isFormValid;
+      }
+
+      return isFormValid;
+    };
+
     render() {
       return (
         <WrappedComponent
           {...this.props}
           handleInputChange={this.handleInputChange}
+          checkFormValidity={this.checkFormValidity}
         />
       );
     }

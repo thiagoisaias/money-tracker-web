@@ -2,6 +2,7 @@
 
 exports[`LoginForm renders properly 1`] = `
 <LoginForm
+  checkFormValidity={[Function]}
   error={null}
   handleInputChange={[Function]}
   isLoading={false}

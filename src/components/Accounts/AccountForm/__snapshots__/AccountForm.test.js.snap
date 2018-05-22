@@ -2,6 +2,7 @@
 
 exports[`AccountForm renders properly 1`] = `
 <AccountForm
+  checkFormValidity={[Function]}
   error={null}
   handleInputChange={[Function]}
   id={1}

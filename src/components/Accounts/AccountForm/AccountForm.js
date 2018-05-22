@@ -186,9 +186,14 @@ class AccountForm extends Component {
   };
 
   componentDidMount() {
-    const { match } = this.props;
+    const { match, checkFormValidity } = this.props;
 
-    if (match.path === "/accounts/:id/edit") {
+    const isFormValid = checkFormValidity(
+      this.state.formFields,
+      this.checkFieldValidity
+    );
+
+    if (match.path === "/accounts/:id/edit" && isFormValid) {
       this.setState({
         ...this.state,
         isFormValid: true
@@ -252,6 +257,7 @@ class AccountForm extends Component {
 }
 
 AccountForm.propTypes = {
+  checkFormValidity: PropTypes.func.isRequired,
   id: PropTypes.number,
   name: PropTypes.string,
   error: PropTypes.string,
