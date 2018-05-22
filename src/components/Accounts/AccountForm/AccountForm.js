@@ -199,7 +199,7 @@ class AccountForm extends Component {
   render() {
     const { error, isLoading, match } = this.props;
     const formTitle =
-      match.path === "/accounts/new" ? "New Account" : "Edit Account";
+      match.path === "/accounts/new" ? "Add Account" : "Edit Account";
 
     const keyList = [];
     for (let key in this.state.formFields) {

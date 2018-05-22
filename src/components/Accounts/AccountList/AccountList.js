@@ -115,7 +115,7 @@ const AccountList = props => {
                 &#9888;{"There are no accounts registered yet."}
               </BlankStateMessage>
             )}
-          {isLoading ? <Spinner size={40} color={"#777"} /> : list}
+          {isLoading ? <Spinner size={25} color={"#777"} /> : list}
         </Fragment>
       </Container>
     </Layout>

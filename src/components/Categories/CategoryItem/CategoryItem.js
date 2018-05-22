@@ -37,8 +37,8 @@ const Name = styled.div`
 `;
 
 const ColorField = styled.div`
-  width: 16px;
-  height: 16px;
+  width: 1em;
+  height: 1em;
   border-radius: 2px;
   background-color: ${props => props.color};
 `;

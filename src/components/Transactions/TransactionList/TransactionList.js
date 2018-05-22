@@ -6,7 +6,7 @@ import { format, addMonths, subMonths } from "date-fns";
 
 import { devices } from "../../../utils/devices";
 import TransactionItem from "../TransactionItem/TransactionItem";
-import withExpandableItem from "../../../hoc/ExpandableItem/ExpandableItem";
+import withExpandableItem from "../../../hoc/withExpandableItem/withExpandableItem";
 
 const Container = styled.div`
   background-color: #fff;
