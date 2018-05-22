@@ -18,7 +18,11 @@ export class AccountItemContainer extends Component {
   };
 
   handleDelete = () => {
-    const { accountData, onDeleteAccount } = this.props;
+    const { accountData, isLoading, onDeleteAccount } = this.props;
+    if (isLoading) {
+      return;
+    }
+
     if (!window.confirm("Are you sure you want to delete this account?")) {
       return;
     }
@@ -26,11 +30,7 @@ export class AccountItemContainer extends Component {
   };
 
   render() {
-    const {
-      accountData,
-      handleActiveItem,
-      isActive
-    } = this.props;
+    const { accountData, handleActiveItem, isActive } = this.props;
     return (
       <AccountItem
         accountData={accountData}
@@ -52,8 +52,15 @@ AccountItemContainer.propTypes = {
   handleActiveItem: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   isActive: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   onDeleteAccount: PropTypes.func.isRequired,
   onSetAccountToEdit: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    isLoading: state.accounts.isLoading
+  };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -69,5 +76,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(null, mapDispatchToProps)(AccountItemContainer)
+  connect(mapStateToProps, mapDispatchToProps)(AccountItemContainer)
 );

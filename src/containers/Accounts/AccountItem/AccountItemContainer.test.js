@@ -14,6 +14,7 @@ describe("AccountItemContainer", () => {
     handleActiveItem: jest.fn(),
     history: {},
     isActive: false,
+    isLoading: false,
     onDeleteAccount: jest.fn(),
     onSetAccountToEdit: jest.fn()
   };
