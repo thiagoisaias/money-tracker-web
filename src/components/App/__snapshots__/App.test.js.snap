@@ -46,5 +46,8 @@ exports[`App renders properly 1`] = `
     exact={true}
     path="/transaction"
   />
+  <Route
+    component={[Function]}
+  />
 </Switch>
 `;

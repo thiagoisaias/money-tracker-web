@@ -27,12 +27,13 @@ export const createCategoryFail = error => {
 export const createCategory = (categoryData, history) => {
   return (dispatch, getState) => {
     const authHeaders = decamelizeKeys(getState().auth.headers);
+    const userId = getState().auth.user.id;
 
     dispatch(createCategoryStart());
 
     axios
       .post(
-        "/categories",
+        `/users/${userId}/categories`,
         { category: decamelizeKeys(categoryData) },
         { headers: authHeaders }
       )
@@ -72,11 +73,12 @@ export const fetchCategoriesFail = error => {
 export const fetchCategories = () => {
   return (dispatch, getState) => {
     const authHeaders = decamelizeKeys(getState().auth.headers);
+    const userId = getState().auth.user.id;
 
     dispatch(fetchCategoriesStart());
 
     axios
-      .get("/categories", { headers: authHeaders })
+      .get(`/users/${userId}/categories`, { headers: authHeaders })
       .then(response => {
         dispatch(fetchCategoriesSuccess(response.data));
       })
@@ -111,12 +113,13 @@ export const updateCategoryFail = error => {
 export const updateCategory = (formData, categoryId, history) => {
   return (dispatch, getState) => {
     const authHeaders = decamelizeKeys(getState().auth.headers);
+    const userId = getState().auth.user.id;
 
     dispatch(updateCategoryStart());
 
     axios
       .put(
-        `/categories/${categoryId}`,
+        `/users/${userId}/categories/${categoryId}`,
         { category: decamelizeKeys(formData) },
         { headers: authHeaders }
       )
@@ -155,11 +158,14 @@ export const deleteCategoryFail = error => {
 export const deleteCategory = categoryId => {
   return (dispatch, getState) => {
     const authHeaders = decamelizeKeys(getState().auth.headers);
+    const userId = getState().auth.user.id;
 
     dispatch(deleteCategoryStart());
 
     axios
-      .delete(`/categories/${categoryId}`, { headers: authHeaders })
+      .delete(`/users/${userId}/categories/${categoryId}`, {
+        headers: authHeaders
+      })
       .then(response => {
         console.log("delete 200 ok");
         dispatch(deleteCategorySuccess(categoryId));
