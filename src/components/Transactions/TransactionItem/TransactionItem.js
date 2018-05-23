@@ -11,11 +11,12 @@ const Container = styled.div`
   cursor: default;
   transition: ease 0.25s;
   overflow: hidden;
-  height: ${props => (props.isActive ? "44px" : "24px")};
+  height: ${props => (props.isActive ? "48px" : "24px")};
   user-select: none;
 
   &:hover {
     border-color: #ddd;
+    cursor: pointer;
   }
 
   @media ${devices.small} {
@@ -29,24 +30,27 @@ const Container = styled.div`
   }
 `;
 
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+`;
+
 const ItemInfoContainer = styled.div`
-  line-height: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   position: relative;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const TransactionType = styled.div`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  opacity: 0.8;
+  ${"" /* opacity: 0.8; */}
   background-color: ${props =>
-    props.type === "earning" ? "#68B168" : "#FC6669"};
+    props.type === "earning" ? "#8CD88C" : "salmon"};
 
   @media ${devices.small} {
     margin-right: 8px;
@@ -73,6 +77,7 @@ const Description = styled.div`
 
 const CategoryContainer = styled.div`
   display: flex;
+  align-items: center;
 
   @media ${devices.small} {
     width: 30%;
@@ -103,7 +108,7 @@ const Value = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${props =>
-    props.transactionType === "earning" ? "#68B168" : "#FC6669"};
+    props.transactionType === "earning" ? "#8CD88C" : "salmon"};
 
   @media ${devices.small} {
     width: 30%;
@@ -132,12 +137,18 @@ const DateText = styled.div`
   }
 `;
 
+const Account = styled.div`
+  font-size: 12px;
+  @media ${devices.mediumUp} {
+    margin-left: 16px;
+  }
+`;
+
 const ActionsContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
   color: #777;
   font-size: 12px;
-  margin-top: 8px;
 
   @media ${devices.mediumUp} {
     margin-left: 16px;
@@ -159,12 +170,13 @@ const actionClick = action => {
 
 const TransactionItem = props => {
   return (
-    <Container isActive={props.isActive}>
-      <ItemInfoContainer
-        onClick={() => {
-          props.handleActiveItem(props.id);
-        }}
-      >
+    <Container
+      onClick={() => {
+        props.handleActiveItem(props.id);
+      }}
+      isActive={props.isActive}
+    >
+      <ItemInfoContainer>
         <TransactionType type={props.transaction_type} />
         <DateText>{format(new Date(props.date), "DD")}</DateText>
         <Description> {props.description} </Description>
@@ -176,35 +188,44 @@ const TransactionItem = props => {
           {`${props.value.toLocaleString()}`}
         </Value>
       </ItemInfoContainer>
-      <ActionsContainer>
-        <Action
-          onClick={() => {
-            actionClick("Edit");
-          }}
-        >
-          {"Edit"}
-        </Action>
-        <Action
-          onClick={() => {
-            actionClick("Delete");
-          }}
-        >
-          {"Delete"}
-        </Action>
-      </ActionsContainer>
+      <Row>
+        <Account>{props.account.name}</Account>
+        <ActionsContainer>
+          <Action
+            onClick={() => {
+              actionClick("Edit");
+            }}
+          >
+            {"Edit"}
+          </Action>
+          <Action
+            onClick={() => {
+              actionClick("Delete");
+            }}
+          >
+            {"Delete"}
+          </Action>
+        </ActionsContainer>
+      </Row>
     </Container>
   );
 };
 
 TransactionItem.propTypes = {
+  account: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    initialBalance: PropTypes.number.isRequired
+  }).isRequired,
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   category: PropTypes.shape({
-    name: PropTypes.string,
-    color: PropTypes.string
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired
   }).isRequired,
   value: PropTypes.number.isRequired,
-  transaction_type: PropTypes.string.isRequired,
+  transactionType: PropTypes.string.isRequired,
   handleActiveItem: PropTypes.func.isRequired
 };
 

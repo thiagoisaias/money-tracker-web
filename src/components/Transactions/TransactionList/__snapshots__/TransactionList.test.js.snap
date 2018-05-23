@@ -1,8 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TransactionList renders properly 1`] = `
-<TransactionList
-  activeItemId={null}
-  handleActiveItem={[Function]}
-/>
+<styled.div>
+  <styled.div>
+    <Styled(NavLink)
+      to="/transaction"
+    >
+      Add Transaction
+    </Styled(NavLink)>
+    <styled.div>
+      <styled.div
+        onClick={[Function]}
+      >
+        ‹
+      </styled.div>
+      <styled.div>
+        Invalid Date
+      </styled.div>
+      <styled.div
+        onClick={[Function]}
+      >
+        ›
+      </styled.div>
+    </styled.div>
+  </styled.div>
+  <TransactionItem
+    category={
+      Object {
+        "color": "#DDD",
+        "id": 1,
+        "name": "Transport",
+      }
+    }
+    date="2018-04-22"
+    description="Uber"
+    handleActiveItem={[Function]}
+    id={1}
+    isActive={true}
+    key="1"
+    transaction_type="expense"
+    value={150.67}
+  />
+  <TransactionItem
+    category={
+      Object {
+        "color": "lightblue",
+        "id": 2,
+        "name": "Salary",
+      }
+    }
+    date="2018-04-23"
+    description="Lorem Ipsum Dolor Transaction Mousepad Monitor"
+    handleActiveItem={[Function]}
+    id={2}
+    isActive={false}
+    key="2"
+    transaction_type="earning"
+    value={200.43}
+  />
+</styled.div>
 `;

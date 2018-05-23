@@ -1,12 +1,11 @@
-import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { format, addMonths, subMonths } from "date-fns";
+import { format } from "date-fns";
+import { NavLink } from "react-router-dom";
 
 import { devices } from "../../../utils/devices";
 import TransactionItem from "../TransactionItem/TransactionItem";
-import withExpandableItem from "../../../hoc/withExpandableItem/withExpandableItem";
 
 const Container = styled.div`
   background-color: #fff;
@@ -42,20 +41,18 @@ const Header = styled.div`
 
 const TransactionLink = styled(NavLink)`
   display: block;
-  width: 125px;
-  height: 35px;
-  line-height: 35px;
-  padding: 0 8px;
+  width: 130px;
+  height: 40px;
+  line-height: 40px;
   border-radius: 2px;
-  background-color: #add8e6;
+  background-color: #333;
   color: #fff;
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
-  
+
   &:hover {
     cursor: pointer;
-    background-color: #a9cdd8;
-    opacity: 1;
+    opacity: 0.95;
   }
 
   @media ${devices.small} {
@@ -108,109 +105,83 @@ const BlankStateMessage = styled.p`
   margin-bottom: 16px;
 `;
 
-const mockProps = {
-  transactionList: [
-    {
-      id: "AA8236$@",
-      date: "2018-04-22",
-      description: "Uber",
-      value: 150.67,
-      category: {
-        name: "Transport",
-        color: "#DDD"
-      },
-      transaction_type: "expense"
-    },
-    {
-      id: "BB8236$@",
-      date: "2018-04-23",
-      description: "Lorem Ipsum Dolor Transaction Mousepad Monitor",
-      value: 200.43,
-      category: {
-        name: "Salary",
-        color: "lightblue"
-      },
-      transaction_type: "earning"
-    },
-    {
-      id: "CC8236$@",
-      date: "2018-04-24",
-      description: "Lorem Ipsum Dolor",
-      value: 8.34,
-      category: {
-        name: "Home",
-        color: "#FA7203"
-      },
-      transaction_type: "expense"
-    }
-  ]
-};
+const TransactionList = props => {
+  const {
+    activeItemId,
+    handleActiveItem,
+    handleMonthChange,
+    selectedDate,
+    transactionList
+  } = props;
 
-class TransactionList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedDate: new Date()
-    };
-  }
-
-  handleNextMonth = () => {
-    this.setState(prevState => {
-      return { selectedDate: addMonths(prevState.selectedDate, 1) };
-    });
-  };
-
-  handlePreviousMonth = () => {
-    this.setState(prevState => {
-      return { selectedDate: subMonths(prevState.selectedDate, 1) };
-    });
-  };
-
-  render() {
-    // const mockList = [];
-    const mockList = mockProps.transactionList;
-    const transactions = mockList.map(transaction => {
-      const isActive = this.props.activeItemId === transaction.id;
-      return (
-        <TransactionItem
-          key={transaction.id}
-          handleActiveItem={this.props.handleActiveItem}
-          isActive={isActive}
-          {...transaction}
-        />
-      );
-    });
-
+  const transactions = transactionList.map(transaction => {
+    const isActive = activeItemId === transaction.id;
     return (
-      <Container>
-        <Header>
-          <TransactionLink to="/transaction">
-            {"Add Transaction"}
-          </TransactionLink>
-          <MonthSelector>
-            <Arrow onClick={this.handlePreviousMonth}>&lsaquo;</Arrow>
-            <CurrentMonth>
-              {format(this.state.selectedDate, "MMMM of YYYY")}
-            </CurrentMonth>
-            <Arrow onClick={this.handleNextMonth}>&rsaquo;</Arrow>
-          </MonthSelector>
-        </Header>
-        {transactions.length > 0 ? (
-          transactions
-        ) : (
-          <BlankStateMessage>
-            &#9888;{"There are no transactions in this period."}
-          </BlankStateMessage>
-        )}
-      </Container>
+      <TransactionItem
+        key={transaction.id}
+        handleActiveItem={handleActiveItem}
+        isActive={isActive}
+        {...transaction}
+      />
     );
-  }
-}
+  });
+
+  return (
+    <Container>
+      <Header>
+        <TransactionLink to="/transaction">{"Add Transaction"}</TransactionLink>
+        <MonthSelector>
+          <Arrow
+            onClick={() => {
+              handleMonthChange("previous");
+            }}
+          >
+            &lsaquo;
+          </Arrow>
+          <CurrentMonth>{format(selectedDate, "MMMM of YYYY")}</CurrentMonth>
+          <Arrow
+            onClick={() => {
+              handleMonthChange("next");
+            }}
+          >
+            &rsaquo;
+          </Arrow>
+        </MonthSelector>
+      </Header>
+      {transactions.length > 0 ? (
+        transactions
+      ) : (
+        <BlankStateMessage>
+          &#9888;{"There are no transactions in this period."}
+        </BlankStateMessage>
+      )}
+    </Container>
+  );
+};
 
 TransactionList.propTypes = {
-  transactionList: PropTypes.array,
-  activeItemId: PropTypes.string,
-  handleActiveItem: PropTypes.func.isRequired
+  activeItemId: PropTypes.number,
+  handleActiveItem: PropTypes.func.isRequired,
+  handleMonthChange: PropTypes.func.isRequired,
+  transactionList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      account: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        initialBalance: PropTypes.number.isRequired
+      }).isRequired,
+      category: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        color: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired,
+      date: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      transactionType: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+  )
 };
 
-export default withExpandableItem(TransactionList);
+export default TransactionList;

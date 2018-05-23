@@ -1,9 +1,9 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
 
-export const fetchTransactions = loginData => {
-  return dispatch => {
-    const { email, password } = loginData;
+export const fetchTransactionsStart = () => {
+  return {
+    type: actionTypes.FETCH_TRANSACTIONS_START
   };
 };
 
@@ -13,15 +13,15 @@ export const fetchTransactionsSuccess = () => {
   };
 };
 
-export const fetchTransactionsFail = (error) => {
+export const fetchTransactionsFail = error => {
   return {
     type: actionTypes.FETCH_TRANSACTIONS_FAIL,
     error
   };
 };
 
-export const fetchTransactionsStart = () => {
-  return {
-    type: actionTypes.FETCH_TRANSACTIONS_START
+export const fetchTransactions = () => {
+  return (dispatch, getState) => {
+    dispatch(fetchTransactionsStart());
   };
 };
