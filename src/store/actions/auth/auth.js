@@ -25,7 +25,11 @@ export const login = (loginData, history) => {
         history.push("/");
       })
       .catch(error => {
-        dispatch(authFail(error.response.data.errors));
+        console.log(error.response.data);
+        const message = error.response.data.errors
+          ? error.response.data.errors[0]
+          : "Something went wrong.";
+        dispatch(authFail(message));
       });
   };
 };
@@ -51,11 +55,14 @@ export const signup = (signupData, history) => {
           }
         };
         dispatch(authSuccess(authData));
-        history.push("/accounts/new");
+        history.push("/");
       })
       .catch(error => {
-        const mockError = "Something went wrong.";
-        dispatch(authFail(mockError));
+        console.log(error.response.data);
+        const message = error.response.data.errors.full_messages
+          ? error.response.data.errors.full_messages[0]
+          : "Something went wrong.";
+        dispatch(authFail(message));
       });
   };
 };
