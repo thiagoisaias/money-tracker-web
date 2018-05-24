@@ -21,7 +21,7 @@ const App = props => {
       <Route exact path="/categories" component={CategoryListContainer} />
       <Route exact path="/categories/new" component={CategoryFormContainer} />
       <Route exact path="/categories/:id/edit" component={CategoryFormContainer} />
-      <Route exact path="/transaction" component={TransactionForm} />
+      <Route exact path="/transactions/new" component={TransactionForm} />
       <Route component={NotFound} />
     </Switch>
   );

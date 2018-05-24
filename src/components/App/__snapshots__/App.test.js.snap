@@ -44,7 +44,7 @@ exports[`App renders properly 1`] = `
   <Route
     component={[Function]}
     exact={true}
-    path="/transaction"
+    path="/transactions/new"
   />
   <Route
     component={[Function]}
