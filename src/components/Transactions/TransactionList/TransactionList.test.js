@@ -12,6 +12,11 @@ describe("TransactionList", () => {
     transactionList: [
       {
         id: 1,
+        account: {
+          id: 1,
+          name: "Lorem",
+          initialBalance: 0
+        },
         date: "2018-04-22",
         description: "Uber",
         value: 150.67,
@@ -20,10 +25,15 @@ describe("TransactionList", () => {
           name: "Transport",
           color: "#DDD"
         },
-        transaction_type: "expense"
+        transactionType: "expense"
       },
       {
         id: 2,
+        account: {
+          id: 2,
+          name: "Lorem",
+          initialBalance: 0
+        },
         date: "2018-04-23",
         description: "Lorem Ipsum Dolor Transaction Mousepad Monitor",
         value: 200.43,
@@ -32,7 +42,7 @@ describe("TransactionList", () => {
           name: "Salary",
           color: "lightblue"
         },
-        transaction_type: "earning"
+        transactionType: "earning"
       }
     ]
   };

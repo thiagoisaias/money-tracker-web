@@ -179,7 +179,7 @@ TransactionList.propTypes = {
       date: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       transactionType: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
+      value: PropTypes.number.isRequired
     })
   )
 };

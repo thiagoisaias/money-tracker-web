@@ -42,9 +42,8 @@ export class TransactionListContainer extends Component {
   };
 
   componentDidMount() {
-    const { onFetchTransactionList, transactionList } = this.props;
+    const { onFetchTransactionList } = this.props;
     onFetchTransactionList();
-    console.log("Transaction List", transactionList);
   }
 
   render() {
@@ -61,7 +60,9 @@ export class TransactionListContainer extends Component {
   }
 }
 
-TransactionList.propTypes = {
+TransactionListContainer.propTypes = {
+  activeItemId: PropTypes.number,
+  handleActiveItem: PropTypes.func.isRequired,
   onFetchTransactionList: PropTypes.func.isRequired,
   selectedDate: PropTypes.string,
   transactionList: PropTypes.arrayOf(
@@ -80,7 +81,7 @@ TransactionList.propTypes = {
       date: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       transactionType: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
+      value: PropTypes.number.isRequired
     })
   )
 };

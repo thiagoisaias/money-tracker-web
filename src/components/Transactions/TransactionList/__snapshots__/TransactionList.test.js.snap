@@ -25,6 +25,13 @@ exports[`TransactionList renders properly 1`] = `
     </styled.div>
   </styled.div>
   <TransactionItem
+    account={
+      Object {
+        "id": 1,
+        "initialBalance": 0,
+        "name": "Lorem",
+      }
+    }
     category={
       Object {
         "color": "#DDD",
@@ -38,10 +45,17 @@ exports[`TransactionList renders properly 1`] = `
     id={1}
     isActive={true}
     key="1"
-    transaction_type="expense"
+    transactionType="expense"
     value={150.67}
   />
   <TransactionItem
+    account={
+      Object {
+        "id": 2,
+        "initialBalance": 0,
+        "name": "Lorem",
+      }
+    }
     category={
       Object {
         "color": "lightblue",
@@ -55,7 +69,7 @@ exports[`TransactionList renders properly 1`] = `
     id={2}
     isActive={false}
     key="2"
-    transaction_type="earning"
+    transactionType="earning"
     value={200.43}
   />
 </styled.div>
