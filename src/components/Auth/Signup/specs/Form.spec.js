@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import { SignupForm } from "./SignupForm";
+import Form from "../Form";
 
-describe("SignupForm", () => {
+describe("Signup Form", () => {
   const mockProps = {
     error: null,
     handleInputChange: jest.fn(),
@@ -12,7 +12,7 @@ describe("SignupForm", () => {
     onSubmitData: jest.fn()
   };
 
-  const component = shallow(<SignupForm {...mockProps} />);
+  const component = shallow(<Form {...mockProps} />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();

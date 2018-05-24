@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Signup FormContainer renders properly 1`] = `
+<Component
+  error={null}
+  isLoading={false}
+  onSignup={[Function]}
+  onSubmitData={[Function]}
+/>
+`;

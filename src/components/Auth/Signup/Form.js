@@ -1,78 +1,20 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 
-import Spinner from "../../UI/Spinner/Spinner";
-import withFormHandler from "../../../hoc/withFormHandler/withFormHandler";
+import {
+  StyledForm,
+  SubmitButton,
+  Title,
+  Alternate,
+  Link,
+  ErrorMessage
+} from "./styled";
 
-const ErrorMessage = styled.p`
-  color: salmon;
-  font-size: 14px;
-  margin: 16px 0;
-`;
+import Input from "components/UI/Input/Input";
+import Spinner from "components/UI/Spinner/Spinner";
+import withFormHandler from "hoc/withFormHandler/withFormHandler";
 
-const Form = styled.form`
-  width: 100%;
-`;
-
-const Input = styled.input`
-  display: block;
-  height: 40px;
-  width: calc(100% - 18px);
-  border: 1px solid #eee;
-  border-radius: 2px;
-  font-family: inherit;
-  color: inherit;
-  font-size: 14px;
-  margin: 6px 0;
-  padding-left: 16px;
-
-  &:focus {
-    border: 1px solid #d2d2d2;
-  }
-
-  &::placeholder {
-    opacity: 0.7;
-  }
-`;
-
-const SubmitButton = styled.button`
-  width: 100%;
-  height: 40px;
-  font: inherit;
-  font-size: 12px;
-  background-color: #333;
-  border-radius: 2px;
-  color: #fff;
-  margin-top: 16px;
-
-  &:hover {
-    cursor: pointer;
-    opacity: 0.95;
-  }
-`;
-
-const Title = styled.h2`
-  text-align: center;
-  font-weight: 600;
-  margin-bottom: 32px;
-  font-size: 22px;
-`;
-
-const Alternate = styled.div`
-  font-size: 12px;
-  color: #333;
-  margin-top: 32px;
-  text-align: center;
-`;
-
-const Link = styled(NavLink)`
-  cursor: pointer;
-  font-weight: 600;
-`;
-
-export class SignupForm extends Component {
+class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -205,13 +147,13 @@ export class SignupForm extends Component {
     return (
       <Fragment>
         <Title>{"Create an account"}</Title>
-        <Form onSubmit={this.handleSubmit}>
+        <StyledForm onSubmit={this.handleSubmit}>
           {error && <ErrorMessage> {error} </ErrorMessage>}
           {inputList}
           <SubmitButton onClick={this.handleSubmit}>
             {isLoading ? <Spinner size={25} color={"#ddd"} /> : "Sign Up"}
           </SubmitButton>
-        </Form>
+        </StyledForm>
         <Alternate>
           {"Already have an account? "}
           <Link to="/auth/login">{"Login here"}</Link>
@@ -221,11 +163,11 @@ export class SignupForm extends Component {
   }
 }
 
-SignupForm.propTypes = {
+Form.propTypes = {
   error: PropTypes.string,
   handleInputChange: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   onSubmitData: PropTypes.func.isRequired
 };
 
-export default withFormHandler(SignupForm);
+export default withFormHandler(Form);
