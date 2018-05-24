@@ -13,7 +13,7 @@ import {
 } from "../../../store/actions/accounts/accounts";
 
 export class AccountFormContainer extends Component {
-  submitData = formData => {
+  onSubmitData = formData => {
     const {
       accountToEdit,
       history,
@@ -41,7 +41,7 @@ export class AccountFormContainer extends Component {
     return (
       <AccountForm
         {...accountToEdit}
-        submitData={this.submitData}
+        onSubmitData={this.onSubmitData}
         error={error}
         isLoading={isLoading}
         match={match}

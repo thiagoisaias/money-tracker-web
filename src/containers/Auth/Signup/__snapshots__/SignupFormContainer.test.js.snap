@@ -5,6 +5,6 @@ exports[`SignupFormContainer renders properly 1`] = `
   error={null}
   isLoading={false}
   onSignup={[Function]}
-  submitData={[Function]}
+  onSubmitData={[Function]}
 />
 `;

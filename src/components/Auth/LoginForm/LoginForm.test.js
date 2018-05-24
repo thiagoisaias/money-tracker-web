@@ -9,7 +9,7 @@ describe("LoginForm", () => {
     error: null,
     handleInputChange: jest.fn(),
     isLoading: false,
-    submitData: jest.fn()
+    onSubmitData: jest.fn()
   };
 
   const component = shallow(<LoginForm {...mockProps} />);

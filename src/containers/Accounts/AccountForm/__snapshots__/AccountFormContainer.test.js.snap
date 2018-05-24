@@ -8,6 +8,6 @@ exports[`AccountFormContainer renders properly 1`] = `
   isLoading={false}
   match={Object {}}
   name="Lorem"
-  submitData={[Function]}
+  onSubmitData={[Function]}
 />
 `;

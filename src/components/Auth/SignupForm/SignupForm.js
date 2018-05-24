@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 import Spinner from "../../UI/Spinner/Spinner";
-import withFormInputHandler from "../../../hoc/withFormInputHandler/withFormInputHandler";
+import withFormHandler from "../../../hoc/withFormHandler/withFormHandler";
 
 const ErrorMessage = styled.p`
   color: salmon;
@@ -167,7 +167,7 @@ export class SignupForm extends Component {
   };
 
   handleSubmit = event => {
-    const { submitData } = this.props;
+    const { onSubmitData } = this.props;
     event.preventDefault();
 
     const formData = {};
@@ -176,7 +176,7 @@ export class SignupForm extends Component {
       formData[fieldKey] = this.state.formFields[fieldKey].value;
     }
 
-    submitData(formData);
+    onSubmitData(formData);
   };
 
   render() {
@@ -225,7 +225,7 @@ SignupForm.propTypes = {
   error: PropTypes.string,
   handleInputChange: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  submitData: PropTypes.func.isRequired
+  onSubmitData: PropTypes.func.isRequired
 };
 
-export default withFormInputHandler(SignupForm);
+export default withFormHandler(SignupForm);

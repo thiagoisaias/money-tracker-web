@@ -7,7 +7,7 @@ import { signup, clearAuthError } from "../../../store/actions/auth/auth";
 import SignupForm from "../../../components/Auth/SignupForm/SignupForm";
 
 export class SignupFormContainer extends Component {
-  submitData = formData => {
+  onSubmitData = formData => {
     const { history, isLoading, onSignup } = this.props;
 
     if (isLoading) {
@@ -24,7 +24,7 @@ export class SignupFormContainer extends Component {
         error={error}
         isLoading={isLoading}
         onSignup={onSignup}
-        submitData={this.submitData}
+        onSubmitData={this.onSubmitData}
       />
     );
   }

@@ -12,7 +12,7 @@ import {
 import CategoryForm from "../../../components/Categories/CategoryForm/CategoryForm";
 
 export class CategoryFormContainer extends Component {
-  submitData = formData => {
+  onSubmitData = formData => {
     const {
       categoryToEdit,
       history,
@@ -43,7 +43,7 @@ export class CategoryFormContainer extends Component {
         error={error}
         isLoading={isLoading}
         match={match}
-        submitData={this.submitData}
+        onSubmitData={this.onSubmitData}
       />
     );
   }

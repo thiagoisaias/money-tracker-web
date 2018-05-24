@@ -5,6 +5,6 @@ exports[`LoginFormContainer renders properly 1`] = `
   error={null}
   isLoading={false}
   onLogin={[Function]}
-  submitData={[Function]}
+  onSubmitData={[Function]}
 />
 `;

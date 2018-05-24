@@ -6,6 +6,6 @@ exports[`LoginForm renders properly 1`] = `
   error={null}
   handleInputChange={[Function]}
   isLoading={false}
-  submitData={[Function]}
+  onSubmitData={[Function]}
 />
 `;

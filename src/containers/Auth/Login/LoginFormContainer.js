@@ -7,7 +7,7 @@ import { clearAuthError, login } from "../../../store/actions/auth/auth";
 import LoginForm from "../../../components/Auth/LoginForm/LoginForm";
 
 export class LoginFormContainer extends Component {
-  submitData = formData => {
+  onSubmitData = formData => {
     const { history, isLoading, onLogin } = this.props;
 
     if (isLoading) {
@@ -24,7 +24,7 @@ export class LoginFormContainer extends Component {
         error={error}
         isLoading={isLoading}
         onLogin={onLogin}
-        submitData={this.submitData}
+        onSubmitData={this.onSubmitData}
       />
     );
   }
