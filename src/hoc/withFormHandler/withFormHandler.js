@@ -23,7 +23,7 @@ state = {
 }
 */
 
-const withFormInputHandler = (WrappedComponent, props) => {
+const withFormHandler = (WrappedComponent, props) => {
   return class extends Component {
     handleInputChange = (event, formFields, checkFieldValidity) => {
       const target = event.target;
@@ -70,16 +70,26 @@ const withFormInputHandler = (WrappedComponent, props) => {
       return isFormValid;
     };
 
+    generateFormData = formFields => {
+      const formData = {};
+      for (let fieldKey in formFields) {
+        formData[fieldKey] = formFields[fieldKey].value;
+      }
+
+      return formData;
+    };
+
     render() {
       return (
         <WrappedComponent
           {...this.props}
-          handleInputChange={this.handleInputChange}
           checkFormValidity={this.checkFormValidity}
+          generateFormData={this.generateFormData}
+          handleInputChange={this.handleInputChange}
         />
       );
     }
   };
 };
 
-export default withFormInputHandler;
+export default withFormHandler;
