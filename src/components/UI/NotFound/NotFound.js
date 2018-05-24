@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-// import { devices } from "../../../utils/devices";
 
+import image from "../../../assets/images/welcome.jpg";
 
 const Container = styled.div`
   width: 100vw;
@@ -9,6 +9,10 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.80)),
+      url(${image}) bottom no-repeat;
+  background-size: cover;
   background-color: #222;
   color: #eee;
   font-size: 36px;
