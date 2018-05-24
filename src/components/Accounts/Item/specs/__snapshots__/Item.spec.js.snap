@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AccountItem renders properly 1`] = `
+exports[`Account Item renders properly 1`] = `
 <styled.div
   isActive={false}
   onClick={[Function]}

@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import AccountItem from "./AccountItem";
+import Item from "../Item";
 
-describe("AccountItem", () => {
+describe("Account Item", () => {
   const mockProps = {
     accountData: {
       id: 1,
@@ -17,7 +17,7 @@ describe("AccountItem", () => {
     isActive: false
   };
 
-  const component = shallow(<AccountItem {...mockProps} />);
+  const component = shallow(<Item {...mockProps} />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();

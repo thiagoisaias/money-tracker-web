@@ -1,111 +1,25 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 
-import { devices } from "../../../utils/devices";
-import Layout from "../../Layout/Layout";
-import Spinner from "../../UI/Spinner/Spinner";
-import withFormInputHandler from "../../../hoc/withFormInputHandler/withFormInputHandler";
+import {
+  Container,
+  Row,
+  Message,
+  ColoredMark,
+  Title,
+  FormContainer,
+  FormGroup,
+  Label,
+  SubmitButton,
+  ErrorMessage
+} from "components/UI/Form/Form";
 
-const Container = styled.div`
-  background-color: #fff;
-  box-shadow: 1px;
-  margin: 0 auto;
-  color: #484848;
-  box-shadow: 0.5px 1px 1px 1px #ddd;
+import Input from "components/UI/Input/Input";
+import Layout from "components/Layout/Layout";
+import Spinner from "components/UI/Spinner/Spinner";
+import withFormHandler from "hoc/withFormHandler/withFormHandler";
 
-  @media ${devices.small} {
-    padding: 32px 16px;
-  }
-
-  @media ${devices.mediumUp} {
-    padding: 32px 32px 55px 32px;
-    margin: 32px auto;
-    border-radius: 2px;
-  }
-`;
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Message = styled.div`
-  font-size: 12px;
-  color: #777;
-`;
-
-const ColoredMark = styled.span`
-  font-size: 14px;
-  font-weight: 600;
-  color: #add8e6;
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 32px;
-`;
-
-const FormContainer = styled.form``;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 24px 0;
-`;
-
-const Label = styled.label`
-  font-weight: 400;
-  color: #777;
-  margin-bottom: 6px;
-`;
-
-const Input = styled.input`
-  border: ${props =>
-    !props.isValid && props.touched
-      ? "1px solid #f9b498"
-      : "1px solid #f2f2f2"};
-  border-radius: 2px;
-  padding: 6px;
-  font: inherit;
-  color: inherit;
-
-  &:focus {
-    border: 1px solid #ddd;
-  }
-
-  &::placeholder {
-    opacity: 0.6;
-  }
-`;
-
-const SubmitButton = styled.button`
-  border-radius: 2px;
-  font: inherit;
-  font-size: 12px;
-  background-color: #333;
-  color: #fff;
-  width: 130px;
-  height: 40px;
-
-  background-color: ${props => (props.disabled ? "#777" : "#333")};
-
-  &:hover {
-    cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
-    opacity: ${props => (props.disabled ? 1 : 0.95)};
-  }
-`;
-
-const ErrorMessage = styled.p`
-  color: #e75252;
-  font-size: 14px;
-  margin-top: 16px;
-`;
-
-class AccountForm extends Component {
+class Form extends Component {
   constructor(props) {
     super(props);
 
@@ -163,6 +77,7 @@ class AccountForm extends Component {
     const { handleInputChange } = this.props;
     const formFields = { ...this.state.formFields };
     const checkFieldValidity = this.checkFieldValidity;
+    event.preventDefault();
     const updatedFormState = handleInputChange(
       event,
       formFields,
@@ -174,15 +89,12 @@ class AccountForm extends Component {
   };
 
   handleSubmit = event => {
-    const { submitData } = this.props;
+    const { generateFormData, onSubmitData } = this.props;
     event.preventDefault();
 
-    const formData = {};
-    for (let fieldKey in this.state.formFields) {
-      formData[fieldKey] = this.state.formFields[fieldKey].value;
-    }
+    const formData = generateFormData(this.state.formFields);
 
-    submitData(formData);
+    onSubmitData(formData);
   };
 
   componentDidMount() {
@@ -219,7 +131,8 @@ class AccountForm extends Component {
             {formField.name} <ColoredMark>*</ColoredMark>
           </Label>
           <Input
-            {...formField.elementConfig}
+            elementConfig={formField.elementConfig}
+            elementType={formField.elementType}
             name={key}
             value={formField.value}
             touched={formField.touched}
@@ -256,16 +169,17 @@ class AccountForm extends Component {
   }
 }
 
-AccountForm.propTypes = {
+Form.propTypes = {
   checkFormValidity: PropTypes.func.isRequired,
   id: PropTypes.number,
   name: PropTypes.string,
   error: PropTypes.string,
+  generateFormData: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   initialBalance: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
-  submitData: PropTypes.func.isRequired
+  onSubmitData: PropTypes.func.isRequired
 };
 
-export default withFormInputHandler(AccountForm);
+export default withFormHandler(Form);

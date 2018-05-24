@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import AccountForm from "./AccountForm";
+import Form from "../Form";
 
-describe("AccountForm", () => {
+describe("Account Form", () => {
   const mockProps = {
     id: 1,
     name: "Lorem",
@@ -12,9 +12,9 @@ describe("AccountForm", () => {
     initialBalance: "32423.43",
     isLoading: false,
     match: { path: "/path" },
-    submitData: jest.fn()
+    onSubmitData: jest.fn()
   };
-  const component = shallow(<AccountForm {...mockProps} />);
+  const component = shallow(<Form {...mockProps} />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();

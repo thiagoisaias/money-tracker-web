@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import AccountList from "./AccountList";
+import List from "../List";
 
-describe("AccountList", () => {
+describe("Account List", () => {
   const mockProps = {
     accountList: [
       { id: 1, initialBalance: "34534", name: "Lorem One" },
@@ -15,7 +15,7 @@ describe("AccountList", () => {
     handleActiveItem: jest.fn(),
     isLoading: false
   };
-  const component = shallow(<AccountList {...mockProps} />);
+  const component = shallow(<List {...mockProps} />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();

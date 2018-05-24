@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Account List renders properly 1`] = `
+<List
+  accountList={
+    Array [
+      Object {
+        "id": 1,
+        "initialBalance": "34534",
+        "name": "Lorem One",
+      },
+      Object {
+        "id": 2,
+        "initialBalance": "94834",
+        "name": "Lorem Two",
+      },
+    ]
+  }
+  activeItemId={1}
+  error={null}
+  handleActiveItem={[Function]}
+  isLoading={false}
+/>
+`;

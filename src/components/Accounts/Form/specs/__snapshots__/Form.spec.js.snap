@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AccountForm renders properly 1`] = `
-<AccountForm
+exports[`Account Form renders properly 1`] = `
+<Form
   checkFormValidity={[Function]}
   error={null}
+  generateFormData={[Function]}
   handleInputChange={[Function]}
   id={1}
   initialBalance="32423.43"
@@ -14,6 +15,6 @@ exports[`AccountForm renders properly 1`] = `
     }
   }
   name="Lorem"
-  submitData={[Function]}
+  onSubmitData={[Function]}
 />
 `;
