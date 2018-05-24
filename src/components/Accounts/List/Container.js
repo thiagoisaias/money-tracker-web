@@ -6,7 +6,7 @@ import List from "./List";
 
 import { fetchAccounts } from "store/actions/accounts/accounts";
 
-export class ListContainer extends Component {
+export class Container extends Component {
   componentDidMount() {
     const { onFetchAccountList } = this.props;
 
@@ -24,7 +24,7 @@ export class ListContainer extends Component {
   }
 }
 
-ListContainer.propTypes = {
+Container.propTypes = {
   accountList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -53,4 +53,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

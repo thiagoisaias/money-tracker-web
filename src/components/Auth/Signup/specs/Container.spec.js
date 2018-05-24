@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import { SignupContainer } from "../SignupContainer";
+import { Container } from "../Container";
 
-describe("Signup FormContainer", () => {
+describe("Signup Form Container", () => {
   const mockProps = {
     error: null,
     onClearAuthError: jest.fn(),
@@ -12,7 +12,7 @@ describe("Signup FormContainer", () => {
     isLoading: false,
     history: {}
   };
-  const component = shallow(<SignupContainer {...mockProps} />);
+  const component = shallow(<Container {...mockProps} />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();

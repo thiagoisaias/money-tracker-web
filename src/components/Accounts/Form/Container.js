@@ -12,7 +12,7 @@ import {
   clearAccountToEdit
 } from "store/actions/accounts/accounts";
 
-export class FormContainer extends Component {
+export class Container extends Component {
   onSubmitData = formData => {
     const {
       accountToEdit,
@@ -65,7 +65,7 @@ export class FormContainer extends Component {
   }
 }
 
-FormContainer.propTypes = {
+Container.propTypes = {
   accountToEdit: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -110,5 +110,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(FormContainer)
+  connect(mapStateToProps, mapDispatchToProps)(Container)
 );

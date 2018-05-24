@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { devices } from "utils/devices";
 import { NavLink } from "react-router-dom";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   background-color: #fff;
   box-shadow: 1px;
   margin: 0 auto;
@@ -20,14 +20,14 @@ const Wrapper = styled.div`
   }
 `;
 
-const Header = styled.div`
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
 `;
 
-const Title = styled.h2`
+export const Title = styled.h2`
   font-size: 24px;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -37,7 +37,7 @@ const Title = styled.h2`
   }
 `;
 
-const LinkButton = styled(NavLink)`
+export const LinkButton = styled(NavLink)`
   display: block;
   width: 130px;
   height: 40px;
@@ -54,13 +54,13 @@ const LinkButton = styled(NavLink)`
   }
 `;
 
-const ErrorMessage = styled.p`
+export const ErrorMessage = styled.p`
   color: #e75252;
   font-size: 14px;
   margin-top: 16px;
 `;
 
-const BlankStateMessage = styled.p`
+export const BlankStateMessage = styled.p`
   display: block;
   color: #999;
   font-size: 14px;

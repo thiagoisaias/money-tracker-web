@@ -10,7 +10,7 @@ import {
   BlankStateMessage
 } from "./styled";
 
-import ItemContainer from "../Item/ItemContainer";
+import ItemContainer from "../Item/Container";
 import Layout from "components/Layout/Layout";
 import Spinner from "components/UI/Spinner/Spinner";
 import withExpandableItem from "hoc/withExpandableItem/withExpandableItem";

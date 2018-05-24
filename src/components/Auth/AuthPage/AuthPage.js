@@ -10,8 +10,8 @@ import {
   PhotoCredit
 } from "./styled";
 
-import LoginContainer from "../Login/LoginContainer";
-import SignupContainer from "../Signup/SignupContainer";
+import LoginContainer from "../Login/Container";
+import SignupContainer from "../Signup/Container";
 
 const AuthPage = props => {
   return (

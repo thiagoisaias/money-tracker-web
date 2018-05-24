@@ -10,7 +10,7 @@ import {
   setAccountToEdit
 } from "store/actions/accounts/accounts";
 
-export class ItemContainer extends Component {
+export class Container extends Component {
   handleEdit = () => {
     const { accountData, history, onSetAccountToEdit } = this.props;
     onSetAccountToEdit(accountData);
@@ -43,7 +43,7 @@ export class ItemContainer extends Component {
   }
 }
 
-ItemContainer.propTypes = {
+Container.propTypes = {
   accountData: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -72,9 +72,9 @@ const mapDispatchToProps = dispatch => {
     onSetAccountToEdit: account => {
       dispatch(setAccountToEdit(account));
     }
-  };;
+  };
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ItemContainer)
+  connect(mapStateToProps, mapDispatchToProps)(Container)
 );

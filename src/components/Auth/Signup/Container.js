@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 import { signup, clearAuthError } from "store/actions/auth/auth";
 import Form from "./Form";
 
-export class SignupContainer extends Component {
+export class Container extends Component {
   onSubmitData = formData => {
     const { history, isLoading, onSignup } = this.props;
 
@@ -37,7 +37,7 @@ export class SignupContainer extends Component {
   }
 }
 
-SignupContainer.propTypes = {
+Container.propTypes = {
   error: PropTypes.string,
   onClearAuthError: PropTypes.func.isRequired,
   onSignup: PropTypes.func.isRequired,
@@ -65,5 +65,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SignupContainer)
+  connect(mapStateToProps, mapDispatchToProps)(Container)
 );

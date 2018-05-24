@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import { LoginContainer } from "../LoginContainer";
+import { Container } from "../Container";
 
 describe("Login Container", () => {
   const mockProps = {
@@ -12,7 +12,7 @@ describe("Login Container", () => {
     isLoading: false,
     history: {}
   };
-  const component = shallow(<LoginContainer {...mockProps} />);
+  const component = shallow(<Container {...mockProps} />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();
