@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transaction Form renders properly 1`] = `
+<Form
+  checkFormValidity={[Function]}
+  error={null}
+  generateFormData={[Function]}
+  handleInputChange={[Function]}
+  isLoading={false}
+  match={Object {}}
+  onSubmitData={[Function]}
+/>
+`;

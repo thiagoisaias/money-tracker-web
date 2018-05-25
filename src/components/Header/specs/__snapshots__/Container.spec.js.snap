@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container renders properly 1`] = `
+<Header
+  history={Object {}}
+  onLogout={[Function]}
+/>
+`;

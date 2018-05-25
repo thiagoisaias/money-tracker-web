@@ -10,8 +10,8 @@ import {
   ErrorMessage
 } from "./styled";
 
-import Input from "components/UI/Input/Input";
-import Spinner from "components/UI/Spinner/Spinner";
+import Input from "shared/Input/Input";
+import Spinner from "shared/Spinner/Spinner";
 import withFormHandler from "hoc/withFormHandler/withFormHandler";
 
 class Form extends Component {

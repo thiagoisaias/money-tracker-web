@@ -2,7 +2,7 @@ import React from "react";
 
 import Balance from "../Balance/Balance";
 import Layout from "../Layout/Layout";
-import TransactionListContainer from "../../containers/Transactions/TransactionListContainer";
+import TransactionListContainer from "components/Transactions/List/Container";
 
 const Home = props => {
   return (

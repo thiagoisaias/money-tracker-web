@@ -1,14 +1,14 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import AccountFormContainer from "../../containers/Accounts/AccountForm/AccountFormContainer";
-import AccountListContainer from "../../containers/Accounts/AccountList/AccountListContainer";
-import AuthPage from "../Auth/AuthPage/AuthPage";
-import CategoryFormContainer from "../../containers/Categories/CategoryForm/CategoryFormContainer";
-import CategoryListContainer from "../../containers/Categories/CategoryList/CategoryListContainer";
-import Home from "../Home/Home";
-import NotFound from "../UI/NotFound/NotFound";
-import TransactionForm from "../Transactions/TransactionForm/TransactionForm";
+import AccountFormContainer from "components/Accounts/Form/Container";
+import AccountListContainer from "components/Accounts/List/Container";
+import AuthPage from "components/Auth/AuthPage/AuthPage";
+import CategoryFormContainer from "components/Categories/Form/Container";
+import CategoryListContainer from "components/Categories/List/Container";
+import Home from "components/Home/Home";
+import NotFound from "components/NotFound/NotFound";
+import TransactionForm from "components/Transactions/Form/Form";
 
 const App = props => {
   return (
@@ -20,7 +20,11 @@ const App = props => {
       <Route exact path="/accounts/:id/edit" component={AccountFormContainer} />
       <Route exact path="/categories" component={CategoryListContainer} />
       <Route exact path="/categories/new" component={CategoryFormContainer} />
-      <Route exact path="/categories/:id/edit" component={CategoryFormContainer} />
+      <Route
+        exact
+        path="/categories/:id/edit"
+        component={CategoryFormContainer}
+      />
       <Route exact path="/transactions/new" component={TransactionForm} />
       <Route component={NotFound} />
     </Switch>

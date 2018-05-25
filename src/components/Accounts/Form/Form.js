@@ -12,11 +12,11 @@ import {
   Label,
   SubmitButton,
   ErrorMessage
-} from "components/UI/Form/Form";
+} from "shared/Form/styled";
 
-import Input from "components/UI/Input/Input";
+import Input from "shared/Input/Input";
 import Layout from "components/Layout/Layout";
-import Spinner from "components/UI/Spinner/Spinner";
+import Spinner from "shared/Spinner/Spinner";
 import withFormHandler from "hoc/withFormHandler/withFormHandler";
 
 class Form extends Component {

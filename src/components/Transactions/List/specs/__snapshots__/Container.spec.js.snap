@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transaction List Container renders properly 1`] = `
+<List
+  activeItemId={1}
+  handleActiveItem={[Function]}
+  handleMonthChange={[Function]}
+  selectedDate="Wed May 23 2018 13:07:19 GMT-0300 (-03)"
+  transactionList={
+    Array [
+      Object {
+        "account": Object {
+          "id": 1,
+          "initialBalance": 0,
+          "name": "Lorem",
+        },
+        "category": Object {
+          "color": "#DDD",
+          "id": 1,
+          "name": "Transport",
+        },
+        "date": "2018-04-22",
+        "description": "Uber",
+        "id": 1,
+        "transactionType": "expense",
+        "value": 150.67,
+      },
+      Object {
+        "account": Object {
+          "id": 2,
+          "initialBalance": 0,
+          "name": "Lorem",
+        },
+        "category": Object {
+          "color": "lightblue",
+          "id": 2,
+          "name": "Salary",
+        },
+        "date": "2018-04-23",
+        "description": "Lorem Ipsum Dolor Transaction Mousepad Monitor",
+        "id": 2,
+        "transactionType": "earning",
+        "value": 200.43,
+      },
+    ]
+  }
+/>
+`;

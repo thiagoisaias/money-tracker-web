@@ -1,20 +1,12 @@
 import React, { Fragment } from "react";
-import Header from "../Header/Header";
-import styled from "styled-components";
-import { devices } from "../../utils/devices";
+import HeaderContainer from "../Header/Container";
 
-const PageWrapper = styled.div`
-  @media ${devices.mediumUp} {
-    width: 80vw;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-`;
+import { PageWrapper } from "./styled";
 
 const Layout = props => {
   return (
     <Fragment>
-      <Header />
+      <HeaderContainer />
       <PageWrapper>{props.children}</PageWrapper>
     </Fragment>
   );

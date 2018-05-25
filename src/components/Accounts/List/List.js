@@ -12,7 +12,7 @@ import {
 
 import ItemContainer from "../Item/Container";
 import Layout from "components/Layout/Layout";
-import Spinner from "components/UI/Spinner/Spinner";
+import Spinner from "shared/Spinner/Spinner";
 import withExpandableItem from "hoc/withExpandableItem/withExpandableItem";
 
 const List = props => {

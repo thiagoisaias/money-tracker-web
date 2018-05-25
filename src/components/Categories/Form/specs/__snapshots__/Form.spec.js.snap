@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Category Form renders properly 1`] = `
+<Form
+  checkFormValidity={[Function]}
+  color="red"
+  error={null}
+  generateFormData={[Function]}
+  handleInputChange={[Function]}
+  id={1}
+  isLoading={false}
+  match={
+    Object {
+      "path": "/path",
+    }
+  }
+  name="Lorem"
+  onSubmitData={[Function]}
+/>
+`;
