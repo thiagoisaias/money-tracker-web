@@ -19,7 +19,7 @@ const initialState = {
         name: "Default",
         initialBalance: 0
       },
-      transaction_type: "expense"
+      transactionType: "expense"
     },
     {
       id: 2,
@@ -27,6 +27,7 @@ const initialState = {
       description: "Lorem Ipsum Dolor Transaction Mousepad Monitor",
       value: 200.43,
       category: {
+        id: 2,
         name: "Salary",
         color: "lightblue"
       },
@@ -35,7 +36,7 @@ const initialState = {
         name: "Default",
         initialBalance: 0
       },
-      transaction_type: "earning"
+      transactionType: "earning"
     },
     {
       id: 3,
@@ -43,7 +44,7 @@ const initialState = {
       description: "Lorem Ipsum Dolor",
       value: 8.34,
       category: {
-        id: 2,
+        id: 3,
         name: "Home",
         color: "#FA7203"
       },
@@ -52,7 +53,7 @@ const initialState = {
         name: "Default",
         initialBalance: 0
       },
-      transaction_type: "expense"
+      transactionType: "expense"
     }
   ]
 };
