@@ -21,12 +21,6 @@ const StyledInput = styled.input`
   }
 `;
 
-const TextArea = styled.textarea`
-  outline: none;
-  font: inherit;
-  color: inherit;
-`;
-
 const Input = props => {
   let inputElement = null;
 
@@ -43,31 +37,17 @@ const Input = props => {
         />
       );
       break;
-    case "textarea":
-      inputElement = (
-        <TextArea
-          {...props.elementConfig}
-          isValid={props.isValid}
-          name={props.name}
-          onChange={props.onChange}
-          touched={props.touched}
-          value={props.value}
-        />
-      );
-      break;
     case "select":
       inputElement = (
         <select
-          isValid={props.isValid}
           name={props.name}
           onChange={props.onChange}
-          touched={props.touched}
           value={props.value}
         >
           {props.elementConfig.options.map(option => {
             return (
               <option key={option.value} value={option.value}>
-                {option.displayValue}
+                {option.label}
               </option>
             );
           })}
@@ -89,17 +69,16 @@ Input.propTypes = {
     options: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.string.isRequired,
-        displayValue: PropTypes.string.isRequired
+        label: PropTypes.string.isRequired
       }).isRequired
     )
   }).isRequired,
   elementType: PropTypes.string.isRequired,
-  isValid: PropTypes.bool.isRequired,
+  isValid: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  touched: PropTypes.bool.isRequired,
+  touched: PropTypes.bool,
   value: PropTypes.string.isRequired,
-  validation: PropTypes.object.isRequired
 };
 
 export default Input;

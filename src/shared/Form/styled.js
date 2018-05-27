@@ -19,6 +19,25 @@ export const Container = styled.div`
   }
 `;
 
+export const StyledInput = styled.input`
+  border: ${props =>
+    !props.isValid && props.touched
+      ? "1px solid #f9b498"
+      : "1px solid #f2f2f2"};
+  border-radius: 2px;
+  padding: 6px;
+  font: inherit;
+  color: inherit;
+
+  &:focus {
+    border: 1px solid #ddd;
+  }
+
+  &::placeholder {
+    opacity: 0.6;
+  }
+`;
+
 export const Row = styled.div`
   display: flex;
   align-items: center;
