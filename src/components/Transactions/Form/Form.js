@@ -1,18 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 
 import {
-  Container,
+  Wrapper,
+  SelectWrapper,
+  InputWrapper,
+  SubmitRow,
   Row,
   Message,
   ColoredMark,
   Title,
   FormContainer,
-  FormGroup,
   Label,
   SubmitButton,
   ErrorMessage
-} from "shared/Form/styled";
+} from "./styled";
+
 import Input from "shared/Input/Input";
 import Layout from "components/Layout/Layout";
 import Spinner from "shared/Spinner/Spinner";
@@ -25,12 +28,27 @@ class Form extends Component {
     this.state = {
       isFormValid: false,
       formFields: {
+        transactionType: {
+          elementType: "select",
+          elementConfig: {
+            options: [
+              { value: "expense", label: "Expense" },
+              { value: "earning", label: "Earning" }
+            ]
+          },
+          label: "Type",
+          value: "expense",
+          validation: {},
+          isValid: false,
+          touched: false
+        },
         description: {
           elementType: "input",
           elementConfig: {
-            type: "text"
+            type: "text",
+            placeholder: "Add a transaction description"
           },
-          name: "Description",
+          label: "Description",
           value: this.props.description || "",
           validation: {
             required: true
@@ -41,9 +59,10 @@ class Form extends Component {
         value: {
           elementType: "input",
           elementConfig: {
-            type: "number"
+            type: "number",
+            placeholder: "$ 0.00"
           },
-          name: "Value",
+          label: "Value",
           value: this.props.value || "",
           validation: {
             required: true
@@ -56,7 +75,7 @@ class Form extends Component {
           elementConfig: {
             type: "date"
           },
-          name: "Date",
+          label: "Date",
           value: this.props.date || "",
           validation: {
             required: true
@@ -68,11 +87,11 @@ class Form extends Component {
           elementType: "select",
           elementConfig: {
             options: [
-              { value: "ole", displayValue: "ole" },
-              { value: "ola", displayValue: "ola" }
+              { value: "ole", label: "ole" },
+              { value: "ola", label: "ola" }
             ]
           },
-          name: "Account",
+          label: "Account",
           value: "ole",
           validation: {},
           isValid: false,
@@ -82,11 +101,11 @@ class Form extends Component {
           elementType: "select",
           elementConfig: {
             options: [
-              { value: "ole", displayValue: "ole" },
-              { value: "ola", displayValue: "ola" }
+              { value: "ole", label: "ole" },
+              { value: "ola", label: "ola" }
             ]
           },
-          name: "Category",
+          label: "Category",
           value: "ole",
           validation: {},
           isValid: false,
@@ -128,7 +147,7 @@ class Form extends Component {
     const formData = generateFormData(this.state.formFields);
 
     console.log(formData);
-    onSubmitData(formData);
+    // onSubmitData(formData);
   };
 
   componentDidMount() {
@@ -154,39 +173,102 @@ class Form extends Component {
         ? "Add Transaction"
         : "Edit Transaction";
 
-    const keyList = [];
-    for (let key in this.state.formFields) {
-      keyList.push(key);
-    }
-
-    const inputList = keyList.map(key => {
-      const formField = this.state.formFields[key];
-      return (
-        <FormGroup key={key}>
+    const formFields = this.state.formFields;
+    const inputList = (
+      <Fragment>
+        <SelectWrapper>
           <Label>
-            {formField.name} <ColoredMark>*</ColoredMark>
+            {"Type"} <ColoredMark>*</ColoredMark>
           </Label>
           <Input
-            elementConfig={formField.elementConfig}
-            elementType={formField.elementType}
-            name={key}
-            value={formField.value}
-            touched={formField.touched}
-            isValid={formField.isValid}
+            elementConfig={formFields.transactionType.elementConfig}
+            elementType={formFields.transactionType.elementType}
+            name={"transactionType"}
+            value={formFields.transactionType.value}
             onChange={this.onInputChange}
           />
-        </FormGroup>
-      );
-    });
+        </SelectWrapper>
+        <InputWrapper>
+          <Label>
+            {"Description"} <ColoredMark>*</ColoredMark>
+          </Label>
+          <Input
+            elementConfig={formFields.description.elementConfig}
+            elementType={formFields.description.elementType}
+            name={"description"}
+            value={formFields.description.value}
+            touched={formFields.description.touched}
+            isValid={formFields.description.isValid}
+            onChange={this.onInputChange}
+          />
+        </InputWrapper>
+        <Row>
+          <InputWrapper>
+            <Label>
+              {"Value"} <ColoredMark>*</ColoredMark>
+            </Label>
+            <Input
+              elementConfig={formFields.value.elementConfig}
+              elementType={formFields.value.elementType}
+              name={"value"}
+              value={formFields.value.value}
+              touched={formFields.value.touched}
+              isValid={formFields.value.isValid}
+              onChange={this.onInputChange}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <Label>
+              {"Date"} <ColoredMark>*</ColoredMark>
+            </Label>
+            <Input
+              elementConfig={formFields.date.elementConfig}
+              elementType={formFields.date.elementType}
+              name={"date"}
+              value={formFields.date.value}
+              touched={formFields.date.touched}
+              isValid={formFields.date.isValid}
+              onChange={this.onInputChange}
+            />
+          </InputWrapper>
+        </Row>
+        <Row>
+          <SelectWrapper>
+            <Label>
+              {"Account"} <ColoredMark>*</ColoredMark>
+            </Label>
+            <Input
+              elementConfig={formFields.account.elementConfig}
+              elementType={formFields.account.elementType}
+              name={"account"}
+              value={formFields.account.value}
+              onChange={this.onInputChange}
+            />
+          </SelectWrapper>
+          <SelectWrapper>
+            <Label>
+              {"Category"} <ColoredMark>*</ColoredMark>
+            </Label>
+            <Input
+              elementConfig={formFields.category.elementConfig}
+              elementType={formFields.category.elementType}
+              name={"category"}
+              value={formFields.category.value}
+              onChange={this.onInputChange}
+            />
+          </SelectWrapper>
+        </Row>
+      </Fragment>
+    );
 
     return (
       <Layout>
-        <Container>
+        <Wrapper>
           <Title>{formTitle}</Title>
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <FormContainer onSubmit={this.handleSubmit}>
             {inputList}
-            <Row>
+            <SubmitRow>
               <SubmitButton
                 disabled={!this.state.isFormValid}
                 onClick={this.handleSubmit}
@@ -197,9 +279,9 @@ class Form extends Component {
                 <ColoredMark>*</ColoredMark>
                 {" represent required fields."}
               </Message>
-            </Row>
+            </SubmitRow>
           </FormContainer>
-        </Container>
+        </Wrapper>
       </Layout>
     );
   }
