@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 
 import {
   Wrapper,
@@ -7,6 +8,7 @@ import {
   InputWrapper,
   SubmitRow,
   Row,
+  StyledDatePicker,
   Message,
   ColoredMark,
   Title,
@@ -76,9 +78,9 @@ class Form extends Component {
             type: "date"
           },
           label: "Date",
-          value: this.props.date || "",
+          value: this.props.date || moment(),
           validation: {
-            required: true
+            requiredDate: true
           },
           isValid: false,
           touched: false
@@ -86,29 +88,23 @@ class Form extends Component {
         account: {
           elementType: "select",
           elementConfig: {
-            options: [
-              { value: "ole", label: "ole" },
-              { value: "ola", label: "ola" }
-            ]
+            options: [{ id: 1, label: "ole" }, { id: 2, label: "ola" }]
           },
           label: "Account",
-          value: "ole",
+          value: 1,
           validation: {},
-          isValid: false,
+          isValid: true,
           touched: false
         },
         category: {
           elementType: "select",
           elementConfig: {
-            options: [
-              { value: "ole", label: "ole" },
-              { value: "ola", label: "ola" }
-            ]
+            options: [{ id: 1, label: "ole" }, { id: 2, label: "ola" }]
           },
           label: "Category",
-          value: "ole",
+          value: 1,
           validation: {},
-          isValid: false,
+          isValid: true,
           touched: false
         }
       }
@@ -122,6 +118,10 @@ class Form extends Component {
       isValid = value.trim() !== "" && isValid;
     }
 
+    if (rules.requiredDate) {
+      isValid = moment.isMoment(value);
+    }
+
     return isValid;
   };
 
@@ -130,12 +130,31 @@ class Form extends Component {
     const formFields = { ...this.state.formFields };
     const checkFieldValidity = this.checkFieldValidity;
     event.preventDefault();
+
     const updatedFormState = handleInputChange(
       event,
       formFields,
       checkFieldValidity
     );
     this.setState({
+      ...this.state,
+      ...updatedFormState
+    });
+  };
+
+  onDateChange = (event, key) => {
+    const { handleDateChange } = this.props;
+    const formFields = { ...this.state.formFields };
+
+    const updatedFormState = handleDateChange(
+      event,
+      key,
+      formFields,
+      this.checkFieldValidity
+    );
+
+    this.setState({
+      ...this.state,
       ...updatedFormState
     });
   };
@@ -221,14 +240,16 @@ class Form extends Component {
             <Label>
               {"Date"} <ColoredMark>*</ColoredMark>
             </Label>
-            <Input
+            <StyledDatePicker
               elementConfig={formFields.date.elementConfig}
               elementType={formFields.date.elementType}
               name={"date"}
-              value={formFields.date.value}
-              touched={formFields.date.touched}
+              selected={formFields.date.value}
               isValid={formFields.date.isValid}
-              onChange={this.onInputChange}
+              touched={formFields.date.touched}
+              onChange={event => {
+                this.onDateChange(event, "date");
+              }}
             />
           </InputWrapper>
         </Row>
@@ -270,7 +291,7 @@ class Form extends Component {
             {inputList}
             <SubmitRow>
               <SubmitButton
-                disabled={!this.state.isFormValid}
+                // disabled={!this.state.isFormValid}
                 onClick={this.handleSubmit}
               >
                 {isLoading ? <Spinner size={25} color={"#ddd"} /> : "Submit"}
@@ -293,6 +314,7 @@ Form.propTypes = {
   error: PropTypes.string,
   generateFormData: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
+  handleDateChange: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
   onSubmitData: PropTypes.func.isRequired

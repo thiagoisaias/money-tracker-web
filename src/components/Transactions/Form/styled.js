@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { devices } from "utils/devices";
 
+import DatePicker from "react-datepicker";
+import "assets/react-datepicker-override.css";
+
 export const Wrapper = styled.div`
   background-color: #fff;
   box-shadow: 1px;
@@ -32,6 +35,22 @@ export const InputWrapper = styled.div`
   flex-direction: column;
   margin-bottom: 24px;
   margin-right: 32px;
+`;
+
+export const StyledDatePicker = styled(DatePicker)`
+  border: ${props =>
+    !props.isValid && props.touched
+      ? "1px solid #f9b498"
+      : "1px solid #f2f2f2"};
+  border-radius: 2px;
+  padding: 6px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  &:focus {
+    border: 1px solid #ddd;
+  }
 `;
 
 export const StyledInput = styled.input`

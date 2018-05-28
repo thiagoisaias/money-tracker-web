@@ -38,9 +38,38 @@ const withFormHandler = (WrappedComponent, props) => {
         isValid: checkFieldValidity(value, currentFormField.validation),
         touched: true
       };
+
       const updatedFormFields = {
         ...formFields,
         [name]: updatedField
+      };
+
+      const isFormValid = this.checkFormValidity(
+        updatedFormFields,
+        checkFieldValidity
+      );
+
+      return {
+        isFormValid: isFormValid,
+        formFields: {
+          ...updatedFormFields
+        }
+      };
+    };
+
+    handleDateChange = (selectedDate, key, formFields, checkFieldValidity) => {
+      const currentFormField = formFields[key];
+
+      const updatedField = {
+        ...currentFormField,
+        value: selectedDate,
+        isValid: checkFieldValidity(selectedDate, currentFormField.validation),
+        touched: true
+      };
+
+      const updatedFormFields = {
+        ...formFields,
+        [key]: updatedField
       };
 
       const isFormValid = this.checkFormValidity(
@@ -73,7 +102,12 @@ const withFormHandler = (WrappedComponent, props) => {
     generateFormData = formFields => {
       const formData = {};
       for (let fieldKey in formFields) {
-        formData[fieldKey] = formFields[fieldKey].value;
+        if (formFields[fieldKey].elementConfig.type === "date") {
+          //Should be a Moment object
+          formData[fieldKey] = formFields[fieldKey].value.format("MM/DD/YYYY");
+        } else {
+          formData[fieldKey] = formFields[fieldKey].value;
+        }
       }
 
       return formData;
@@ -86,6 +120,7 @@ const withFormHandler = (WrappedComponent, props) => {
           checkFormValidity={this.checkFormValidity}
           generateFormData={this.generateFormData}
           handleInputChange={this.handleInputChange}
+          handleDateChange={this.handleDateChange}
         />
       );
     }
