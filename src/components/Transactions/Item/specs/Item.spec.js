@@ -6,21 +6,25 @@ import Item from "../Item";
 
 describe("Transaction Item", () => {
   const mockProps = {
-    account: {
+    transactionData: {
       id: 1,
-      name: "Lorem",
-      initialBalance: 0
+      account: {
+        id: 1,
+        name: "Lorem",
+        initialBalance: 3242
+      },
+      date: "2018-05-29",
+      description: "Lorem Ipsum",
+      category: {
+        id: 1,
+        name: "Home",
+        color: "salmon"
+      },
+      value: 324.32,
+      transactionType: "expense"
     },
-    date: "20/04/1994",
-    description: "Lorem Ipsum",
-    value: 150.0,
-    category: {
-      id: 1,
-      name: "Home",
-      color: "#777"
-    },
-    transactionType: "earning",
-    handleActiveItem: jest.fn()
+    handleActiveItem: jest.fn(),
+    handleDelete: jest.fn()
   };
 
   const component = shallow(<Item {...mockProps} />);

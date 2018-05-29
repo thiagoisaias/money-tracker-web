@@ -99,3 +99,9 @@ export const BlankStateMessage = styled.p`
   margin-top: 55px;
   margin-bottom: 16px;
 `;
+
+export const ErrorMessage = styled.p`
+  color: #e75252;
+  font-size: 14px;
+  margin-top: 16px;
+`;

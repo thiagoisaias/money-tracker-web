@@ -45,9 +45,8 @@ export const TypeIndicator = styled.div`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  ${"" /* opacity: 0.8; */}
   background-color: ${props =>
-    props.type === "earning" ? "#8CD88C" : "salmon"};
+    props.type === "earning" ? "#71DD71" : "salmon"};
 
   @media ${devices.small} {
     margin-right: 8px;
@@ -105,7 +104,7 @@ export const Value = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${props =>
-    props.transactionType === "earning" ? "#8CD88C" : "salmon"};
+    props.transactionType === "earning" ? "#71DD71" : "salmon"};
 
   @media ${devices.small} {
     width: 30%;

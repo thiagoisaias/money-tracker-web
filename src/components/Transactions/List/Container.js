@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addMonths, subMonths } from "date-fns";
+import moment from "moment";
 
 import List from "./List";
 import withExpandableItem from "hoc/withExpandableItem/withExpandableItem";
@@ -12,7 +12,7 @@ export class Container extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: this.props.selectedDate || new Date()
+      selectedDate: this.props.selectedDate || moment()
     };
   }
 
@@ -31,13 +31,15 @@ export class Container extends Component {
 
   handleNextMonth = () => {
     this.setState(prevState => {
-      return { selectedDate: addMonths(prevState.selectedDate, 1) };
+      return { selectedDate: prevState.selectedDate.clone().add(1, "month") };
     });
   };
 
   handlePreviousMonth = () => {
     this.setState(prevState => {
-      return { selectedDate: subMonths(prevState.selectedDate, 1) };
+      return {
+        selectedDate: prevState.selectedDate.clone().subtract(1, "month")
+      };
     });
   };
 
@@ -47,10 +49,18 @@ export class Container extends Component {
   }
 
   render() {
-    const { activeItemId, handleActiveItem, transactionList } = this.props;
+    const {
+      activeItemId,
+      error,
+      isLoading,
+      handleActiveItem,
+      transactionList
+    } = this.props;
     return (
       <List
         activeItemId={activeItemId}
+        error={error}
+        isLoading={isLoading}
         handleActiveItem={handleActiveItem}
         handleMonthChange={this.handleMonthChange}
         selectedDate={this.state.selectedDate}
@@ -62,9 +72,11 @@ export class Container extends Component {
 
 Container.propTypes = {
   activeItemId: PropTypes.number,
+  error: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
   handleActiveItem: PropTypes.func.isRequired,
   onFetchTransactionList: PropTypes.func.isRequired,
-  selectedDate: PropTypes.string,
+  selectedDate: PropTypes.object,
   transactionList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -88,6 +100,8 @@ Container.propTypes = {
 
 const mapStateToProps = state => {
   return {
+    error: state.transactions.error,
+    isLoading: state.transactions.isLoading,
     transactionList: state.transactions.transactionList
   };
 };

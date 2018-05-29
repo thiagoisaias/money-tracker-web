@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transaction Form Container renders properly 1`] = `
+<Component
+  accountListLoading={false}
+  accountOptionList={
+    Array [
+      Object {
+        "label": "default",
+        "value": 1,
+      },
+      Object {
+        "label": "default2",
+        "value": 2,
+      },
+    ]
+  }
+  categoryListLoading={false}
+  categoryOptionList={
+    Array [
+      Object {
+        "label": "Food",
+        "value": 1,
+      },
+      Object {
+        "label": "Home",
+        "value": 2,
+      },
+    ]
+  }
+  error={null}
+  isLoading={false}
+  match={Object {}}
+  onSubmitData={[Function]}
+/>
+`;

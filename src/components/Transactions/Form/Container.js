@@ -103,10 +103,14 @@ Container.propTypes = {
   transactionToEdit: PropTypes.shape({
     id: PropTypes.number.isRequired,
     account: PropTypes.shape({
-      id: PropTypes.number.isRequired
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      initialBalance: PropTypes.string.isRequired
     }).isRequired,
-    transaction: PropTypes.shape({
-      id: PropTypes.number.isRequired
+    category: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired
     }).isRequired,
     date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

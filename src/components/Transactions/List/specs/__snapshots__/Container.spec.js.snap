@@ -3,9 +3,11 @@
 exports[`Transaction List Container renders properly 1`] = `
 <List
   activeItemId={1}
+  error={null}
   handleActiveItem={[Function]}
   handleMonthChange={[Function]}
-  selectedDate="Wed May 23 2018 13:07:19 GMT-0300 (-03)"
+  isLoading={false}
+  selectedDate={Object {}}
   transactionList={
     Array [
       Object {

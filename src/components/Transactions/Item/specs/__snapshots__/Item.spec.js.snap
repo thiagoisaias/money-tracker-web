@@ -5,9 +5,11 @@ exports[`Transaction Item renders properly 1`] = `
   onClick={[Function]}
 >
   <styled.div>
-    <styled.div />
+    <styled.div
+      type="expense"
+    />
     <styled.div>
-      Invalid Date
+      29
     </styled.div>
     <styled.div>
        
@@ -16,14 +18,16 @@ exports[`Transaction Item renders properly 1`] = `
     </styled.div>
     <styled.div>
       <styled.div
-        color="#777"
+        color="salmon"
       />
       <styled.div>
         Home
       </styled.div>
     </styled.div>
-    <styled.div>
-      150
+    <styled.div
+      transactionType="expense"
+    >
+      324.32
     </styled.div>
   </styled.div>
   <styled.div>

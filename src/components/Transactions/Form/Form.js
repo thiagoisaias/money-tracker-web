@@ -52,7 +52,10 @@ class Form extends Component {
             placeholder: "Add a transaction description"
           },
           label: "Description",
-          value: this.props.description || "",
+          value:
+            (this.props.transactionData &&
+              this.props.transactionData.description) ||
+            "",
           validation: {
             required: true
           },
@@ -66,7 +69,9 @@ class Form extends Component {
             placeholder: "$ 0.00"
           },
           label: "Value",
-          value: this.props.value || "",
+          value:
+            (this.props.transactionData && this.props.transactionData.value) ||
+            "",
           validation: {
             required: true
           },
@@ -79,7 +84,9 @@ class Form extends Component {
             type: "date"
           },
           label: "Date",
-          value: this.props.date || moment(),
+          value:
+            (this.props.transactionData && this.props.transactionData.date) ||
+            moment(),
           validation: {
             requiredDate: true
           },
@@ -92,7 +99,13 @@ class Form extends Component {
             options: this.props.accountOptionList
           },
           label: "Account",
-          value: null,
+          value:
+            (this.props.transactionData &&
+              this.props.transactionData.account && {
+                value: this.props.transactionData.account.id,
+                label: this.props.transactionData.account.name
+              }) ||
+            null,
           validation: {
             requiredSelect: true
           },
@@ -105,7 +118,13 @@ class Form extends Component {
             options: this.props.categoryOptionList
           },
           label: "Category",
-          value: null,
+          value:
+            (this.props.transactionData &&
+              this.props.transactionData.category && {
+                value: this.props.transactionData.category.id,
+                label: this.props.transactionData.category.name
+              }) ||
+            null,
           validation: {
             requiredSelect: true
           },
@@ -128,7 +147,7 @@ class Form extends Component {
     }
 
     if (rules.requiredSelect) {
-      isValid = value !== null && isValid;
+      isValid = value && value.value && value.label && isValid;
     }
 
     return isValid;
@@ -320,20 +339,19 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  // TODO: Add transaction properties
   accountOptionList: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired
-    }).isRequired
-  ),
+    })
+  ).isRequired,
   accountListLoading: PropTypes.bool.isRequired,
   categoryOptionList: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired
-    }).isRequired
-  ),
+    })
+  ).isRequired,
   categoryListLoading: PropTypes.bool.isRequired,
   checkFormValidity: PropTypes.func.isRequired,
   error: PropTypes.string,
@@ -341,7 +359,24 @@ Form.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
-  onSubmitData: PropTypes.func.isRequired
+  onSubmitData: PropTypes.func.isRequired,
+  transactionData: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    account: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      initialBalance: PropTypes.number.isRequired
+    }).isRequired,
+    date: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    category: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired
+    }).isRequired,
+    value: PropTypes.number.isRequired,
+    transactionType: PropTypes.string.isRequired
+  })
 };
 
 export default withFormHandler(Form);

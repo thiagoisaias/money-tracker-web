@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { format } from "date-fns";
 
 import {
   Wrapper,
@@ -9,14 +8,18 @@ import {
   MonthSelector,
   Arrow,
   CurrentMonth,
-  BlankStateMessage
+  BlankStateMessage,
+  ErrorMessage
 } from "./styled";
 
-import Item from "../Item/Item";
+import ItemContainer from "../Item/Container";
+import Spinner from "shared/Spinner/Spinner";
 
 const List = props => {
   const {
     activeItemId,
+    error,
+    isLoading,
     handleActiveItem,
     handleMonthChange,
     selectedDate,
@@ -26,11 +29,11 @@ const List = props => {
   const transactions = transactionList.map(transaction => {
     const isActive = activeItemId === transaction.id;
     return (
-      <Item
+      <ItemContainer
         key={transaction.id}
         handleActiveItem={handleActiveItem}
         isActive={isActive}
-        {...transaction}
+        transactionData={transaction}
       />
     );
   });
@@ -47,7 +50,7 @@ const List = props => {
           >
             &lsaquo;
           </Arrow>
-          <CurrentMonth>{format(selectedDate, "MMMM of YYYY")}</CurrentMonth>
+          <CurrentMonth>{selectedDate.format("MMMM of YYYY")}</CurrentMonth>
           <Arrow
             onClick={() => {
               handleMonthChange("next");
@@ -57,21 +60,26 @@ const List = props => {
           </Arrow>
         </MonthSelector>
       </Header>
-      {transactions.length > 0 ? (
-        transactions
-      ) : (
-        <BlankStateMessage>
-          &#9888;{"There are no transactions in this period."}
-        </BlankStateMessage>
-      )}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {transactions.length === 0 &&
+        !error &&
+        !isLoading && (
+          <BlankStateMessage>
+            &#9888;{"There are no transactions registered yet."}
+          </BlankStateMessage>
+        )}
+      {isLoading ? <Spinner size={25} color={"#777"} /> : transactions}
     </Wrapper>
   );
 };
 
 List.propTypes = {
   activeItemId: PropTypes.number,
+  error: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
   handleActiveItem: PropTypes.func.isRequired,
   handleMonthChange: PropTypes.func.isRequired,
+  selectedDate: PropTypes.object.isRequired,
   transactionList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

@@ -15,7 +15,7 @@ exports[`Transaction List renders properly 1`] = `
         ‹
       </styled.div>
       <styled.div>
-        Invalid Date
+        May of 2020
       </styled.div>
       <styled.div
         onClick={[Function]}
@@ -24,53 +24,53 @@ exports[`Transaction List renders properly 1`] = `
       </styled.div>
     </styled.div>
   </styled.div>
-  <Item
-    account={
-      Object {
-        "id": 1,
-        "initialBalance": 0,
-        "name": "Lorem",
-      }
-    }
-    category={
-      Object {
-        "color": "#DDD",
-        "id": 1,
-        "name": "Transport",
-      }
-    }
-    date="2018-04-22"
-    description="Uber"
+  <withRouter(Connect(Container))
     handleActiveItem={[Function]}
-    id={1}
     isActive={true}
     key="1"
-    transactionType="expense"
-    value={150.67}
+    transactionData={
+      Object {
+        "account": Object {
+          "id": 1,
+          "initialBalance": 0,
+          "name": "Lorem",
+        },
+        "category": Object {
+          "color": "#DDD",
+          "id": 1,
+          "name": "Transport",
+        },
+        "date": "2018-04-22",
+        "description": "Uber",
+        "id": 1,
+        "transactionType": "expense",
+        "value": 150.67,
+      }
+    }
   />
-  <Item
-    account={
-      Object {
-        "id": 2,
-        "initialBalance": 0,
-        "name": "Lorem",
-      }
-    }
-    category={
-      Object {
-        "color": "lightblue",
-        "id": 2,
-        "name": "Salary",
-      }
-    }
-    date="2018-04-23"
-    description="Lorem Ipsum Dolor Transaction Mousepad Monitor"
+  <withRouter(Connect(Container))
     handleActiveItem={[Function]}
-    id={2}
     isActive={false}
     key="2"
-    transactionType="earning"
-    value={200.43}
+    transactionData={
+      Object {
+        "account": Object {
+          "id": 2,
+          "initialBalance": 0,
+          "name": "Lorem",
+        },
+        "category": Object {
+          "color": "lightblue",
+          "id": 2,
+          "name": "Salary",
+        },
+        "date": "2018-04-23",
+        "description": "Lorem Ipsum Dolor Transaction Mousepad Monitor",
+        "id": 2,
+        "transactionType": "earning",
+        "value": 200.43,
+      }
+    }
   />
 </styled.div>
 `;

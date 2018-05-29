@@ -2,6 +2,32 @@
 
 exports[`Transaction Form renders properly 1`] = `
 <Form
+  accountListLoading={false}
+  accountOptionList={
+    Array [
+      Object {
+        "label": "Account 1",
+        "value": 1,
+      },
+      Object {
+        "label": "Account 2",
+        "value": 2,
+      },
+    ]
+  }
+  categoryListLoading={false}
+  categoryOptionList={
+    Array [
+      Object {
+        "label": "Food",
+        "value": 1,
+      },
+      Object {
+        "label": "Home",
+        "value": 2,
+      },
+    ]
+  }
   checkFormValidity={[Function]}
   error={null}
   generateFormData={[Function]}
@@ -9,5 +35,24 @@ exports[`Transaction Form renders properly 1`] = `
   isLoading={false}
   match={Object {}}
   onSubmitData={[Function]}
+  transactionData={
+    Object {
+      "account": Object {
+        "id": 1,
+        "initialBalance": 3242,
+        "name": "Lorem",
+      },
+      "category": Object {
+        "color": "salmon",
+        "id": 1,
+        "name": "Home",
+      },
+      "date": "05-29-2018",
+      "description": "Lorem Ipsum",
+      "id": 1,
+      "transactionType": "expense",
+      "value": 324.32,
+    }
+  }
 />
 `;

@@ -2,13 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
+import moment from "moment";
+
 import List from "../List";
 
 describe("Transaction List", () => {
   const mockProps = {
     activeItemId: 1,
+    error: null,
+    isLoading: false,
     handleActiveItem: jest.fn(),
     handleMonthChange: jest.fn(),
+    selectedDate: moment("2018-05-29", "YY-MM-DD"),
     transactionList: [
       {
         id: 1,

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transaction Item Container renders properly 1`] = `
+<Item
+  handleActiveItem={[Function]}
+  handleDelete={[Function]}
+  isActive={false}
+  isLoading={false}
+  onDeleteTransaction={[Function]}
+  transactionData={
+    Object {
+      "account": Object {
+        "id": 1,
+        "initialBalance": 3242,
+        "name": "Lorem",
+      },
+      "category": Object {
+        "color": "salmon",
+        "id": 1,
+        "name": "Home",
+      },
+      "date": "05-29-2018",
+      "description": "Lorem Ipsum",
+      "id": 1,
+      "transactionType": "expense",
+      "value": 324.32,
+    }
+  }
+/>
+`;
