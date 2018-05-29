@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import {
   StyledForm,
+  StyledInput,
   SubmitButton,
   Title,
   Alternate,
@@ -10,7 +11,6 @@ import {
   ErrorMessage
 } from "./styled";
 
-import Input from "shared/Input/Input";
 import Spinner from "shared/Spinner/Spinner";
 import withFormHandler from "hoc/withFormHandler/withFormHandler";
 
@@ -58,12 +58,16 @@ class Form extends Component {
     return isValid;
   };
 
-  onInputChange = event => {
+  onInputChange = (event, key) => {
     const { handleInputChange } = this.props;
     const formFields = { ...this.state.formFields };
     const checkFieldValidity = this.checkFieldValidity;
+
+    const newValue = event.target.value;
+
     const updatedFormState = handleInputChange(
-      event,
+      newValue,
+      key,
       formFields,
       checkFieldValidity
     );
@@ -96,14 +100,16 @@ class Form extends Component {
     const inputList = keyList.map(key => {
       const formField = this.state.formFields[key];
       return (
-        <Input
+        <StyledInput
           key={key}
           {...formField.elementConfig}
           name={key}
           value={formField.value}
           touched={formField.touched}
           isValid={formField.isValid}
-          onChange={this.onInputChange}
+          onChange={event => {
+            this.onInputChange(event, key);
+          }}
         />
       );
     });

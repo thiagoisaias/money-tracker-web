@@ -5,6 +5,28 @@ export const StyledForm = styled.form`
   width: 100%;
 `;
 
+export const StyledInput = styled.input`
+  border: ${props =>
+    !props.isValid && props.touched
+      ? "1px solid #f9b498"
+      : "1px solid #f2f2f2"};
+  border-radius: 2px;
+  font: inherit;
+  color: inherit;
+  height: 40px;
+  padding-left: 16px;
+  width: calc(100% - 16px);
+  margin-bottom: 4px;
+
+  &:focus {
+    border: 1px solid #ddd;
+  }
+
+  &::placeholder {
+    opacity: 0.6;
+  }
+`;
+
 export const SubmitButton = styled.button`
   width: 100%;
   height: 40px;
