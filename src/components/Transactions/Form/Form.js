@@ -8,7 +8,9 @@ import {
   InputWrapper,
   SubmitRow,
   Row,
+  StyledInput,
   StyledDatePicker,
+  StyledSelect,
   Message,
   ColoredMark,
   Title,
@@ -18,7 +20,7 @@ import {
   ErrorMessage
 } from "./styled";
 
-import Input from "shared/Input/Input";
+// import Input from "shared/Input/Input";
 import Layout from "components/Layout/Layout";
 import Spinner from "shared/Spinner/Spinner";
 import withFormHandler from "hoc/withFormHandler/withFormHandler";
@@ -39,7 +41,7 @@ class Form extends Component {
             ]
           },
           label: "Type",
-          value: "expense",
+          value: { value: "expense", label: "Expense" },
           validation: {},
           isValid: false,
           touched: false
@@ -88,10 +90,10 @@ class Form extends Component {
         account: {
           elementType: "select",
           elementConfig: {
-            options: [{ id: 1, label: "ole" }, { id: 2, label: "ola" }]
+            options: this.props.accountOptionList
           },
           label: "Account",
-          value: 1,
+          value: null,
           validation: {},
           isValid: true,
           touched: false
@@ -99,10 +101,10 @@ class Form extends Component {
         category: {
           elementType: "select",
           elementConfig: {
-            options: [{ id: 1, label: "ole" }, { id: 2, label: "ola" }]
+            options: this.props.categoryOptionList
           },
           label: "Category",
-          value: 1,
+          value: null,
           validation: {},
           isValid: true,
           touched: false
@@ -125,34 +127,24 @@ class Form extends Component {
     return isValid;
   };
 
-  onInputChange = event => {
+  onInputChange = (event, key) => {
     const { handleInputChange } = this.props;
     const formFields = { ...this.state.formFields };
     const checkFieldValidity = this.checkFieldValidity;
-    event.preventDefault();
+
+    let newValue = null;
+    if (!event) {
+      newValue = null;
+    } else {
+      newValue = event.target ? event.target.value : event;
+    }
 
     const updatedFormState = handleInputChange(
-      event,
+      newValue,
+      key,
       formFields,
       checkFieldValidity
     );
-    this.setState({
-      ...this.state,
-      ...updatedFormState
-    });
-  };
-
-  onDateChange = (event, key) => {
-    const { handleDateChange } = this.props;
-    const formFields = { ...this.state.formFields };
-
-    const updatedFormState = handleDateChange(
-      event,
-      key,
-      formFields,
-      this.checkFieldValidity
-    );
-
     this.setState({
       ...this.state,
       ...updatedFormState
@@ -165,11 +157,10 @@ class Form extends Component {
 
     const formData = generateFormData(this.state.formFields);
 
-    console.log(formData);
-    // onSubmitData(formData);
+    onSubmitData(formData);
   };
 
-  componentDidMount() {
+  handleFormStateOnEditRoute() {
     const { match, checkFormValidity } = this.props;
 
     const isFormValid = checkFormValidity(
@@ -185,8 +176,18 @@ class Form extends Component {
     }
   }
 
+  componentDidMount() {
+    this.handleFormStateOnEditRoute();
+  }
+
   render() {
-    const { error, isLoading, match } = this.props;
+    const {
+      accountListLoading,
+      categoryListLoading,
+      error,
+      isLoading,
+      match
+    } = this.props;
     const formTitle =
       match.path === "/transactions/new"
         ? "Add Transaction"
@@ -199,85 +200,89 @@ class Form extends Component {
           <Label>
             {"Type"} <ColoredMark>*</ColoredMark>
           </Label>
-          <Input
-            elementConfig={formFields.transactionType.elementConfig}
-            elementType={formFields.transactionType.elementType}
-            name={"transactionType"}
+          <StyledSelect
+            {...formFields.transactionType.elementConfig}
+            searchable={false}
             value={formFields.transactionType.value}
-            onChange={this.onInputChange}
+            onChange={event => {
+              this.onInputChange(event, "transactionType");
+            }}
           />
         </SelectWrapper>
         <InputWrapper>
           <Label>
             {"Description"} <ColoredMark>*</ColoredMark>
           </Label>
-          <Input
-            elementConfig={formFields.description.elementConfig}
-            elementType={formFields.description.elementType}
-            name={"description"}
-            value={formFields.description.value}
-            touched={formFields.description.touched}
+          <StyledInput
+            {...formFields.description.elementConfig}
             isValid={formFields.description.isValid}
-            onChange={this.onInputChange}
+            touched={formFields.description.touched}
+            value={formFields.description.value}
+            onChange={event => {
+              this.onInputChange(event, "description");
+            }}
           />
         </InputWrapper>
-        <Row>
-          <InputWrapper>
-            <Label>
-              {"Value"} <ColoredMark>*</ColoredMark>
-            </Label>
-            <Input
-              elementConfig={formFields.value.elementConfig}
-              elementType={formFields.value.elementType}
-              name={"value"}
-              value={formFields.value.value}
-              touched={formFields.value.touched}
-              isValid={formFields.value.isValid}
-              onChange={this.onInputChange}
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <Label>
-              {"Date"} <ColoredMark>*</ColoredMark>
-            </Label>
-            <StyledDatePicker
-              elementConfig={formFields.date.elementConfig}
-              elementType={formFields.date.elementType}
-              name={"date"}
-              selected={formFields.date.value}
-              isValid={formFields.date.isValid}
-              touched={formFields.date.touched}
-              onChange={event => {
-                this.onDateChange(event, "date");
-              }}
-            />
-          </InputWrapper>
-        </Row>
         <Row>
           <SelectWrapper>
             <Label>
               {"Account"} <ColoredMark>*</ColoredMark>
             </Label>
-            <Input
-              elementConfig={formFields.account.elementConfig}
-              elementType={formFields.account.elementType}
+            <StyledSelect
+              {...formFields.account.elementConfig}
+              searchable={false}
               name={"account"}
+              isLoading={accountListLoading}
               value={formFields.account.value}
-              onChange={this.onInputChange}
+              onChange={event => {
+                this.onInputChange(event, "account");
+              }}
             />
           </SelectWrapper>
           <SelectWrapper>
             <Label>
               {"Category"} <ColoredMark>*</ColoredMark>
             </Label>
-            <Input
-              elementConfig={formFields.category.elementConfig}
-              elementType={formFields.category.elementType}
-              name={"category"}
+            <StyledSelect
+              {...formFields.category.elementConfig}
+              searchable={false}
+              isLoading={categoryListLoading}
               value={formFields.category.value}
-              onChange={this.onInputChange}
+              onChange={event => {
+                this.onInputChange(event, "category");
+              }}
             />
           </SelectWrapper>
+        </Row>
+        <Row>
+          <InputWrapper largeHalf>
+            <Label>
+              {"Value"} <ColoredMark>*</ColoredMark>
+            </Label>
+            <StyledInput
+              {...formFields.value.elementConfig}
+              value={formFields.value.value}
+              touched={formFields.value.touched}
+              isValid={formFields.value.isValid}
+              onChange={event => {
+                this.onInputChange(event, "value");
+              }}
+            />
+          </InputWrapper>
+          <InputWrapper largeHalf>
+            <Label>
+              {"Date"} <ColoredMark>*</ColoredMark>
+            </Label>
+            <StyledDatePicker
+              {...formFields.date.elementConfig}
+              selected={formFields.date.value}
+              isValid={formFields.date.isValid}
+              touched={formFields.date.touched}
+              onChange={event => {
+                this.onInputChange(event, "date");
+              }}
+            />
+          </InputWrapper>
         </Row>
       </Fragment>
     );
@@ -310,11 +315,24 @@ class Form extends Component {
 
 Form.propTypes = {
   // TODO: Add transaction properties
+  accountOptionList: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired
+    }).isRequired
+  ),
+  accountListLoading: PropTypes.bool.isRequired,
+  categoryOptionList: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired
+    }).isRequired
+  ),
+  categoryListLoading: PropTypes.bool.isRequired,
   checkFormValidity: PropTypes.func.isRequired,
   error: PropTypes.string,
   generateFormData: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
-  handleDateChange: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
   onSubmitData: PropTypes.func.isRequired

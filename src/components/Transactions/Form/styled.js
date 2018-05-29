@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { devices } from "utils/devices";
 
+import Select from "react-select";
+import "assets/react-select-override.css";
+
 import DatePicker from "react-datepicker";
 import "assets/react-datepicker-override.css";
 
@@ -19,6 +22,7 @@ export const Wrapper = styled.div`
     padding: 32px 32px 55px 32px;
     margin: 32px auto;
     border-radius: 2px;
+    width: 70%;
   }
 `;
 
@@ -26,42 +30,55 @@ export const SelectWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 24px;
-  margin-right: 32px;
-  width: 100px;
+  width: 45%;
 `;
 
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 24px;
-  margin-right: 32px;
+
+  @media ${devices.small} {
+    width: 100%;
+  }
+
+  @media ${devices.mediumUp} {
+    width: ${props => (props.largeHalf ? "45%" : "100%")};
+  }
 `;
 
 export const StyledDatePicker = styled(DatePicker)`
   border: ${props =>
     !props.isValid && props.touched
-      ? "1px solid #f9b498"
-      : "1px solid #f2f2f2"};
+      ? "1px solid #ddd"
+      : "1px solid #eee"};
   border-radius: 2px;
-  padding: 6px;
   font: inherit;
   color: inherit;
   cursor: pointer;
+  height: 30px;
+  padding-left: 12px;
+  width: 100%;
 
   &:focus {
     border: 1px solid #ddd;
   }
 `;
 
+export const StyledSelect = styled(Select)`
+  outline: none;
+`;
+
 export const StyledInput = styled.input`
   border: ${props =>
     !props.isValid && props.touched
-      ? "1px solid #f9b498"
-      : "1px solid #f2f2f2"};
+      ? "1px solid #ddd"
+      : "1px solid #eee"};
   border-radius: 2px;
-  padding: 6px;
   font: inherit;
   color: inherit;
+  height: 30px;
+  padding-left: 12px;
 
   &:focus {
     border: 1px solid #ddd;
@@ -76,14 +93,13 @@ export const Row = styled.div`
   display: flex;
   position: relative;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 `;
 
 export const Message = styled.div`
   font-size: 12px;
   color: #777;
-  position: absolute;
-  right: 32px;
 `;
 
 export const ColoredMark = styled.span`
@@ -111,7 +127,7 @@ export const SubmitRow = styled.div`
   display: flex;
   position: relative;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: 24px;
 `;
 
