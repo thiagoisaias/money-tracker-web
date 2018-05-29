@@ -8,7 +8,7 @@ import CategoryFormContainer from "components/Categories/Form/Container";
 import CategoryListContainer from "components/Categories/List/Container";
 import Home from "components/Home/Home";
 import NotFound from "components/NotFound/NotFound";
-import TransactionForm from "components/Transactions/Form/Form";
+import TransactionFormContainer from "components/Transactions/Form/Container";
 
 const App = props => {
   return (
@@ -25,7 +25,11 @@ const App = props => {
         path="/categories/:id/edit"
         component={CategoryFormContainer}
       />
-      <Route exact path="/transactions/new" component={TransactionForm} />
+      <Route
+        exact
+        path="/transactions/new"
+        component={TransactionFormContainer}
+      />
       <Route component={NotFound} />
     </Switch>
   );

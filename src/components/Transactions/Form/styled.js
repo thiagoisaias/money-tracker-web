@@ -49,9 +49,7 @@ export const InputWrapper = styled.div`
 
 export const StyledDatePicker = styled(DatePicker)`
   border: ${props =>
-    !props.isValid && props.touched
-      ? "1px solid #ddd"
-      : "1px solid #eee"};
+    !props.isValid && props.touched ? "1px solid #ddd" : "1px solid #eee"};
   border-radius: 2px;
   font: inherit;
   color: inherit;
@@ -71,9 +69,7 @@ export const StyledSelect = styled(Select)`
 
 export const StyledInput = styled.input`
   border: ${props =>
-    !props.isValid && props.touched
-      ? "1px solid #ddd"
-      : "1px solid #eee"};
+    !props.isValid && props.touched ? "1px solid #ddd" : "1px solid #eee"};
   border-radius: 2px;
   font: inherit;
   color: inherit;

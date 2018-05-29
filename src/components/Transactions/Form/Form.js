@@ -20,7 +20,6 @@ import {
   ErrorMessage
 } from "./styled";
 
-// import Input from "shared/Input/Input";
 import Layout from "components/Layout/Layout";
 import Spinner from "shared/Spinner/Spinner";
 import withFormHandler from "hoc/withFormHandler/withFormHandler";
@@ -87,25 +86,29 @@ class Form extends Component {
           isValid: false,
           touched: false
         },
-        account: {
+        accountId: {
           elementType: "select",
           elementConfig: {
             options: this.props.accountOptionList
           },
           label: "Account",
           value: null,
-          validation: {},
+          validation: {
+            requiredSelect: true
+          },
           isValid: true,
           touched: false
         },
-        category: {
+        categoryId: {
           elementType: "select",
           elementConfig: {
             options: this.props.categoryOptionList
           },
           label: "Category",
           value: null,
-          validation: {},
+          validation: {
+            requiredSelect: true
+          },
           isValid: true,
           touched: false
         }
@@ -121,7 +124,11 @@ class Form extends Component {
     }
 
     if (rules.requiredDate) {
-      isValid = moment.isMoment(value);
+      isValid = moment.isMoment(value) && isValid;
+    }
+
+    if (rules.requiredSelect) {
+      isValid = value !== null && isValid;
     }
 
     return isValid;
@@ -156,7 +163,6 @@ class Form extends Component {
     event.preventDefault();
 
     const formData = generateFormData(this.state.formFields);
-
     onSubmitData(formData);
   };
 
@@ -229,13 +235,13 @@ class Form extends Component {
               {"Account"} <ColoredMark>*</ColoredMark>
             </Label>
             <StyledSelect
-              {...formFields.account.elementConfig}
+              {...formFields.accountId.elementConfig}
               searchable={false}
               name={"account"}
               isLoading={accountListLoading}
-              value={formFields.account.value}
+              value={formFields.accountId.value}
               onChange={event => {
-                this.onInputChange(event, "account");
+                this.onInputChange(event, "accountId");
               }}
             />
           </SelectWrapper>
@@ -244,12 +250,12 @@ class Form extends Component {
               {"Category"} <ColoredMark>*</ColoredMark>
             </Label>
             <StyledSelect
-              {...formFields.category.elementConfig}
+              {...formFields.categoryId.elementConfig}
               searchable={false}
               isLoading={categoryListLoading}
-              value={formFields.category.value}
+              value={formFields.categoryId.value}
               onChange={event => {
-                this.onInputChange(event, "category");
+                this.onInputChange(event, "categoryId");
               }}
             />
           </SelectWrapper>
@@ -296,7 +302,7 @@ class Form extends Component {
             {inputList}
             <SubmitRow>
               <SubmitButton
-                // disabled={!this.state.isFormValid}
+                disabled={!this.state.isFormValid}
                 onClick={this.handleSubmit}
               >
                 {isLoading ? <Spinner size={25} color={"#ddd"} /> : "Submit"}
