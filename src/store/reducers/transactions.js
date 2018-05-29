@@ -43,6 +43,26 @@ const transactions = (state = initialState, action) => {
         isLoading: false,
         error: action.error
       };
+    case actionTypes.DELETE_TRANSACTION_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.DELETE_TRANSACTION_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        transactionList: state.transactionList.filter(item => {
+          return item.id !== action.transactionId;
+        })
+      };
+    case actionTypes.DELETE_TRANSACTION_FAIL:
+      return {
+        ...state,
+        error: action.error,
+        isLoading: false
+      };
     default:
       return state;
   }
