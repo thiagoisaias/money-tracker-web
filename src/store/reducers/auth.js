@@ -22,19 +22,13 @@ const auth = (state = initialState, action) => {
     case actionTypes.AUTH_START:
       return {
         ...state,
-        headers: {
-          ...state.headers
-        },
-        user: {
-          ...state.user
-        },
         isLoading: true
       };
     case actionTypes.AUTH_SUCCESS:
       return {
         ...state,
-        headers: action.authData.headers,
-        user: action.authData.user,
+        headers: { ...action.authData.headers },
+        user: { ...action.authData.user },
         error: null,
         isAuthenticated: true,
         isLoading: false
@@ -42,16 +36,10 @@ const auth = (state = initialState, action) => {
     case actionTypes.AUTH_FAIL:
       return {
         ...state,
-        headers: {
-          ...state.headers
-        },
-        user: {
-          ...state.user
-        },
         isLoading: false,
         error: action.error
       };
-    case actionTypes.LOGOUT_START:
+    case actionTypes.LOGOUT:
       return {
         ...initialState
       };

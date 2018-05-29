@@ -37,7 +37,7 @@ const accounts = (state = initialState, action) => {
         ...state,
         error: null,
         isLoading: false,
-        accountList: action.accountList
+        accountList: [...action.accountList]
       };
     case actionTypes.FETCH_ACCOUNTS_FAIL:
       return {
@@ -88,13 +88,13 @@ const accounts = (state = initialState, action) => {
     case actionTypes.SET_ACCOUNT_TO_EDIT:
       return {
         ...state,
-        accountToEdit: action.accountData
+        accountToEdit: { ...action.accountData }
       };
     case actionTypes.CLEAR_ACCOUNT_TO_EDIT:
       return {
         ...state,
         accountToEdit: null
-      }
+      };
     default:
       return state;
   }

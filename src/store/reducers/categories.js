@@ -37,7 +37,7 @@ const categories = (state = initialState, action) => {
         ...state,
         error: null,
         isLoading: false,
-        categoryList: action.categoryList
+        categoryList: [...action.categoryList]
       };
     case actionTypes.FETCH_CATEGORIES_FAIL:
       return {
@@ -54,7 +54,9 @@ const categories = (state = initialState, action) => {
       return {
         ...state,
         categoryList: state.categoryList.map(item => {
-          return item.id === action.categoryData.id ? action.categoryData : item;
+          return item.id === action.categoryData.id
+            ? action.categoryData
+            : item;
         }),
         error: null,
         isLoading: false
@@ -88,13 +90,13 @@ const categories = (state = initialState, action) => {
     case actionTypes.SET_CATEGORY_TO_EDIT:
       return {
         ...state,
-        categoryToEdit: action.categoryData
+        categoryToEdit: { ...action.categoryData }
       };
     case actionTypes.CLEAR_CATEGORY_TO_EDIT:
       return {
         ...state,
         categoryToEdit: null
-      }
+      };
     default:
       return state;
   }
