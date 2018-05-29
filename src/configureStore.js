@@ -3,13 +3,13 @@ import thunk from "redux-thunk";
 import throttle from "lodash/throttle";
 
 import rootReducer from "./store/reducers/rootReducer";
-import { saveAuthState, loadAuthState } from "./localStorage";
+import { saveState, loadState } from "./localStorage";
 
 const configureStore = () => {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-  const persistedState = { auth: loadAuthState() };
+  const persistedState = { ...loadState() };
 
   const store = createStore(
     rootReducer,
@@ -19,7 +19,7 @@ const configureStore = () => {
 
   store.subscribe(
     throttle(() => {
-      saveAuthState(store.getState().auth);
+      saveState(store.getState());
     }, 1000)
   );
 
