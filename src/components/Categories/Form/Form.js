@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import {
   Container,
+  StyledInput,
   Row,
   Message,
   ColoredMark,
@@ -14,7 +15,6 @@ import {
   ErrorMessage
 } from "shared/Form/styled";
 
-import Input from "shared/Input/Input";
 import Layout from "components/Layout/Layout";
 import Spinner from "shared/Spinner/Spinner";
 import withFormHandler from "hoc/withFormHandler/withFormHandler";
@@ -125,10 +125,8 @@ class Form extends Component {
           <Label>
             {formField.name} <ColoredMark>*</ColoredMark>
           </Label>
-          <Input
-            elementConfig={formField.elementConfig}
-            elementType={formField.elementType}
-            name={key}
+          <StyledInput
+            {...formField.elementConfig}
             value={formField.value}
             touched={formField.touched}
             isValid={formField.isValid}
