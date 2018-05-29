@@ -89,7 +89,7 @@ export const authFail = authError => {
 
 export const logoutStart = () => {
   return {
-    type: actionTypes.LOGOUT_START
+    type: actionTypes.LOGOUT
   };
 };
 
