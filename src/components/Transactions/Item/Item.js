@@ -31,14 +31,14 @@ const Item = props => {
       isActive={props.isActive}
     >
       <ItemInfoWrapper>
-        <TypeIndicator type={props.transaction_type} />
+        <TypeIndicator type={props.transactionType} />
         <DateText>{format(new Date(props.date), "DD")}</DateText>
         <Description> {props.description} </Description>
         <CategoryWrapper>
           <CategoryColor color={props.category.color} />
           <CategoryName>{props.category.name}</CategoryName>
         </CategoryWrapper>
-        <Value transactionType={props.transaction_type}>
+        <Value transactionType={props.transactionType}>
           {`${props.value.toLocaleString()}`}
         </Value>
       </ItemInfoWrapper>
