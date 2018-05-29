@@ -52,7 +52,7 @@ describe("Auth actions", () => {
 
   it("should create logoutStart action", () => {
     const expectedAction = {
-      type: actionTypes.LOGOUT_START
+      type: actionTypes.LOGOUT
     };
     expect(actions.logoutStart()).toEqual(expectedAction);
   });
