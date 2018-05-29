@@ -72,7 +72,7 @@ const withFormHandler = (WrappedComponent, props) => {
       for (let fieldKey in formFields) {
         if (formFields[fieldKey].elementConfig.type === "date") {
           // Saved value is a moment object
-          formData[fieldKey] = formFields[fieldKey].value.format("MM/DD/YYYY");
+          formData[fieldKey] = formFields[fieldKey].value.format();
         } else if (formFields[fieldKey].elementType === "select") {
           // Saved value is a object of shape { value: 121 label: Lorem} where value is the id
           formData[fieldKey] = formFields[fieldKey].value.value;
