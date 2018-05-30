@@ -86,9 +86,6 @@ export const CategoryWrapper = styled.div`
 `;
 
 export const CategoryName = styled.div`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 export const CategoryColor = styled.div`

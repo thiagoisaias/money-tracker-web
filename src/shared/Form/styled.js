@@ -95,7 +95,7 @@ export const SubmitButton = styled.button`
 `;
 
 export const ErrorMessage = styled.p`
-  color: #e75252;
+  color: salmon;
   font-size: 14px;
   margin-top: 16px;
 `;
