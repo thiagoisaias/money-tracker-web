@@ -68,17 +68,26 @@ class Form extends Component {
     return isValid;
   };
 
-  onInputChange = event => {
+  onInputChange = (event, key) => {
     const { handleInputChange } = this.props;
     const formFields = { ...this.state.formFields };
     const checkFieldValidity = this.checkFieldValidity;
-    event.preventDefault();
+
+    let newValue = null;
+    if (!event) {
+      newValue = null;
+    } else {
+      newValue = event.target ? event.target.value : event;
+    }
+
     const updatedFormState = handleInputChange(
-      event,
+      newValue,
+      key,
       formFields,
       checkFieldValidity
     );
     this.setState({
+      ...this.state,
       ...updatedFormState
     });
   };
@@ -130,7 +139,9 @@ class Form extends Component {
             value={formField.value}
             touched={formField.touched}
             isValid={formField.isValid}
-            onChange={this.onInputChange}
+            onChange={(event) => {
+              this.onInputChange(event, key);
+            }}
           />
         </FormGroup>
       );
