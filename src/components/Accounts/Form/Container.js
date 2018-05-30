@@ -61,7 +61,11 @@ export class Container extends Component {
 
   // The value of accountToEdit should be null when the user leave /accounts/:id/edit
   componentWillUnmount() {
-    this.props.onClearAccountToEdit();
+    const { match, onClearAccountToEdit } = this.props;
+
+    if (match.path === "/accounts/:id/edit") {
+      onClearAccountToEdit();
+    }
   }
 }
 

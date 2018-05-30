@@ -60,7 +60,11 @@ export class Container extends Component {
 
   // The value of categoryToEdit should be null when the user leave /categories/:id/edit
   componentWillUnmount() {
-    this.props.onClearCategoryToEdit();
+    const { match, onClearCategoryToEdit } = this.props;
+    
+    if (match.path === "/categories/:id/edit") {
+      onClearCategoryToEdit();
+    }
   }
 }
 
