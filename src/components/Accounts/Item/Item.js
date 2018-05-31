@@ -18,7 +18,7 @@ const AccountItem = props => {
       onClick={() => handleActiveItem(accountData.id)}
     >
       <Name>{accountData.name}</Name>
-      <Balance>{`$ ${accountData.initialBalance.toLocaleString()}`}</Balance>
+      <Balance>{`$ ${accountData.currentBalance.toLocaleString()}`}</Balance>
       <ActionsWrapper>
         <Action
           onClick={() => {

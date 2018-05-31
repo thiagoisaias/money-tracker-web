@@ -9,6 +9,7 @@ describe("Account Item", () => {
     accountData: {
       id: 1,
       initialBalance: "94569",
+      currentBalance: "543",
       name: "Mock Account"
     },
     handleActiveItem: jest.fn(),
