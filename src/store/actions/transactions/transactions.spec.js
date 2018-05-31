@@ -5,6 +5,9 @@ describe("Transactions actions", () => {
   const transactionData = {
     id: 1
   };
+  const transactionToEdit = {
+    id: 1
+  }
   const transactionList = [
     {
       id: 1,
@@ -162,9 +165,9 @@ describe("Transactions actions", () => {
   it("should create setTransactionToEdit action", () => {
     const expectedAction = {
       type: actionTypes.SET_TRANSACTION_TO_EDIT,
-      transactionData
+      transactionToEdit
     };
-    expect(actions.setTransactionToEdit(transactionData)).toEqual(
+    expect(actions.setTransactionToEdit(transactionToEdit)).toEqual(
       expectedAction
     );
   });
