@@ -32,5 +32,24 @@ exports[`Transaction Form Container renders properly 1`] = `
   isLoading={false}
   match={Object {}}
   onSubmitData={[Function]}
+  transactionToEdit={
+    Object {
+      "account": Object {
+        "id": 1,
+        "initialBalance": "324",
+        "name": "default",
+      },
+      "category": Object {
+        "color": "blue",
+        "id": 1,
+        "name": "Food",
+      },
+      "date": "05-28-2018",
+      "description": "Lorem",
+      "id": 1,
+      "transactionType": "expense",
+      "value": "3454",
+    }
+  }
 />
 `;

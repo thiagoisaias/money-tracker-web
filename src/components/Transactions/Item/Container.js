@@ -5,9 +5,18 @@ import { withRouter } from "react-router-dom";
 
 import Item from "./Item";
 
-import { deleteTransaction } from "store/actions/transactions/transactions";
+import {
+  deleteTransaction,
+  setTransactionToEdit
+} from "store/actions/transactions/transactions";
 
 export class Container extends Component {
+  handleEdit = () => {
+    const { transactionData, history, onSetTransactionToEdit } = this.props;
+    onSetTransactionToEdit(transactionData);
+    history.push(`/transactions/${transactionData.id}/edit`);
+  };
+
   handleDelete = () => {
     const { isLoading, onDeleteTransaction, transactionData } = this.props;
 
@@ -22,7 +31,13 @@ export class Container extends Component {
   };
 
   render() {
-    return <Item {...this.props} handleDelete={this.handleDelete} />;
+    return (
+      <Item
+        {...this.props}
+        handleEdit={this.handleEdit}
+        handleDelete={this.handleDelete}
+      />
+    );
   }
 }
 
@@ -60,6 +75,10 @@ const mapDispatchToProps = dispatch => {
   return {
     onDeleteTransaction: transactionId => {
       dispatch(deleteTransaction(transactionId));
+    },
+
+    onSetTransactionToEdit: transactionData => {
+      dispatch(setTransactionToEdit(transactionData));
     }
   };
 };

@@ -40,7 +40,11 @@ class Form extends Component {
             ]
           },
           label: "Type",
-          value: { value: "expense", label: "Expense" },
+          value: (this.props.transactionToEdit &&
+            this.props.transactionToEdit.transactionType) || {
+            value: "expense",
+            label: "Expense"
+          },
           validation: {},
           isValid: false,
           touched: false
@@ -53,8 +57,8 @@ class Form extends Component {
           },
           label: "Description",
           value:
-            (this.props.transactionData &&
-              this.props.transactionData.description) ||
+            (this.props.transactionToEdit &&
+              this.props.transactionToEdit.description) ||
             "",
           validation: {
             required: true
@@ -70,7 +74,8 @@ class Form extends Component {
           },
           label: "Value",
           value:
-            (this.props.transactionData && this.props.transactionData.value) ||
+            (this.props.transactionToEdit &&
+              this.props.transactionToEdit.value) ||
             "",
           validation: {
             required: true
@@ -85,7 +90,8 @@ class Form extends Component {
           },
           label: "Date",
           value:
-            (this.props.transactionData && this.props.transactionData.date) ||
+            (this.props.transactionToEdit &&
+              moment(this.props.transactionToEdit.date)) ||
             moment(),
           validation: {
             requiredDate: true
@@ -100,10 +106,10 @@ class Form extends Component {
           },
           label: "Account",
           value:
-            (this.props.transactionData &&
-              this.props.transactionData.account && {
-                value: this.props.transactionData.account.id,
-                label: this.props.transactionData.account.name
+            (this.props.transactionToEdit &&
+              this.props.transactionToEdit.account && {
+                value: this.props.transactionToEdit.account.id,
+                label: this.props.transactionToEdit.account.name
               }) ||
             null,
           validation: {
@@ -119,10 +125,10 @@ class Form extends Component {
           },
           label: "Category",
           value:
-            (this.props.transactionData &&
-              this.props.transactionData.category && {
-                value: this.props.transactionData.category.id,
-                label: this.props.transactionData.category.name
+            (this.props.transactionToEdit &&
+              this.props.transactionToEdit.category && {
+                value: this.props.transactionToEdit.category.id,
+                label: this.props.transactionToEdit.category.name
               }) ||
             null,
           validation: {
@@ -193,7 +199,7 @@ class Form extends Component {
       this.checkFieldValidity
     );
 
-    if (match.path === "/accounts/:id/edit" && isFormValid) {
+    if (match.path === "/transactions/:id/edit" && isFormValid) {
       this.setState({
         ...this.state,
         isFormValid: true
@@ -360,7 +366,7 @@ Form.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
   onSubmitData: PropTypes.func.isRequired,
-  transactionData: PropTypes.shape({
+  transactionToEdit: PropTypes.shape({
     id: PropTypes.number.isRequired,
     account: PropTypes.shape({
       id: PropTypes.number.isRequired,

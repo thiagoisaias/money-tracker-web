@@ -18,12 +18,14 @@ import {
   Action
 } from "./styled";
 
-const actionClick = action => {
-  console.log(`Clicked ${action}`);
-};
-
 const Item = props => {
-  const { handleActiveItem, handleDelete, isActive, transactionData } = props;
+  const {
+    handleActiveItem,
+    handleEdit,
+    handleDelete,
+    isActive,
+    transactionData
+  } = props;
   return (
     <Wrapper
       onClick={() => {
@@ -50,7 +52,7 @@ const Item = props => {
         <ActionsWrapper>
           <Action
             onClick={() => {
-              actionClick("Edit");
+              handleEdit();
             }}
           >
             {"Edit"}
@@ -87,6 +89,7 @@ Item.propTypes = {
     transactionType: PropTypes.string.isRequired
   }).isRequired,
   handleActiveItem: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired
 };
 

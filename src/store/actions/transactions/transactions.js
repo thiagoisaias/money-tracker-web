@@ -31,8 +31,6 @@ export const createTransaction = (transactionData, accountId) => {
 
     dispatch(createTransactionStart());
 
-    console.log(decamelizeKeys(transactionData));
-
     axios
       .post(
         `/users/${userId}/accounts/${accountId}/transactions`,
@@ -73,7 +71,8 @@ export const fetchTransactionsFail = error => {
 
 export const fetchTransactions = () => {
   return (dispatch, getState) => {
-    // dispatch(fetchTransactionsStart());
+    dispatch(fetchTransactionsStart());
+    dispatch(fetchTransactionsSuccess(getState().transactions.transactionList));
   };
 };
 
@@ -99,8 +98,33 @@ export const updateTransactionFail = error => {
   };
 };
 
-export const updateTransaction = (transactionId, accountId) => {
-  return dispatch => {};
+export const updateTransaction = (
+  transactionData,
+  transactionId,
+  accountId,
+  history
+) => {
+  return (dispatch, getState) => {
+    const authHeaders = decamelizeKeys(getState().auth.headers);
+    const userId = getState().auth.user.id;
+
+    dispatch(updateTransactionStart());
+
+    axios
+      .put(
+        `/users/${userId}/accounts/${accountId}/transactions/${transactionId}`,
+        { transaction: decamelizeKeys(transactionData) },
+        { headers: authHeaders }
+      )
+      .then(response => {
+        dispatch(updateTransactionSuccess(response.data));
+        history.push("/");
+      })
+      .catch(error => {
+        console.log(error.response.data);
+        dispatch(updateTransactionFail("Something went wrong."));
+      });
+  };
 };
 
 /* Delete transaction */
@@ -138,7 +162,6 @@ export const deleteTransaction = (transactionId, accountId) => {
         { headers: authHeaders }
       )
       .then(response => {
-        console.log(response.data);
         dispatch(deleteTransactionSuccess(transactionId));
       })
       .catch(error => {
@@ -150,10 +173,10 @@ export const deleteTransaction = (transactionId, accountId) => {
 
 /* Other */
 
-export const setTransactionToEdit = transactionData => {
+export const setTransactionToEdit = transactionToEdit => {
   return {
     type: actionTypes.SET_TRANSACTION_TO_EDIT,
-    transactionData
+    transactionToEdit
   };
 };
 

@@ -3,7 +3,8 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   error: null,
   isLoading: false,
-  transactionList: []
+  transactionList: [],
+  transactionToEdit: null
 };
 
 const transactions = (state = initialState, action) => {
@@ -18,7 +19,14 @@ const transactions = (state = initialState, action) => {
         ...state,
         error: null,
         isLoading: false,
-        transactionList: [...state.transactionList, action.transactionData]
+        transactionList: [
+          ...state.transactionList,
+          {
+            ...action.transactionData,
+            account: { ...action.transactionData.account },
+            category: { ...action.transactionData.category }
+          }
+        ]
       };
     case actionTypes.CREATE_TRANSACTION_FAIL:
       return {
@@ -43,6 +51,32 @@ const transactions = (state = initialState, action) => {
         isLoading: false,
         error: action.error
       };
+    case actionTypes.UPDATE_TRANSACTION_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.UPDATE_TRANSACTION_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        transactionList: state.transactionList.map(item => {
+          return item.id === action.transactionData.id
+            ? {
+                ...action.transactionData,
+                account: { ...action.transactionData.account },
+                category: { ...action.transactionData.category }
+              }
+            : item;
+        })
+      };
+    case actionTypes.UPDATE_TRANSACTION_FAIL:
+      return {
+        ...state,
+        error: action.error,
+        isLoading: false
+      };
     case actionTypes.DELETE_TRANSACTION_START:
       return {
         ...state,
@@ -62,6 +96,16 @@ const transactions = (state = initialState, action) => {
         ...state,
         error: action.error,
         isLoading: false
+      };
+    case actionTypes.SET_TRANSACTION_TO_EDIT:
+      return {
+        ...state,
+        transactionToEdit: { ...action.transactionToEdit }
+      };
+    case actionTypes.CLEAR_TRANSACTION_TO_EDIT:
+      return {
+        ...state,
+        transactionToEdit: null
       };
     default:
       return state;

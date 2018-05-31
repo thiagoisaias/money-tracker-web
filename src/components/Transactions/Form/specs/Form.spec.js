@@ -23,7 +23,7 @@ describe("Transaction Form", () => {
     isLoading: false,
     match: {},
     onSubmitData: jest.fn(),
-    transactionData: {
+    transactionToEdit: {
       id: 1,
       account: {
         id: 1,

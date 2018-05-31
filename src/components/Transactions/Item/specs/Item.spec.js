@@ -24,6 +24,7 @@ describe("Transaction Item", () => {
       transactionType: "expense"
     },
     handleActiveItem: jest.fn(),
+    handleEdit: jest.fn(),
     handleDelete: jest.fn()
   };
 

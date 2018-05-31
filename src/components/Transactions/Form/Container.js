@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import {
-  // clearTransactionToEdit,
-  createTransaction
-  // updateTransaction
+  clearTransactionToEdit,
+  createTransaction,
+  updateTransaction
 } from "store/actions/transactions/transactions";
 
 import { fetchAccounts } from "store/actions/accounts/accounts";
@@ -16,7 +16,14 @@ import Form from "./Form";
 
 export class Container extends Component {
   onSubmitData = formData => {
-    const { isLoading, match, onCreateTransaction } = this.props;
+    const {
+      history,
+      isLoading,
+      match,
+      onCreateTransaction,
+      onUpdateTransaction,
+      transactionToEdit
+    } = this.props;
 
     if (isLoading) {
       return;
@@ -26,12 +33,16 @@ export class Container extends Component {
 
     if (match.path === "/transactions/new") {
       onCreateTransaction(transformedData, accountId);
+    } else if (match.path === "/transactions/:id/edit" && transactionToEdit) {
+      onUpdateTransaction(
+        transformedData,
+        transactionToEdit.id,
+        accountId,
+        history
+      );
+    } else {
+      return;
     }
-    // else if (match.path === "/transactions/:id/edit" && transactionToEdit) {
-    //   onUpdateTransaction(formData, transactionToEdit.id, history);
-    // } else {
-    //   return;
-    // }
   };
 
   handleSelectOptions() {
@@ -49,9 +60,32 @@ export class Container extends Component {
   }
 
   componentDidMount() {
-    const { onFetchAccounts, onFetchCategories } = this.props;
-    onFetchAccounts();
-    onFetchCategories();
+    const {
+      accountList,
+      categoryList,
+      history,
+      match,
+      onFetchAccounts,
+      onFetchCategories,
+      transactionToEdit
+    } = this.props;
+
+    if (categoryList.length === 0 || accountList.length === 0) {
+      onFetchAccounts();
+      onFetchCategories();
+    }
+
+    if (match.path === "/transactions/:id/edit" && transactionToEdit === null) {
+      history.push("/");
+    }
+  }
+
+  componentWillUnmount() {
+    const { match, onClearTransactionToEdit } = this.props;
+
+    if (match.path === "/transactions/:id/edit") {
+      onClearTransactionToEdit();
+    }
   }
 
   render() {
@@ -60,7 +94,8 @@ export class Container extends Component {
       categoryListLoading,
       error,
       isLoading,
-      match
+      match,
+      transactionToEdit
     } = this.props;
 
     const {
@@ -78,6 +113,7 @@ export class Container extends Component {
         isLoading={isLoading}
         match={match}
         onSubmitData={this.onSubmitData}
+        transactionToEdit={transactionToEdit}
       />
     );
   }
@@ -125,7 +161,7 @@ Container.propTypes = {
   onCreateTransaction: PropTypes.func.isRequired,
   onFetchAccounts: PropTypes.func.isRequired,
   onFetchCategories: PropTypes.func.isRequired,
-  onUpdateTransaction: PropTypes.func
+  onUpdateTransaction: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -135,12 +171,17 @@ const mapStateToProps = state => {
     categoryList: state.categories.categoryList,
     categoryListLoading: state.categories.isLoading,
     error: state.transactions.error,
-    isLoading: state.transactions.isLoading
+    isLoading: state.transactions.isLoading,
+    transactionToEdit: state.transactions.transactionToEdit
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    onClearTransactionToEdit: () => {
+      dispatch(clearTransactionToEdit());
+    },
+
     onCreateTransaction: (transactionData, accountId) => {
       dispatch(createTransaction(transactionData, accountId));
     },
@@ -151,6 +192,17 @@ const mapDispatchToProps = dispatch => {
 
     onFetchCategories: () => {
       dispatch(fetchCategories());
+    },
+
+    onUpdateTransaction: (
+      transactionData,
+      transactionId,
+      accountId,
+      history
+    ) => {
+      dispatch(
+        updateTransaction(transactionData, transactionId, accountId, history)
+      );
     }
   };
 };

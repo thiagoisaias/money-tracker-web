@@ -35,7 +35,7 @@ exports[`Transaction Form renders properly 1`] = `
   isLoading={false}
   match={Object {}}
   onSubmitData={[Function]}
-  transactionData={
+  transactionToEdit={
     Object {
       "account": Object {
         "id": 1,
