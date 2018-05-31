@@ -2,15 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import Balance from "../Balance";
+import { Container } from "../Container";
 
-describe("Balance", () => {
+describe("Category Item Container", () => {
   const mockProps = {
     isLoading: false,
-    overallBalance: 9000
+    overallBalance: 9000,
+    onGetOverallBalance: jest.fn()
   };
-
-  const component = shallow(<Balance {...mockProps} />);
+  const component = shallow(<Container {...mockProps} />);
 
   it("renders properly", () => {
     expect(toJson(component)).toMatchSnapshot();
