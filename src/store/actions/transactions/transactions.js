@@ -1,6 +1,6 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
-import { decamelizeKeys } from "humps";
+import { camelizeKeys, decamelizeKeys } from "humps";
 
 /* Create Transaction */
 
@@ -38,7 +38,8 @@ export const createTransaction = (transactionData, accountId) => {
         { headers: authHeaders }
       )
       .then(response => {
-        dispatch(createTransactionSuccess(response.data));
+        const parsedData = camelizeKeys(response.data);
+        dispatch(createTransactionSuccess(parsedData));
       })
       .catch(error => {
         console.log(error.response.data);
@@ -117,7 +118,9 @@ export const updateTransaction = (
         { headers: authHeaders }
       )
       .then(response => {
-        dispatch(updateTransactionSuccess(response.data));
+        const parsedData = camelizeKeys(response.data);
+
+        dispatch(updateTransactionSuccess(parsedData));
         history.push("/");
       })
       .catch(error => {

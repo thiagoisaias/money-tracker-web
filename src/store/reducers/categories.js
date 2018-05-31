@@ -19,7 +19,7 @@ const categories = (state = initialState, action) => {
         ...state,
         error: null,
         isLoading: false,
-        categoryList: [...state.categoryList, action.categoryData]
+        categoryList: [...state.categoryList, { ...action.categoryData }]
       };
     case actionTypes.CREATE_CATEGORY_FAIL:
       return {
@@ -55,7 +55,7 @@ const categories = (state = initialState, action) => {
         ...state,
         categoryList: state.categoryList.map(item => {
           return item.id === action.categoryData.id
-            ? action.categoryData
+            ? { ...action.categoryData }
             : item;
         }),
         error: null,

@@ -19,7 +19,7 @@ const accounts = (state = initialState, action) => {
         ...state,
         error: null,
         isLoading: false,
-        accountList: [...state.accountList, action.accountData]
+        accountList: [...state.accountList, { ...action.accountData }]
       };
     case actionTypes.CREATE_ACCOUNT_FAIL:
       return {
@@ -54,7 +54,9 @@ const accounts = (state = initialState, action) => {
       return {
         ...state,
         accountList: state.accountList.map(item => {
-          return item.id === action.accountData.id ? action.accountData : item;
+          return item.id === action.accountData.id
+            ? { ...action.accountData }
+            : item;
         }),
         error: null,
         isLoading: false

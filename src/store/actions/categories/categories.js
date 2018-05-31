@@ -1,6 +1,6 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
-import { decamelizeKeys } from "humps";
+import { camelizeKeys, decamelizeKeys } from "humps";
 
 /* Create Category */
 
@@ -38,7 +38,8 @@ export const createCategory = (categoryData, history) => {
         { headers: authHeaders }
       )
       .then(response => {
-        dispatch(createCategorySuccess(response.data));
+        const parsedData = camelizeKeys(response.data);
+        dispatch(createCategorySuccess(parsedData));
         history.push("/categories");
       })
       .catch(error => {
@@ -80,7 +81,8 @@ export const fetchCategories = () => {
     axios
       .get(`/users/${userId}/categories`, { headers: authHeaders })
       .then(response => {
-        dispatch(fetchCategoriesSuccess(response.data));
+        const parsedData = camelizeKeys(response.data);
+        dispatch(fetchCategoriesSuccess(parsedData));
       })
       .catch(error => {
         dispatch(fetchCategoriesFail("Something went wrong."));
@@ -124,7 +126,8 @@ export const updateCategory = (formData, categoryId, history) => {
         { headers: authHeaders }
       )
       .then(response => {
-        dispatch(updateCategorySuccess(response.data));
+        const parsedData = camelizeKeys(response.data);
+        dispatch(updateCategorySuccess(parsedData));
         history.push("/categories");
       })
       .catch(error => {
@@ -167,7 +170,6 @@ export const deleteCategory = categoryId => {
         headers: authHeaders
       })
       .then(response => {
-        console.log("delete 200 ok");
         dispatch(deleteCategorySuccess(categoryId));
       })
       .catch(error => {

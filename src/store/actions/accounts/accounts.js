@@ -1,6 +1,6 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
-import { decamelizeKeys } from "humps";
+import { camelizeKeys, decamelizeKeys } from "humps";
 
 /* Create Account */
 
@@ -38,7 +38,8 @@ export const createAccount = (accountData, history) => {
         { headers: authHeaders }
       )
       .then(response => {
-        dispatch(createAccountSuccess(response.data));
+        const parsedData = camelizeKeys(response.data);
+        dispatch(createAccountSuccess(parsedData));
         history.push("/accounts");
       })
       .catch(error => {
@@ -81,7 +82,8 @@ export const fetchAccounts = () => {
     axios
       .get(`/users/${userId}/accounts`, { headers: authHeaders })
       .then(response => {
-        dispatch(fetchAccountsSuccess(response.data));
+        const parsedData = camelizeKeys(response.data);
+        dispatch(fetchAccountsSuccess(parsedData));
       })
       .catch(error => {
         // TODO: Display proper error message
@@ -127,7 +129,8 @@ export const updateAccount = (accountData, accountId, history) => {
         { headers: authHeaders }
       )
       .then(response => {
-        dispatch(updateAccountSuccess(response.data));
+        const parsedData = camelizeKeys(response.data);
+        dispatch(updateAccountSuccess(parsedData));
         history.push("/accounts");
       })
       .catch(error => {
