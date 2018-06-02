@@ -11,7 +11,7 @@ describe("Transaction Item", () => {
       account: {
         id: 1,
         name: "Lorem",
-        initialBalance: 3242
+        initialBalance: "3242"
       },
       date: "2018-05-29",
       description: "Lorem Ipsum",
@@ -20,7 +20,7 @@ describe("Transaction Item", () => {
         name: "Home",
         color: "salmon"
       },
-      value: 324.32,
+      value: "324.32",
       transactionType: "expense"
     },
     handleActiveItem: jest.fn(),

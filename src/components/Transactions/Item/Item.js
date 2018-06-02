@@ -76,7 +76,7 @@ Item.propTypes = {
     account: PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      initialBalance: PropTypes.number.isRequired
+      initialBalance: PropTypes.string.isRequired
     }).isRequired,
     date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -85,7 +85,7 @@ Item.propTypes = {
       name: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired
     }).isRequired,
-    value: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
     transactionType: PropTypes.string.isRequired
   }).isRequired,
   handleActiveItem: PropTypes.func.isRequired,
