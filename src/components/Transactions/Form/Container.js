@@ -34,12 +34,7 @@ export class Container extends Component {
     if (match.path === "/transactions/new") {
       onCreateTransaction(transformedData, accountId);
     } else if (match.path === "/transactions/:id/edit" && transactionToEdit) {
-      onUpdateTransaction(
-        transformedData,
-        transactionToEdit.id,
-        accountId,
-        history
-      );
+      onUpdateTransaction(formData, transactionToEdit.id, accountId, history);
     } else {
       return;
     }
@@ -70,9 +65,12 @@ export class Container extends Component {
       transactionToEdit
     } = this.props;
 
-    if (categoryList.length === 0 || accountList.length === 0) {
-      onFetchAccounts();
+    if (categoryList.length === 0) {
       onFetchCategories();
+    }
+
+    if (accountList.length === 0) {
+      onFetchAccounts();
     }
 
     if (match.path === "/transactions/:id/edit" && transactionToEdit === null) {
@@ -126,7 +124,7 @@ Container.propTypes = {
       name: PropTypes.string.isRequired,
       initialBalance: PropTypes.string.isRequired
     })
-  ).isRequired,
+  ),
   accountListLoading: PropTypes.bool.isRequired,
   categoryList: PropTypes.arrayOf(
     PropTypes.shape({
@@ -134,7 +132,7 @@ Container.propTypes = {
       name: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired
     })
-  ).isRequired,
+  ),
   categoryListLoading: PropTypes.bool.isRequired,
   transactionToEdit: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -164,48 +162,39 @@ Container.propTypes = {
   onUpdateTransaction: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    accountList: state.accounts.accountList,
-    accountListLoading: state.accounts.isLoading,
-    categoryList: state.categories.categoryList,
-    categoryListLoading: state.categories.isLoading,
-    error: state.transactions.error,
-    isLoading: state.transactions.isLoading,
-    transactionToEdit: state.transactions.transactionToEdit
-  };
-};
+const mapStateToProps = state => ({
+  accountList: state.accounts.accountList,
+  accountListLoading: state.accounts.isLoading,
+  categoryList: state.categories.categoryList,
+  categoryListLoading: state.categories.isLoading,
+  error: state.transactions.error,
+  isLoading: state.transactions.isLoading,
+  transactionToEdit: state.transactions.transactionToEdit
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onClearTransactionToEdit: () => {
-      dispatch(clearTransactionToEdit());
-    },
+const mapDispatchToProps = dispatch => ({
+  onClearTransactionToEdit: () => {
+    dispatch(clearTransactionToEdit());
+  },
 
-    onCreateTransaction: (transactionData, accountId) => {
-      dispatch(createTransaction(transactionData, accountId));
-    },
+  onCreateTransaction: (transactionData, accountId) => {
+    dispatch(createTransaction(transactionData, accountId));
+  },
 
-    onFetchAccounts: () => {
-      dispatch(fetchAccounts());
-    },
+  onFetchAccounts: () => {
+    dispatch(fetchAccounts());
+  },
 
-    onFetchCategories: () => {
-      dispatch(fetchCategories());
-    },
+  onFetchCategories: () => {
+    dispatch(fetchCategories());
+  },
 
-    onUpdateTransaction: (
-      transactionData,
-      transactionId,
-      accountId,
-      history
-    ) => {
-      dispatch(
-        updateTransaction(transactionData, transactionId, accountId, history)
-      );
-    }
-  };
-};
+  onUpdateTransaction: (transactionData, transactionId, accountId, history) => {
+    dispatch(
+      updateTransaction(transactionData, transactionId, accountId, history)
+    );
+  }
+});
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)

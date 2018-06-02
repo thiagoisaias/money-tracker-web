@@ -39,7 +39,7 @@ exports[`Transaction Form renders properly 1`] = `
     Object {
       "account": Object {
         "id": 1,
-        "initialBalance": 3242,
+        "initialBalance": "3242",
         "name": "Lorem",
       },
       "category": Object {
@@ -51,7 +51,7 @@ exports[`Transaction Form renders properly 1`] = `
       "description": "Lorem Ipsum",
       "id": 1,
       "transactionType": "expense",
-      "value": 324.32,
+      "value": "324.32",
     }
   }
 />

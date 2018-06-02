@@ -40,8 +40,13 @@ class Form extends Component {
             ]
           },
           label: "Type",
-          value: (this.props.transactionToEdit &&
-            this.props.transactionToEdit.transactionType) || {
+          value: (this.props.transactionToEdit && {
+            value: this.props.transactionToEdit.transactionType,
+            label:
+              this.props.transactionToEdit.transactionType === "expense"
+                ? "Expense"
+                : "Earning"
+          }) || {
             value: "expense",
             label: "Expense"
           },
@@ -101,9 +106,7 @@ class Form extends Component {
         },
         accountId: {
           elementType: "select",
-          elementConfig: {
-            options: this.props.accountOptionList
-          },
+          elementConfig: {},
           label: "Account",
           value:
             (this.props.transactionToEdit &&
@@ -120,9 +123,7 @@ class Form extends Component {
         },
         categoryId: {
           elementType: "select",
-          elementConfig: {
-            options: this.props.categoryOptionList
-          },
+          elementConfig: {},
           label: "Category",
           value:
             (this.props.transactionToEdit &&
@@ -214,7 +215,9 @@ class Form extends Component {
   render() {
     const {
       accountListLoading,
+      accountOptionList,
       categoryListLoading,
+      categoryOptionList,
       error,
       isLoading,
       match
@@ -260,10 +263,10 @@ class Form extends Component {
               {"Account"} <ColoredMark>*</ColoredMark>
             </Label>
             <StyledSelect
-              {...formFields.accountId.elementConfig}
+              options={accountOptionList}
               searchable={false}
               name={"account"}
-              isLoading={accountListLoading}
+              isLoading={accountListLoading || accountOptionList.length === 0}
               value={formFields.accountId.value}
               onChange={event => {
                 this.onInputChange(event, "accountId");
@@ -275,9 +278,9 @@ class Form extends Component {
               {"Category"} <ColoredMark>*</ColoredMark>
             </Label>
             <StyledSelect
-              {...formFields.categoryId.elementConfig}
+              options={categoryOptionList}
               searchable={false}
-              isLoading={categoryListLoading}
+              isLoading={categoryListLoading || categoryOptionList.length === 0}
               value={formFields.categoryId.value}
               onChange={event => {
                 this.onInputChange(event, "categoryId");
@@ -350,14 +353,14 @@ Form.propTypes = {
       value: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired
     })
-  ).isRequired,
+  ),
   accountListLoading: PropTypes.bool.isRequired,
   categoryOptionList: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired
     })
-  ).isRequired,
+  ),
   categoryListLoading: PropTypes.bool.isRequired,
   checkFormValidity: PropTypes.func.isRequired,
   error: PropTypes.string,
@@ -371,7 +374,7 @@ Form.propTypes = {
     account: PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      initialBalance: PropTypes.number.isRequired
+      initialBalance: PropTypes.string.isRequired
     }).isRequired,
     date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -380,7 +383,7 @@ Form.propTypes = {
       name: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired
     }).isRequired,
-    value: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
     transactionType: PropTypes.string.isRequired
   })
 };

@@ -7,7 +7,7 @@ describe("Transactions actions", () => {
   };
   const transactionToEdit = {
     id: 1
-  }
+  };
   const transactionList = [
     {
       id: 1,
@@ -75,33 +75,29 @@ describe("Transactions actions", () => {
     //TODO: Async action
   });
 
-  it("should create fetchTransactionsStart action", () => {
+  it("should create fetchTransactionsByDateStart action", () => {
     const expectedAction = {
-      type: actionTypes.FETCH_TRANSACTIONS_START
+      type: actionTypes.FETCH_TRANSACTIONS_BY_DATE_START
     };
-    expect(actions.fetchTransactionsStart()).toEqual(expectedAction);
+    expect(actions.fetchTransactionsByDateStart()).toEqual(expectedAction);
   });
 
-  it("should create fetchTransactionsSuccess action", () => {
+  it("should create fetchTransactionsByDateSuccess action", () => {
     const expectedAction = {
-      type: actionTypes.FETCH_TRANSACTIONS_SUCCESS,
+      type: actionTypes.FETCH_TRANSACTIONS_BY_DATE_SUCCESS,
       transactionList
     };
-    expect(actions.fetchTransactionsSuccess(transactionList)).toEqual(
+    expect(actions.fetchTransactionsByDateSuccess(transactionList)).toEqual(
       expectedAction
     );
   });
 
-  it("should create fetchTransactionsFail action", () => {
+  it("should create fetchTransactionsByDateFail action", () => {
     const expectedAction = {
-      type: actionTypes.FETCH_TRANSACTIONS_FAIL,
+      type: actionTypes.FETCH_TRANSACTIONS_BY_DATE_FAIL,
       error
     };
-    expect(actions.fetchTransactionsFail(error)).toEqual(expectedAction);
-  });
-
-  xit("should create fetchTransactions (async) action", () => {
-    //TODO: Async action
+    expect(actions.fetchTransactionsByDateFail(error)).toEqual(expectedAction);
   });
 
   it("should create updateTransactionStart action", () => {

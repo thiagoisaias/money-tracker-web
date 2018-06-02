@@ -34,18 +34,19 @@ const transactions = (state = initialState, action) => {
         error: action.error,
         isLoading: false
       };
-    case actionTypes.FETCH_TRANSACTIONS_START:
+    case actionTypes.FETCH_TRANSACTIONS_BY_DATE_START:
       return {
         ...state,
         isLoading: true
       };
-    case actionTypes.FETCH_TRANSACTIONS_SUCCESS:
+    case actionTypes.FETCH_TRANSACTIONS_BY_DATE_SUCCESS:
       return {
         ...state,
         error: null,
-        isLoading: false
+        isLoading: false,
+        transactionList: [...action.transactionList]
       };
-    case actionTypes.FETCH_TRANSACTIONS_FAIL:
+    case actionTypes.FETCH_TRANSACTIONS_BY_DATE_FAIL:
       return {
         ...state,
         isLoading: false,

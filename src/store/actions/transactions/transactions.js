@@ -4,25 +4,19 @@ import { camelizeKeys, decamelizeKeys } from "humps";
 
 /* Create Transaction */
 
-export const createTransactionStart = () => {
-  return {
-    type: actionTypes.CREATE_TRANSACTION_START
-  };
-};
+export const createTransactionStart = () => ({
+  type: actionTypes.CREATE_TRANSACTION_START
+});
 
-export const createTransactionSuccess = transactionData => {
-  return {
-    type: actionTypes.CREATE_TRANSACTION_SUCCESS,
-    transactionData
-  };
-};
+export const createTransactionSuccess = transactionData => ({
+  type: actionTypes.CREATE_TRANSACTION_SUCCESS,
+  transactionData
+});
 
-export const createTransactionFail = error => {
-  return {
-    type: actionTypes.CREATE_TRANSACTION_FAIL,
-    error
-  };
-};
+export const createTransactionFail = error => ({
+  type: actionTypes.CREATE_TRANSACTION_FAIL,
+  error
+});
 
 export const createTransaction = (transactionData, accountId) => {
   return (dispatch, getState) => {
@@ -30,6 +24,7 @@ export const createTransaction = (transactionData, accountId) => {
     const userId = getState().auth.user.id;
 
     dispatch(createTransactionStart());
+    console.log("Create sent data", decamelizeKeys(transactionData));
 
     axios
       .post(
@@ -38,6 +33,7 @@ export const createTransaction = (transactionData, accountId) => {
         { headers: authHeaders }
       )
       .then(response => {
+        console.log("Create transaction success", response.data);
         const parsedData = camelizeKeys(response.data);
         dispatch(createTransactionSuccess(parsedData));
       })
@@ -50,54 +46,60 @@ export const createTransaction = (transactionData, accountId) => {
 
 /* Fetch transactions */
 
-export const fetchTransactionsStart = () => {
-  return {
-    type: actionTypes.FETCH_TRANSACTIONS_START
-  };
-};
+export const fetchTransactionsByDateStart = () => ({
+  type: actionTypes.FETCH_TRANSACTIONS_BY_DATE_START
+});
 
-export const fetchTransactionsSuccess = transactionList => {
-  return {
-    type: actionTypes.FETCH_TRANSACTIONS_SUCCESS,
-    transactionList
-  };
-};
+export const fetchTransactionsByDateSuccess = transactionList => ({
+  type: actionTypes.FETCH_TRANSACTIONS_BY_DATE_SUCCESS,
+  transactionList
+});
 
-export const fetchTransactionsFail = error => {
-  return {
-    type: actionTypes.FETCH_TRANSACTIONS_FAIL,
-    error
-  };
-};
+export const fetchTransactionsByDateFail = error => ({
+  type: actionTypes.FETCH_TRANSACTIONS_BY_DATE_FAIL,
+  error
+});
 
-export const fetchTransactions = () => {
+export const fetchTransactionsByDate = (month, year) => {
   return (dispatch, getState) => {
-    dispatch(fetchTransactionsStart());
-    dispatch(fetchTransactionsSuccess(getState().transactions.transactionList));
+    const authHeaders = decamelizeKeys(getState().auth.headers);
+    const userId = getState().auth.user.id;
+
+    dispatch(fetchTransactionsByDateStart());
+
+    axios
+      .get(
+        `/users/${userId}/fetch_transactions_by_date?month=${month}&year=${year}`,
+        {
+          headers: authHeaders
+        }
+      )
+      .then(response => {
+        const parsedData = camelizeKeys(response.data);
+        dispatch(fetchTransactionsByDateSuccess(parsedData));
+      })
+      .catch(error => {
+        console.log(error.response && error.response.data);
+        dispatch(fetchTransactionsByDateFail("Something went wrong."));
+      });
   };
 };
 
 /* Update transaction */
 
-export const updateTransactionStart = () => {
-  return {
-    type: actionTypes.UPDATE_TRANSACTION_START
-  };
-};
+export const updateTransactionStart = () => ({
+  type: actionTypes.UPDATE_TRANSACTION_START
+});
 
-export const updateTransactionSuccess = transactionData => {
-  return {
-    type: actionTypes.UPDATE_TRANSACTION_SUCCESS,
-    transactionData
-  };
-};
+export const updateTransactionSuccess = transactionData => ({
+  type: actionTypes.UPDATE_TRANSACTION_SUCCESS,
+  transactionData
+});
 
-export const updateTransactionFail = error => {
-  return {
-    type: actionTypes.UPDATE_TRANSACTION_FAIL,
-    error
-  };
-};
+export const updateTransactionFail = error => ({
+  type: actionTypes.UPDATE_TRANSACTION_FAIL,
+  error
+});
 
 export const updateTransaction = (
   transactionData,
@@ -110,6 +112,7 @@ export const updateTransaction = (
     const userId = getState().auth.user.id;
 
     dispatch(updateTransactionStart());
+    console.log("Update sent data", decamelizeKeys(transactionData));
 
     axios
       .put(
@@ -118,10 +121,10 @@ export const updateTransaction = (
         { headers: authHeaders }
       )
       .then(response => {
+        console.log("Update transaction success", response.data);
         const parsedData = camelizeKeys(response.data);
-
         dispatch(updateTransactionSuccess(parsedData));
-        history.push("/");
+        // history.push("/");
       })
       .catch(error => {
         console.log(error.response.data);
@@ -132,25 +135,19 @@ export const updateTransaction = (
 
 /* Delete transaction */
 
-export const deleteTransactionStart = () => {
-  return {
-    type: actionTypes.DELETE_TRANSACTION_START
-  };
-};
+export const deleteTransactionStart = () => ({
+  type: actionTypes.DELETE_TRANSACTION_START
+});
 
-export const deleteTransactionSuccess = transactionId => {
-  return {
-    type: actionTypes.DELETE_TRANSACTION_SUCCESS,
-    transactionId
-  };
-};
+export const deleteTransactionSuccess = transactionId => ({
+  type: actionTypes.DELETE_TRANSACTION_SUCCESS,
+  transactionId
+});
 
-export const deleteTransactionFail = error => {
-  return {
-    type: actionTypes.DELETE_TRANSACTION_FAIL,
-    error
-  };
-};
+export const deleteTransactionFail = error => ({
+  type: actionTypes.DELETE_TRANSACTION_FAIL,
+  error
+});
 
 export const deleteTransaction = (transactionId, accountId) => {
   return (dispatch, getState) => {
@@ -176,15 +173,11 @@ export const deleteTransaction = (transactionId, accountId) => {
 
 /* Other */
 
-export const setTransactionToEdit = transactionToEdit => {
-  return {
-    type: actionTypes.SET_TRANSACTION_TO_EDIT,
-    transactionToEdit
-  };
-};
+export const setTransactionToEdit = transactionToEdit => ({
+  type: actionTypes.SET_TRANSACTION_TO_EDIT,
+  transactionToEdit
+});
 
-export const clearTransactionToEdit = () => {
-  return {
-    type: actionTypes.CLEAR_TRANSACTION_TO_EDIT
-  };
-};
+export const clearTransactionToEdit = () => ({
+  type: actionTypes.CLEAR_TRANSACTION_TO_EDIT
+});

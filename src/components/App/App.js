@@ -30,6 +30,11 @@ const App = props => {
         path="/transactions/new"
         component={TransactionFormContainer}
       />
+      <Route
+        exact
+        path="/transactions/:id/edit"
+        component={TransactionFormContainer}
+      />
       <Route component={NotFound} />
     </Switch>
   );

@@ -48,6 +48,11 @@ exports[`App renders properly 1`] = `
   />
   <Route
     component={[Function]}
+    exact={true}
+    path="/transactions/:id/edit"
+  />
+  <Route
+    component={[Function]}
   />
 </Switch>
 `;

@@ -27,7 +27,7 @@ export class Container extends Component {
     if (!window.confirm("Are you sure you want to delete this transaction?")) {
       return;
     }
-    onDeleteTransaction(transactionData.id);
+    onDeleteTransaction(transactionData.id, transactionData.account.id);
   };
 
   render() {
@@ -47,7 +47,7 @@ Container.propTypes = {
     account: PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      initialBalance: PropTypes.number.isRequired
+      initialBalance: PropTypes.string.isRequired
     }).isRequired,
     date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -56,7 +56,7 @@ Container.propTypes = {
       name: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired
     }).isRequired,
-    value: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
     transactionType: PropTypes.string.isRequired
   }).isRequired,
   handleActiveItem: PropTypes.func.isRequired,
@@ -65,23 +65,19 @@ Container.propTypes = {
   onDeleteTransaction: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    isLoading: state.transactions.isLoading
-  };
-};
+const mapStateToProps = state => ({
+  isLoading: state.transactions.isLoading
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onDeleteTransaction: transactionId => {
-      dispatch(deleteTransaction(transactionId));
-    },
+const mapDispatchToProps = dispatch => ({
+  onDeleteTransaction: (transactionId, accountId) => {
+    dispatch(deleteTransaction(transactionId, accountId));
+  },
 
-    onSetTransactionToEdit: transactionData => {
-      dispatch(setTransactionToEdit(transactionData));
-    }
-  };
-};
+  onSetTransactionToEdit: transactionData => {
+    dispatch(setTransactionToEdit(transactionData));
+  }
+});
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)

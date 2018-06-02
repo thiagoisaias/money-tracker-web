@@ -7,13 +7,13 @@ exports[`Transaction List Container renders properly 1`] = `
   handleActiveItem={[Function]}
   handleMonthChange={[Function]}
   isLoading={false}
-  selectedDate={Object {}}
+  selectedDate="May of 2018"
   transactionList={
     Array [
       Object {
         "account": Object {
           "id": 1,
-          "initialBalance": 0,
+          "initialBalance": "0",
           "name": "Lorem",
         },
         "category": Object {
@@ -25,12 +25,12 @@ exports[`Transaction List Container renders properly 1`] = `
         "description": "Uber",
         "id": 1,
         "transactionType": "expense",
-        "value": 150.67,
+        "value": "150.67",
       },
       Object {
         "account": Object {
           "id": 2,
-          "initialBalance": 0,
+          "initialBalance": "0",
           "name": "Lorem",
         },
         "category": Object {
@@ -42,7 +42,7 @@ exports[`Transaction List Container renders properly 1`] = `
         "description": "Lorem Ipsum Dolor Transaction Mousepad Monitor",
         "id": 2,
         "transactionType": "earning",
-        "value": 200.43,
+        "value": "200.43",
       },
     ]
   }

@@ -28,7 +28,7 @@ describe("Transaction Form", () => {
       account: {
         id: 1,
         name: "Lorem",
-        initialBalance: 3242
+        initialBalance: "3242"
       },
       date: "05-29-2018",
       description: "Lorem Ipsum",
@@ -37,7 +37,7 @@ describe("Transaction Form", () => {
         name: "Home",
         color: "salmon"
       },
-      value: 324.32,
+      value: "324.32",
       transactionType: "expense"
     }
   };

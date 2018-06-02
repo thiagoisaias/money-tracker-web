@@ -50,7 +50,7 @@ const List = props => {
           >
             &lsaquo;
           </Arrow>
-          <CurrentMonth>{selectedDate.format("MMMM of YYYY")}</CurrentMonth>
+          <CurrentMonth>{selectedDate}</CurrentMonth>
           <Arrow
             onClick={() => {
               handleMonthChange("next");
@@ -79,14 +79,14 @@ List.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   handleActiveItem: PropTypes.func.isRequired,
   handleMonthChange: PropTypes.func.isRequired,
-  selectedDate: PropTypes.object.isRequired,
+  selectedDate: PropTypes.string,
   transactionList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       account: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
-        initialBalance: PropTypes.number.isRequired
+        initialBalance: PropTypes.string.isRequired
       }).isRequired,
       category: PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -96,7 +96,7 @@ List.propTypes = {
       date: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       transactionType: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired
+      value: PropTypes.string.isRequired
     })
   )
 };
