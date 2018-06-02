@@ -85,33 +85,29 @@ Container.propTypes = {
   onSetAccountToEdit: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    accountToEdit: state.accounts.accountToEdit,
-    isLoading: state.accounts.isLoading,
-    error: state.accounts.error
-  };
-};
+const mapStateToProps = state => ({
+  accountToEdit: state.accounts.accountToEdit,
+  isLoading: state.accounts.isLoading,
+  error: state.accounts.error
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onCreateAccount: (accountData, history) => {
-      dispatch(createAccount(accountData, history));
-    },
+const mapDispatchToProps = dispatch => ({
+  onCreateAccount: (accountData, history) => {
+    dispatch(createAccount(accountData, history));
+  },
 
-    onSetAccountToEdit: account => {
-      dispatch(setAccountToEdit(account));
-    },
+  onSetAccountToEdit: account => {
+    dispatch(setAccountToEdit(account));
+  },
 
-    onClearAccountToEdit: () => {
-      dispatch(clearAccountToEdit());
-    },
+  onClearAccountToEdit: () => {
+    dispatch(clearAccountToEdit());
+  },
 
-    onUpdateAccount: (accountData, accountId, history) => {
-      dispatch(updateAccount(accountData, accountId, history));
-    }
-  };
-};
+  onUpdateAccount: (accountData, accountId, history) => {
+    dispatch(updateAccount(accountData, accountId, history));
+  }
+});
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)

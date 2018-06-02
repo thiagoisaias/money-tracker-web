@@ -37,20 +37,16 @@ Container.propTypes = {
   onFetchAccountList: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    isLoading: state.accounts.isLoading,
-    error: state.accounts.error,
-    accountList: state.accounts.accountList
-  };
-};
+const mapStateToProps = state => ({
+  isLoading: state.accounts.isLoading,
+  error: state.accounts.error,
+  accountList: state.accounts.accountList
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onFetchAccountList: () => {
-      dispatch(fetchAccounts());
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onFetchAccountList: () => {
+    dispatch(fetchAccounts());
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

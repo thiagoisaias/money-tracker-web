@@ -56,23 +56,19 @@ Container.propTypes = {
   onSetCategoryToEdit: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    isLoading: state.categories.isLoading
-  };
-};
+const mapStateToProps = state => ({
+  isLoading: state.categories.isLoading
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onDeleteCategory: categoryId => {
-      dispatch(deleteCategory(categoryId));
-    },
+const mapDispatchToProps = dispatch => ({
+  onDeleteCategory: categoryId => {
+    dispatch(deleteCategory(categoryId));
+  },
 
-    onSetCategoryToEdit: category => {
-      dispatch(setCategoryToEdit(category));
-    }
-  };
-};
+  onSetCategoryToEdit: category => {
+    dispatch(setCategoryToEdit(category));
+  }
+});
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)

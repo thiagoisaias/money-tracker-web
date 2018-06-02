@@ -33,20 +33,16 @@ Container.propTypes = {
   onFetchCategoryList: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    categoryList: state.categories.categoryList,
-    error: state.categories.error,
-    isLoading: state.categories.isLoading
-  };
-};
+const mapStateToProps = state => ({
+  categoryList: state.categories.categoryList,
+  error: state.categories.error,
+  isLoading: state.categories.isLoading
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onFetchCategoryList: () => {
-      dispatch(fetchCategories());
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onFetchCategoryList: () => {
+    dispatch(fetchCategories());
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

@@ -13,13 +13,11 @@ export const Container = props => {
   return <Header history={history} onLogout={onLogout} />;
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogout: history => {
-      dispatch(logout(history));
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onLogout: history => {
+    dispatch(logout(history));
+  }
+});
 
 Container.propTypes = {
   onLogout: PropTypes.func.isRequired,

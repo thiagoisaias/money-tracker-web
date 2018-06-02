@@ -45,24 +45,20 @@ Container.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    isLoading: state.auth.isLoading,
-    error: state.auth.error
-  };
-};
+const mapStateToProps = state => ({
+  isLoading: state.auth.isLoading,
+  error: state.auth.error
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onSignup: (signupData, history) => {
-      dispatch(signup(signupData, history));
-    },
+const mapDispatchToProps = dispatch => ({
+  onSignup: (signupData, history) => {
+    dispatch(signup(signupData, history));
+  },
 
-    onClearAuthError: () => {
-      dispatch(clearAuthError());
-    }
-  };
-};
+  onClearAuthError: () => {
+    dispatch(clearAuthError());
+  }
+});
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)
