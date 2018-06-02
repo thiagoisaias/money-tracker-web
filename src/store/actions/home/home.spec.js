@@ -1,9 +1,11 @@
 import * as actionTypes from "../actionTypes";
-import * as actions from "./users";
+import * as actions from "./home";
 
-describe("Users actions", () => {
+describe("Home actions", () => {
   const data = {
-    overallBalance: "53453.00"
+    overallBalance: "53453.00",
+    selectedDate: "2018-05-31",
+    transactionList: []
   };
   const error = "Something went wrong";
 
@@ -32,5 +34,13 @@ describe("Users actions", () => {
 
   xit("should create getOverallBalance action", () => {
     // Async
+  });
+
+  it("should create setSelectedDate action", () => {
+    const expectedAction = {
+      type: actionTypes.SET_SELECTED_DATE,
+      selectedDate: data.selectedDate
+    };
+    expect(actions.setSelectedDate(data.selectedDate)).toEqual(expectedAction);
   });
 });

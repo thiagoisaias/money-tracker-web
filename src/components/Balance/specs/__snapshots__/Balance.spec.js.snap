@@ -7,7 +7,7 @@ exports[`Balance renders properly 1`] = `
     Current Balance
   </styled.p>
   <styled.p>
-    $ 9,000
+    $ 9000
      
   </styled.p>
 </styled.div>

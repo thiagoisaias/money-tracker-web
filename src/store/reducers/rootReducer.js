@@ -3,14 +3,14 @@ import accounts from "./accounts";
 import auth from "./auth";
 import categories from "./categories";
 import transactions from "./transactions";
-import users from "./users";
+import home from "./home";
 
 const rootReducer = combineReducers({
   accounts,
   auth,
   categories,
   transactions,
-  users
+  home
 });
 
 export default rootReducer;

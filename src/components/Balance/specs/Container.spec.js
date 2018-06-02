@@ -7,7 +7,7 @@ import { Container } from "../Container";
 describe("Category Item Container", () => {
   const mockProps = {
     isLoading: false,
-    overallBalance: 9000,
+    overallBalance: "9000",
     onGetOverallBalance: jest.fn()
   };
   const component = shallow(<Container {...mockProps} />);

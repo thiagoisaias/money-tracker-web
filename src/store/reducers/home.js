@@ -1,12 +1,13 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  overallBalance: null,
+  error: null,
   isLoading: false,
-  error: null
+  overallBalance: null,
+  selectedDate: null
 };
 
-const auth = (state = initialState, action) => {
+const home = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_OVERALL_BALANCE_START:
       return {
@@ -25,9 +26,14 @@ const auth = (state = initialState, action) => {
         isLoading: false,
         error: action.error
       };
+    case actionTypes.SET_SELECTED_DATE:
+      return {
+        ...state,
+        selectedDate: action.selectedDate
+      };
     default:
       return state;
   }
 };
 
-export default auth;
+export default home;

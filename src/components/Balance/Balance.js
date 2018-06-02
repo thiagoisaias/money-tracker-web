@@ -12,7 +12,9 @@ const Balance = props => {
       {isLoading ? (
         <Spinner size={25} color={"#777"} />
       ) : (
-        <Value>{`$ ${overallBalance && overallBalance.toLocaleString()}`} </Value>
+        <Value>
+          {`$ ${overallBalance && overallBalance.toLocaleString()}`}{" "}
+        </Value>
       )}
     </Wrapper>
   );
@@ -20,7 +22,7 @@ const Balance = props => {
 
 Balance.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  overallBalance: PropTypes.number.isRequired
+  overallBalance: PropTypes.string
 };
 
 export default Balance;

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import Balance from "./Balance";
 
-import { getOverallBalance } from "store/actions/users/users";
+import { getOverallBalance } from "store/actions/home/home";
 
 export class Container extends Component {
   render() {
@@ -18,12 +18,12 @@ export class Container extends Component {
 
 Container.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  overallBalance: PropTypes.number.isRequired
+  overallBalance: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-  isLoading: state.users.isLoading,
-  overallBalance: state.users.overallBalance
+  isLoading: state.home.isLoading,
+  overallBalance: state.home.overallBalance
 });
 
 const mapDispatchToProps = dispatch => ({

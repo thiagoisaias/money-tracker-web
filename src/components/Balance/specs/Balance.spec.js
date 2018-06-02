@@ -7,7 +7,7 @@ import Balance from "../Balance";
 describe("Balance", () => {
   const mockProps = {
     isLoading: false,
-    overallBalance: 9000
+    overallBalance: "9000"
   };
 
   const component = shallow(<Balance {...mockProps} />);

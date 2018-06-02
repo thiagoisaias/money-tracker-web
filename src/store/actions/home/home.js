@@ -1,6 +1,5 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
-
 import { camelizeKeys, decamelizeKeys } from "humps";
 
 export const getOverallBalanceStart = () => ({
@@ -28,7 +27,7 @@ export const getOverallBalance = () => {
       .get(`/users/${userId}/overall_balance`, { headers: authHeaders })
       .then(response => {
         const parsedData = camelizeKeys(response.data);
-        console.log(parsedData);
+
         dispatch(getOverallBalanceSuccess(parsedData));
       })
       .catch(error => {
@@ -37,3 +36,8 @@ export const getOverallBalance = () => {
       });
   };
 };
+
+export const setSelectedDate = selectedDate => ({
+  type: actionTypes.SET_SELECTED_DATE,
+  selectedDate
+});
