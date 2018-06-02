@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, compose } from "redux";
+import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
 import throttle from "lodash/throttle";
 
@@ -11,15 +12,19 @@ const configureStore = () => {
 
   const persistedState = { ...loadState() };
 
+  const logger = createLogger({
+    collapsed: true
+  });
+
   const store = createStore(
     rootReducer,
     persistedState,
-    composeEnhancers(applyMiddleware(thunk))
+    composeEnhancers(applyMiddleware(thunk, logger))
   );
 
   store.subscribe(
     throttle(() => {
-      saveState(store.getState());
+      saveState(store.getState().auth);
     }, 1000)
   );
 
