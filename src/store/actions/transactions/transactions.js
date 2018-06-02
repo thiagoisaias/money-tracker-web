@@ -24,7 +24,6 @@ export const createTransaction = (transactionData, accountId) => {
     const userId = getState().auth.user.id;
 
     dispatch(createTransactionStart());
-    console.log("Create sent data", decamelizeKeys(transactionData));
 
     axios
       .post(
@@ -33,7 +32,6 @@ export const createTransaction = (transactionData, accountId) => {
         { headers: authHeaders }
       )
       .then(response => {
-        console.log("Create transaction success", response.data);
         const parsedData = camelizeKeys(response.data);
         dispatch(createTransactionSuccess(parsedData));
       })
@@ -79,7 +77,7 @@ export const fetchTransactionsByDate = (month, year) => {
         dispatch(fetchTransactionsByDateSuccess(parsedData));
       })
       .catch(error => {
-        console.log(error.response && error.response.data);
+        console.log(error.response.data);
         dispatch(fetchTransactionsByDateFail("Something went wrong."));
       });
   };
@@ -112,7 +110,6 @@ export const updateTransaction = (
     const userId = getState().auth.user.id;
 
     dispatch(updateTransactionStart());
-    console.log("Update sent data", decamelizeKeys(transactionData));
 
     axios
       .put(
@@ -121,7 +118,6 @@ export const updateTransaction = (
         { headers: authHeaders }
       )
       .then(response => {
-        console.log("Update transaction success", response.data);
         const parsedData = camelizeKeys(response.data);
         dispatch(updateTransactionSuccess(parsedData));
         // history.push("/");
