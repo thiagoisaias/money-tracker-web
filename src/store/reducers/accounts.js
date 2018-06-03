@@ -97,6 +97,11 @@ const accounts = (state = initialState, action) => {
         ...state,
         accountToEdit: null
       };
+    case actionTypes.CLEAR_ACCOUNTS_ERROR:
+      return {
+        ...state,
+        error: null
+      };
     default:
       return state;
   }

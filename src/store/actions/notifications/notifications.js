@@ -8,3 +8,12 @@ export const setNotification = notification => ({
 export const dismissNotification = () => ({
   type: actionTypes.DISMISS_NOTIFICATION
 });
+
+export const displayNotification = notification => {
+  return dispatch => {
+    dispatch(setNotification(notification));
+    setTimeout(() => {
+      dispatch(dismissNotification());
+    }, 4500);
+  };
+};

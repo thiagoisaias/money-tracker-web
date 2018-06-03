@@ -9,6 +9,7 @@ import {
   createAccount,
   updateAccount,
   setAccountToEdit,
+  clearAccountsError,
   clearAccountToEdit
 } from "store/actions/accounts/accounts";
 
@@ -61,10 +62,19 @@ export class Container extends Component {
 
   // The value of accountToEdit should be null when the user leave /accounts/:id/edit
   componentWillUnmount() {
-    const { match, onClearAccountToEdit } = this.props;
+    const {
+      error,
+      match,
+      onClearAccountsError,
+      onClearAccountToEdit
+    } = this.props;
 
     if (match.path === "/accounts/:id/edit") {
       onClearAccountToEdit();
+    }
+
+    if (error) {
+      onClearAccountsError();
     }
   }
 }
@@ -91,23 +101,13 @@ const mapStateToProps = state => ({
   error: state.accounts.error
 });
 
-const mapDispatchToProps = dispatch => ({
-  onCreateAccount: (accountData, history) => {
-    dispatch(createAccount(accountData, history));
-  },
-
-  onSetAccountToEdit: account => {
-    dispatch(setAccountToEdit(account));
-  },
-
-  onClearAccountToEdit: () => {
-    dispatch(clearAccountToEdit());
-  },
-
-  onUpdateAccount: (accountData, accountId, history) => {
-    dispatch(updateAccount(accountData, accountId, history));
-  }
-});
+const mapDispatchToProps = {
+  onCreateAccount: createAccount,
+  onSetAccountToEdit: setAccountToEdit,
+  onClearAccountsError: clearAccountsError,
+  onClearAccountToEdit: clearAccountToEdit,
+  onUpdateAccount: updateAccount
+};
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)

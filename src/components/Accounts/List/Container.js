@@ -4,7 +4,10 @@ import PropTypes from "prop-types";
 
 import List from "./List";
 
-import { fetchAccounts } from "store/actions/accounts/accounts";
+import {
+  fetchAccounts,
+  clearAccountsError
+} from "store/actions/accounts/accounts";
 
 export class Container extends Component {
   componentDidMount() {
@@ -21,6 +24,14 @@ export class Container extends Component {
       isLoading
     };
     return <List {...propsToPass} />;
+  }
+
+  componentWillUnmount() {
+    const { error, onClearAccountsError } = this.props;
+
+    if (error) {
+      onClearAccountsError();
+    }
   }
 }
 
@@ -43,10 +54,9 @@ const mapStateToProps = state => ({
   accountList: state.accounts.accountList
 });
 
-const mapDispatchToProps = dispatch => ({
-  onFetchAccountList: () => {
-    dispatch(fetchAccounts());
-  }
-});
+const mapDispatchToProps = {
+  onFetchAccountList: fetchAccounts,
+  onClearAccountsError: clearAccountsError
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

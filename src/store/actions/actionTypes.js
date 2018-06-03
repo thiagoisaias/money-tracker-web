@@ -4,7 +4,6 @@ export const AUTH_START = "AUTH_START";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_FAIL = "AUTH_FAIL";
 export const LOGOUT = "LOGOUT";
-
 export const CLEAR_AUTH_ERROR = "CLEAR_AUTH_ERROR";
 
 /* Account Actions */
@@ -28,6 +27,8 @@ export const DELETE_ACCOUNT_FAIL = "DELETE_ACCOUNT_FAIL";
 export const SET_ACCOUNT_TO_EDIT = "SET_ACCOUNT_TO_EDIT";
 export const CLEAR_ACCOUNT_TO_EDIT = "CLEAR_ACCOUNT_TO_EDIT";
 
+export const CLEAR_ACCOUNTS_ERROR = "CLEAR_ACCOUNTS_ERROR";
+
 /* Category Actions */
 
 export const CREATE_CATEGORY_START = "CREATE_CATEGORY_START";
@@ -48,6 +49,8 @@ export const DELETE_CATEGORY_FAIL = "DELETE_CATEGORY_FAIL";
 
 export const SET_CATEGORY_TO_EDIT = "SET_CATEGORY_TO_EDIT";
 export const CLEAR_CATEGORY_TO_EDIT = "CLEAR_CATEGORY_TO_EDIT";
+
+export const CLEAR_CATEGORIES_ERROR = "CLEAR_CATEGORIES_ERROR";
 
 /* Transaction Actions */
 

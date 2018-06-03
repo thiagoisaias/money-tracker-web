@@ -2,29 +2,23 @@ import * as actionTypes from "../actionTypes";
 import axios from "axios";
 import { camelizeKeys, decamelizeKeys } from "humps";
 
-import { setNotification } from "store/actions/notifications/notifications";
+import { displayNotification } from "store/actions/notifications/notifications";
 
 /* Create Account */
 
-export const createAccountStart = () => {
-  return {
-    type: actionTypes.CREATE_ACCOUNT_START
-  };
-};
+export const createAccountStart = () => ({
+  type: actionTypes.CREATE_ACCOUNT_START
+});
 
-export const createAccountSuccess = accountData => {
-  return {
-    type: actionTypes.CREATE_ACCOUNT_SUCCESS,
-    accountData
-  };
-};
+export const createAccountSuccess = accountData => ({
+  type: actionTypes.CREATE_ACCOUNT_SUCCESS,
+  accountData
+});
 
-export const createAccountFail = error => {
-  return {
-    type: actionTypes.CREATE_ACCOUNT_FAIL,
-    error
-  };
-};
+export const createAccountFail = error => ({
+  type: actionTypes.CREATE_ACCOUNT_FAIL,
+  error
+});
 
 export const createAccount = (accountData, history) => {
   return (dispatch, getState) => {
@@ -42,47 +36,41 @@ export const createAccount = (accountData, history) => {
       .then(response => {
         const parsedData = camelizeKeys(response.data);
         dispatch(createAccountSuccess(parsedData));
+        history.push("/accounts");
         dispatch(
-          setNotification({
+          displayNotification({
             type: "SUCCESS",
             message: "Account created."
           })
         );
-        history.push("/accounts");
       })
       .catch(error => {
         dispatch(
-          setNotification({
+          displayNotification({
             type: "DANGER",
             message: "Account not created."
           })
         );
-        dispatch(createAccountFail("Account not created."));
+        dispatch(createAccountFail("Something went wrong."));
       });
   };
 };
 
 /* Fetch Accounts */
 
-export const fetchAccountsStart = () => {
-  return {
-    type: actionTypes.FETCH_ACCOUNTS_START
-  };
-};
+export const fetchAccountsStart = () => ({
+  type: actionTypes.FETCH_ACCOUNTS_START
+});
 
-export const fetchAccountsSuccess = accountList => {
-  return {
-    type: actionTypes.FETCH_ACCOUNTS_SUCCESS,
-    accountList
-  };
-};
+export const fetchAccountsSuccess = accountList => ({
+  type: actionTypes.FETCH_ACCOUNTS_SUCCESS,
+  accountList
+});
 
-export const fetchAccountsFail = error => {
-  return {
-    type: actionTypes.FETCH_ACCOUNTS_FAIL,
-    error
-  };
-};
+export const fetchAccountsFail = error => ({
+  type: actionTypes.FETCH_ACCOUNTS_FAIL,
+  error
+});
 
 export const fetchAccounts = () => {
   return (dispatch, getState) => {
@@ -107,25 +95,19 @@ export const fetchAccounts = () => {
 
 /* Update Account */
 
-export const updateAccountStart = () => {
-  return {
-    type: actionTypes.UPDATE_ACCOUNT_START
-  };
-};
+export const updateAccountStart = () => ({
+  type: actionTypes.UPDATE_ACCOUNT_START
+});
 
-export const updateAccountSuccess = accountData => {
-  return {
-    type: actionTypes.UPDATE_ACCOUNT_SUCCESS,
-    accountData
-  };
-};
+export const updateAccountSuccess = accountData => ({
+  type: actionTypes.UPDATE_ACCOUNT_SUCCESS,
+  accountData
+});
 
-export const updateAccountFail = error => {
-  return {
-    type: actionTypes.UPDATE_ACCOUNT_FAIL,
-    error
-  };
-};
+export const updateAccountFail = error => ({
+  type: actionTypes.UPDATE_ACCOUNT_FAIL,
+  error
+});
 
 export const updateAccount = (accountData, accountId, history) => {
   return (dispatch, getState) => {
@@ -144,10 +126,20 @@ export const updateAccount = (accountData, accountId, history) => {
         const parsedData = camelizeKeys(response.data);
         dispatch(updateAccountSuccess(parsedData));
         history.push("/accounts");
+        dispatch(
+          displayNotification({
+            type: "SUCCESS",
+            message: "Account updated."
+          })
+        );
       })
       .catch(error => {
+        dispatch(updateAccountFail("Something went wrong."));
         dispatch(
-          updateAccountFail("It was not possible to update this account")
+          displayNotification({
+            type: "DANGER",
+            message: "Account not updated."
+          })
         );
       });
   };
@@ -155,25 +147,19 @@ export const updateAccount = (accountData, accountId, history) => {
 
 /* Delete Account */
 
-export const deleteAccountStart = () => {
-  return {
-    type: actionTypes.DELETE_ACCOUNT_START
-  };
-};
+export const deleteAccountStart = () => ({
+  type: actionTypes.DELETE_ACCOUNT_START
+});
 
-export const deleteAccountSuccess = accountId => {
-  return {
-    type: actionTypes.DELETE_ACCOUNT_SUCCESS,
-    accountId
-  };
-};
+export const deleteAccountSuccess = accountId => ({
+  type: actionTypes.DELETE_ACCOUNT_SUCCESS,
+  accountId
+});
 
-export const deleteAccountFail = error => {
-  return {
-    type: actionTypes.DELETE_ACCOUNT_FAIL,
-    error
-  };
-};
+export const deleteAccountFail = error => ({
+  type: actionTypes.DELETE_ACCOUNT_FAIL,
+  error
+});
 
 export const deleteAccount = accountId => {
   return (dispatch, getState) => {
@@ -188,26 +174,36 @@ export const deleteAccount = accountId => {
       })
       .then(response => {
         dispatch(deleteAccountSuccess(accountId));
+        dispatch(
+          displayNotification({
+            type: "SUCCESS",
+            message: "Account deleted."
+          })
+        );
       })
       .catch(error => {
-        // TODO: Display proper error message
-        const customErrorMessage = "Something went wrong.";
-        dispatch(deleteAccountFail(customErrorMessage));
+        dispatch(deleteAccountFail("Something went wrong."));
+        dispatch(
+          displayNotification({
+            type: "DANGER",
+            message: "Account not deleted."
+          })
+        );
       });
   };
 };
 
 /* Other */
 
-export const setAccountToEdit = accountData => {
-  return {
-    type: actionTypes.SET_ACCOUNT_TO_EDIT,
-    accountData
-  };
-};
+export const setAccountToEdit = accountData => ({
+  type: actionTypes.SET_ACCOUNT_TO_EDIT,
+  accountData
+});
 
-export const clearAccountToEdit = () => {
-  return {
-    type: actionTypes.CLEAR_ACCOUNT_TO_EDIT
-  };
-};
+export const clearAccountToEdit = () => ({
+  type: actionTypes.CLEAR_ACCOUNT_TO_EDIT
+});
+
+export const clearAccountsError = () => ({
+  type: actionTypes.CLEAR_ACCOUNTS_ERROR
+});

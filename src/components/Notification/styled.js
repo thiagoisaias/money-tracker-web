@@ -8,9 +8,8 @@ export const Icon = styled.img`
 
 export const CloseButton = styled.span`
   position: absolute;
-  font-size: 14px;
   font-weight: 600;
-  top: 5px;
+  top: 6px;
   right: 8px; 
   color: #DDD;
   cursor: pointer;
@@ -32,7 +31,7 @@ export const Wrapper = styled.div`
   border-radius: 2px;
   box-shadow: 0.5px 0.5px 0.5px 0.5px #ddd;
   animation-name: display;
-  animation-duration: 0.5s;
+  animation-duration: 0.75s;
 
   @keyframes display {
     0% {

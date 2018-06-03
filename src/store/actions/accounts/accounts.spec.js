@@ -134,4 +134,11 @@ describe("Accounts actions", () => {
     };
     expect(actions.clearAccountToEdit()).toEqual(expectedAction);
   });
+
+  it("should create clearAccountsError", () => {
+    const expectedAction = {
+      type: actionTypes.CLEAR_ACCOUNTS_ERROR
+    };
+    expect(actions.clearAccountsError()).toEqual(expectedAction);
+  });
 });
