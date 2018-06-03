@@ -2,27 +2,23 @@ import * as actionTypes from "../actionTypes";
 import axios from "axios";
 import { camelizeKeys, decamelizeKeys } from "humps";
 
+import { displayNotification } from "store/actions/notifications/notifications";
+
 /* Create Category */
 
-export const createCategoryStart = () => {
-  return {
-    type: actionTypes.CREATE_CATEGORY_START
-  };
-};
+export const createCategoryStart = () => ({
+  type: actionTypes.CREATE_CATEGORY_START
+});
 
-export const createCategorySuccess = categoryData => {
-  return {
-    type: actionTypes.CREATE_CATEGORY_SUCCESS,
-    categoryData
-  };
-};
+export const createCategorySuccess = categoryData => ({
+  type: actionTypes.CREATE_CATEGORY_SUCCESS,
+  categoryData
+});
 
-export const createCategoryFail = error => {
-  return {
-    type: actionTypes.CREATE_CATEGORY_FAIL,
-    error
-  };
-};
+export const createCategoryFail = error => ({
+  type: actionTypes.CREATE_CATEGORY_FAIL,
+  error
+});
 
 export const createCategory = (categoryData, history) => {
   return (dispatch, getState) => {
@@ -41,35 +37,40 @@ export const createCategory = (categoryData, history) => {
         const parsedData = camelizeKeys(response.data);
         dispatch(createCategorySuccess(parsedData));
         history.push("/categories");
+        dispatch(
+          displayNotification({
+            type: "SUCCESS",
+            message: "Category created."
+          })
+        );
       })
       .catch(error => {
-        console.log(error.response.data);
         dispatch(createCategoryFail("Something went wrong."));
+        dispatch(
+          displayNotification({
+            type: "DANGER",
+            message: "Category not created."
+          })
+        );
       });
   };
 };
 
 /* Fetch Categories */
 
-export const fetchCategoriesStart = () => {
-  return {
-    type: actionTypes.FETCH_CATEGORIES_START
-  };
-};
+export const fetchCategoriesStart = () => ({
+  type: actionTypes.FETCH_CATEGORIES_START
+});
 
-export const fetchCategoriesSuccess = categoryList => {
-  return {
-    type: actionTypes.FETCH_CATEGORIES_SUCCESS,
-    categoryList
-  };
-};
+export const fetchCategoriesSuccess = categoryList => ({
+  type: actionTypes.FETCH_CATEGORIES_SUCCESS,
+  categoryList
+});
 
-export const fetchCategoriesFail = error => {
-  return {
-    type: actionTypes.FETCH_CATEGORIES_FAIL,
-    error
-  };
-};
+export const fetchCategoriesFail = error => ({
+  type: actionTypes.FETCH_CATEGORIES_FAIL,
+  error
+});
 
 export const fetchCategories = () => {
   return (dispatch, getState) => {
@@ -92,25 +93,19 @@ export const fetchCategories = () => {
 
 /* Update Categories */
 
-export const updateCategoryStart = () => {
-  return {
-    type: actionTypes.UPDATE_CATEGORY_START
-  };
-};
+export const updateCategoryStart = () => ({
+  type: actionTypes.UPDATE_CATEGORY_START
+});
 
-export const updateCategorySuccess = categoryData => {
-  return {
-    type: actionTypes.UPDATE_CATEGORY_SUCCESS,
-    categoryData
-  };
-};
+export const updateCategorySuccess = categoryData => ({
+  type: actionTypes.UPDATE_CATEGORY_SUCCESS,
+  categoryData
+});
 
-export const updateCategoryFail = error => {
-  return {
-    type: actionTypes.UPDATE_CATEGORY_FAIL,
-    error
-  };
-};
+export const updateCategoryFail = error => ({
+  type: actionTypes.UPDATE_CATEGORY_FAIL,
+  error
+});
 
 export const updateCategory = (formData, categoryId, history) => {
   return (dispatch, getState) => {
@@ -121,7 +116,7 @@ export const updateCategory = (formData, categoryId, history) => {
 
     axios
       .put(
-        `/users/${userId}/categories/${categoryId}`,
+        `/ussers/${userId}/categories/${categoryId}`,
         { category: decamelizeKeys(formData) },
         { headers: authHeaders }
       )
@@ -129,34 +124,40 @@ export const updateCategory = (formData, categoryId, history) => {
         const parsedData = camelizeKeys(response.data);
         dispatch(updateCategorySuccess(parsedData));
         history.push("/categories");
+        dispatch(
+          displayNotification({
+            type: "SUCCESS",
+            message: "Category updated."
+          })
+        );
       })
       .catch(error => {
         dispatch(updateCategoryFail("Something went wrong."));
+        dispatch(
+          displayNotification({
+            type: "DANGER",
+            message: "Category not updated."
+          })
+        );
       });
   };
 };
 
 /* Delete Categories */
 
-export const deleteCategoryStart = () => {
-  return {
-    type: actionTypes.DELETE_CATEGORY_START
-  };
-};
+export const deleteCategoryStart = () => ({
+  type: actionTypes.DELETE_CATEGORY_START
+});
 
-export const deleteCategorySuccess = categoryId => {
-  return {
-    type: actionTypes.DELETE_CATEGORY_SUCCESS,
-    categoryId
-  };
-};
+export const deleteCategorySuccess = categoryId => ({
+  type: actionTypes.DELETE_CATEGORY_SUCCESS,
+  categoryId
+});
 
-export const deleteCategoryFail = error => {
-  return {
-    type: actionTypes.DELETE_CATEGORY_FAIL,
-    error
-  };
-};
+export const deleteCategoryFail = error => ({
+  type: actionTypes.DELETE_CATEGORY_FAIL,
+  error
+});
 
 export const deleteCategory = categoryId => {
   return (dispatch, getState) => {
@@ -171,25 +172,36 @@ export const deleteCategory = categoryId => {
       })
       .then(response => {
         dispatch(deleteCategorySuccess(categoryId));
+        dispatch(
+          displayNotification({
+            type: "SUCCESS",
+            message: "Category deleted."
+          })
+        );
       })
       .catch(error => {
-        console.log(error.response.data);
         dispatch(deleteCategoryFail("Something went wrong."));
+        dispatch(
+          displayNotification({
+            type: "DANGER",
+            message: "Category not deleted"
+          })
+        );
       });
   };
 };
 
 /* Other */
 
-export const setCategoryToEdit = categoryData => {
-  return {
-    type: actionTypes.SET_CATEGORY_TO_EDIT,
-    categoryData
-  };
-};
+export const setCategoryToEdit = categoryData => ({
+  type: actionTypes.SET_CATEGORY_TO_EDIT,
+  categoryData
+});
 
-export const clearCategoryToEdit = () => {
-  return {
-    type: actionTypes.CLEAR_CATEGORY_TO_EDIT
-  };
-};
+export const clearCategoryToEdit = () => ({
+  type: actionTypes.CLEAR_CATEGORY_TO_EDIT
+});
+
+export const clearCategoriesError = () => ({
+  type: actionTypes.CLEAR_CATEGORIES_ERROR
+});

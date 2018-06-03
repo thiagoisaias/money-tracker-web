@@ -97,6 +97,11 @@ const categories = (state = initialState, action) => {
         ...state,
         categoryToEdit: null
       };
+    case actionTypes.CLEAR_CATEGORIES_ERROR:
+      return {
+        ...state,
+        error: null
+      };
     default:
       return state;
   }

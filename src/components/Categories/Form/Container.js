@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import {
+  clearCategoriesError,
   clearCategoryToEdit,
   createCategory,
   updateCategory
@@ -60,10 +61,19 @@ export class Container extends Component {
 
   // The value of categoryToEdit should be null when the user leave /categories/:id/edit
   componentWillUnmount() {
-    const { match, onClearCategoryToEdit } = this.props;
+    const {
+      error,
+      match,
+      onClearCategoriesError,
+      onClearCategoryToEdit
+    } = this.props;
 
     if (match.path === "/categories/:id/edit") {
       onClearCategoryToEdit();
+    }
+
+    if (error) {
+      onClearCategoriesError();
     }
   }
 }
@@ -78,6 +88,7 @@ Container.propTypes = {
   history: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
+  onClearCategoriesError: PropTypes.func.isRequired,
   onClearCategoryToEdit: PropTypes.func.isRequired,
   onCreateCategory: PropTypes.func.isRequired,
   onUpdateCategory: PropTypes.func.isRequired
@@ -89,19 +100,12 @@ const mapStateToProps = state => ({
   isLoading: state.categories.isLoading
 });
 
-const mapDispatchToProps = dispatch => ({
-  onClearCategoryToEdit: () => {
-    dispatch(clearCategoryToEdit());
-  },
-
-  onCreateCategory: (categoryData, history) => {
-    dispatch(createCategory(categoryData, history));
-  },
-
-  onUpdateCategory: (categoryData, categoryId, history) => {
-    dispatch(updateCategory(categoryData, categoryId, history));
-  }
-});
+const mapDispatchToProps = {
+  onClearCategoriesError: clearCategoriesError,
+  onClearCategoryToEdit: clearCategoryToEdit,
+  onCreateCategory: createCategory,
+  onUpdateCategory: updateCategory
+};
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)

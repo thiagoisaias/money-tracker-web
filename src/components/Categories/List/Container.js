@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { fetchCategories } from "store/actions/categories/categories";
+import {
+  clearCategoriesError,
+  fetchCategories
+} from "store/actions/categories/categories";
 
 import List from "./List";
 
@@ -17,6 +20,14 @@ export class Container extends Component {
   componentDidMount() {
     const { onFetchCategoryList } = this.props;
     onFetchCategoryList();
+  }
+
+  componentWillUnmount() {
+    const { error, onClearCategoriesError } = this.props;
+
+    if (error) {
+      onClearCategoriesError();
+    }
   }
 }
 
@@ -39,10 +50,9 @@ const mapStateToProps = state => ({
   isLoading: state.categories.isLoading
 });
 
-const mapDispatchToProps = dispatch => ({
-  onFetchCategoryList: () => {
-    dispatch(fetchCategories());
-  }
-});
+const mapDispatchToProps = {
+  onClearCategoriesError: clearCategoriesError,
+  onFetchCategoryList: fetchCategories
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

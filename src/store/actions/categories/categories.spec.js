@@ -133,10 +133,17 @@ describe("Categories actions", () => {
     expect(actions.setCategoryToEdit(categoryData)).toEqual(expectedAction);
   });
 
-  it("should create clearAccountToEdit action", () => {
+  it("should create clearCategoryToEdit action", () => {
     const expectedAction = {
       type: actionTypes.CLEAR_CATEGORY_TO_EDIT
     };
     expect(actions.clearCategoryToEdit()).toEqual(expectedAction);
+  });
+
+  it("should create clearCategoryError", () => {
+    const expectedAction = {
+      type: actionTypes.CLEAR_CATEGORIES_ERROR
+    };
+    expect(actions.clearCategoriesError()).toEqual(expectedAction);
   });
 });
