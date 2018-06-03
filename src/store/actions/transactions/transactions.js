@@ -1,6 +1,9 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
 import { camelizeKeys, decamelizeKeys } from "humps";
+import moment from "moment";
+
+import { displayNotification } from "store/actions/notifications/notifications";
 
 /* Create Transaction */
 
@@ -34,10 +37,21 @@ export const createTransaction = (transactionData, accountId) => {
       .then(response => {
         const parsedData = camelizeKeys(response.data);
         dispatch(createTransactionSuccess(parsedData));
+        dispatch(
+          displayNotification({
+            type: "SUCCESS",
+            message: "Transaction created."
+          })
+        );
       })
       .catch(error => {
-        console.log(error.response.data);
         dispatch(createTransactionFail("Something went wrong."));
+        dispatch(
+          displayNotification({
+            type: "DANGER",
+            message: "Transaction not created"
+          })
+        );
       });
   };
 };
@@ -58,10 +72,15 @@ export const fetchTransactionsByDateFail = error => ({
   error
 });
 
-export const fetchTransactionsByDate = (month, year) => {
+export const fetchTransactionsByDate = selectedDate => {
   return (dispatch, getState) => {
     const authHeaders = decamelizeKeys(getState().auth.headers);
     const userId = getState().auth.user.id;
+
+    const momentDate = moment(selectedDate, "MMMM of YYYY");
+    // Moment month starts at 0
+    const month = momentDate.month() + 1;
+    const year = momentDate.year();
 
     dispatch(fetchTransactionsByDateStart());
 
@@ -120,11 +139,22 @@ export const updateTransaction = (
       .then(response => {
         const parsedData = camelizeKeys(response.data);
         dispatch(updateTransactionSuccess(parsedData));
-        // history.push("/");
+        history.push("/");
+        dispatch(
+          displayNotification({
+            type: "SUCCESS",
+            message: "Transaction updated."
+          })
+        );
       })
       .catch(error => {
-        console.log(error.response.data);
         dispatch(updateTransactionFail("Something went wrong."));
+        dispatch(
+          displayNotification({
+            type: "DANGER",
+            message: "Transaction not updated."
+          })
+        );
       });
   };
 };
@@ -159,10 +189,21 @@ export const deleteTransaction = (transactionId, accountId) => {
       )
       .then(response => {
         dispatch(deleteTransactionSuccess(transactionId));
+        dispatch(
+          displayNotification({
+            type: "SUCCESS",
+            message: "Transaction deleted."
+          })
+        );
       })
       .catch(error => {
-        console.log(error.response.data);
         dispatch(deleteTransactionFail("Something went wrong."));
+        dispatch(
+          displayNotification({
+            type: "DANGER",
+            message: "Transaction not deleted"
+          })
+        );
       });
   };
 };
@@ -176,4 +217,8 @@ export const setTransactionToEdit = transactionToEdit => ({
 
 export const clearTransactionToEdit = () => ({
   type: actionTypes.CLEAR_TRANSACTION_TO_EDIT
+});
+
+export const clearTransactionsError = () => ({
+  type: actionTypes.CLEAR_TRANSACTIONS_ERROR
 });

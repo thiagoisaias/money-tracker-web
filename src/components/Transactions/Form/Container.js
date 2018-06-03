@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import {
+  clearTransactionsError,
   clearTransactionToEdit,
   createTransaction,
   updateTransaction
@@ -32,7 +33,7 @@ export class Container extends Component {
     const { accountId, ...transformedData } = formData;
 
     if (match.path === "/transactions/new") {
-      onCreateTransaction(transformedData, accountId);
+      onCreateTransaction(transformedData, accountId, history);
     } else if (match.path === "/transactions/:id/edit" && transactionToEdit) {
       onUpdateTransaction(formData, transactionToEdit.id, accountId, history);
     } else {
@@ -79,10 +80,19 @@ export class Container extends Component {
   }
 
   componentWillUnmount() {
-    const { match, onClearTransactionToEdit } = this.props;
+    const {
+      error,
+      match,
+      onClearTransactionsError,
+      onClearTransactionToEdit
+    } = this.props;
 
     if (match.path === "/transactions/:id/edit") {
       onClearTransactionToEdit();
+    }
+
+    if (error) {
+      onClearTransactionsError();
     }
   }
 
@@ -155,6 +165,7 @@ Container.propTypes = {
   history: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
+  onClearTransactionError: PropTypes.func.isRequired,
   onClearTransactionToEdit: PropTypes.func,
   onCreateTransaction: PropTypes.func.isRequired,
   onFetchAccounts: PropTypes.func.isRequired,
@@ -172,29 +183,14 @@ const mapStateToProps = state => ({
   transactionToEdit: state.transactions.transactionToEdit
 });
 
-const mapDispatchToProps = dispatch => ({
-  onClearTransactionToEdit: () => {
-    dispatch(clearTransactionToEdit());
-  },
-
-  onCreateTransaction: (transactionData, accountId) => {
-    dispatch(createTransaction(transactionData, accountId));
-  },
-
-  onFetchAccounts: () => {
-    dispatch(fetchAccounts());
-  },
-
-  onFetchCategories: () => {
-    dispatch(fetchCategories());
-  },
-
-  onUpdateTransaction: (transactionData, transactionId, accountId, history) => {
-    dispatch(
-      updateTransaction(transactionData, transactionId, accountId, history)
-    );
-  }
-});
+const mapDispatchToProps = {
+  onClearTransactionsError: clearTransactionsError,
+  onClearTransactionToEdit: clearTransactionToEdit,
+  onCreateTransaction: createTransaction,
+  onFetchAccounts: fetchAccounts,
+  onFetchCategories: fetchCategories,
+  onUpdateTransaction: updateTransaction
+};
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)

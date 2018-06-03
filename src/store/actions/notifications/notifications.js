@@ -12,8 +12,8 @@ export const dismissNotification = () => ({
 export const displayNotification = notification => {
   return dispatch => {
     dispatch(setNotification(notification));
-    setTimeout(() => {
-      dispatch(dismissNotification());
-    }, 4500);
+    // setTimeout(() => {
+    //   dispatch(dismissNotification());
+    // }, 4500);
   };
 };

@@ -108,6 +108,11 @@ const transactions = (state = initialState, action) => {
         ...state,
         transactionToEdit: null
       };
+    case actionTypes.CLEAR_TRANSACTIONS_ERROR:
+      return {
+        ...state,
+        error: null
+      };
     default:
       return state;
   }

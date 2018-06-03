@@ -1,4 +1,4 @@
-/* Authentication Actions */
+/* Authentication */
 
 export const AUTH_START = "AUTH_START";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
@@ -6,7 +6,7 @@ export const AUTH_FAIL = "AUTH_FAIL";
 export const LOGOUT = "LOGOUT";
 export const CLEAR_AUTH_ERROR = "CLEAR_AUTH_ERROR";
 
-/* Account Actions */
+/* Accounts */
 
 export const CREATE_ACCOUNT_START = "CREATE_ACCOUNT_START";
 export const CREATE_ACCOUNT_SUCCESS = "CREATE_ACCOUNT_SUCCESS";
@@ -29,7 +29,7 @@ export const CLEAR_ACCOUNT_TO_EDIT = "CLEAR_ACCOUNT_TO_EDIT";
 
 export const CLEAR_ACCOUNTS_ERROR = "CLEAR_ACCOUNTS_ERROR";
 
-/* Category Actions */
+/* Categories */
 
 export const CREATE_CATEGORY_START = "CREATE_CATEGORY_START";
 export const CREATE_CATEGORY_SUCCESS = "CREATE_CATEGORY_SUCCESS";
@@ -52,7 +52,7 @@ export const CLEAR_CATEGORY_TO_EDIT = "CLEAR_CATEGORY_TO_EDIT";
 
 export const CLEAR_CATEGORIES_ERROR = "CLEAR_CATEGORIES_ERROR";
 
-/* Transaction Actions */
+/* Transactions */
 
 export const CREATE_TRANSACTION_START = "CREATE_TRANSACTION_START";
 export const CREATE_TRANSACTION_SUCCESS = "CREATE_TRANSACTION_SUCCESS";
@@ -76,7 +76,9 @@ export const DELETE_TRANSACTION_FAIL = "DELETE_TRANSACTION_FAIL";
 export const SET_TRANSACTION_TO_EDIT = "SET_TRANSACTION_TO_EDIT";
 export const CLEAR_TRANSACTION_TO_EDIT = "CLEAR_TRANSACTION_TO_EDIT";
 
-/* Home Actions */
+export const CLEAR_TRANSACTIONS_ERROR = "CLEAR_TRANSACTIONS_ERROR";
+
+/* Home */
 
 export const GET_OVERALL_BALANCE_START = "GET_OVERALL_BALANCE_START";
 export const GET_OVERALL_BALANCE_SUCCESS = "GET_OVERALL_BALANCE_SUCCESS";

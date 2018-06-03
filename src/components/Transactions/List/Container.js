@@ -8,6 +8,7 @@ import withExpandableItem from "hoc/withExpandableItem/withExpandableItem";
 
 import { setSelectedDate } from "store/actions/home/home";
 import { fetchTransactionsByDate } from "store/actions/transactions/transactions";
+import { clearTransactionsError } from "../../../store/actions/transactions/transactions";
 
 export class Container extends Component {
   handleMonthChange = direction => {
@@ -82,10 +83,14 @@ export class Container extends Component {
   };
 
   componentWillUnmount = () => {
-    const { onSetSelectedDate } = this.props;
-    
+    const { error, onClearTransactionsError, onSetSelectedDate } = this.props;
+
     const currentDate = moment().format("MMMM of YYYY");
     onSetSelectedDate(currentDate);
+
+    if (error) {
+      onClearTransactionsError();
+    }
   };
 
   render() {
@@ -146,19 +151,11 @@ const mapStateToProps = state => ({
   transactionList: state.transactions.transactionList
 });
 
-const mapDispatchToProps = dispatch => ({
-  onFetchTransactionsByDate: selectedDate => {
-    const momentDate = moment(selectedDate, "MMMM of YYYY");
-    // Moment month starts at 0
-    const selectedMonth = momentDate.month() + 1;
-    const selectedYear = momentDate.year();
-    dispatch(fetchTransactionsByDate(selectedMonth, selectedYear));
-  },
-
-  onSetSelectedDate: selectedDate => {
-    dispatch(setSelectedDate(selectedDate));
-  }
-});
+const mapDispatchToProps = {
+  onClearTransactionsError: clearTransactionsError,
+  onFetchTransactionsByDate: fetchTransactionsByDate,
+  onSetSelectedDate: setSelectedDate
+};
 
 export default withExpandableItem(
   connect(mapStateToProps, mapDispatchToProps)(Container)

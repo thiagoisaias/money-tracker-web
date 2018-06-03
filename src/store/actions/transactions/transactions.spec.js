@@ -168,10 +168,17 @@ describe("Transactions actions", () => {
     );
   });
 
-  it("should create clearAccountToEdit action", () => {
+  it("should create clearTransactionToEdit action", () => {
     const expectedAction = {
       type: actionTypes.CLEAR_TRANSACTION_TO_EDIT
     };
     expect(actions.clearTransactionToEdit()).toEqual(expectedAction);
+  });
+
+  it("should create clearTransactionsError action", () => {
+    const expectedAction = {
+      type: actionTypes.CLEAR_TRANSACTIONS_ERROR
+    };
+    expect(actions.clearTransactionsError()).toEqual(expectedAction);
   });
 });
