@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notification renders properly 1`] = `
+<Danger
+  message="Something went wrong."
+  onDismiss={[Function]}
+/>
+`;

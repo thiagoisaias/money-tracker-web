@@ -2,15 +2,17 @@ import { combineReducers } from "redux";
 import accounts from "./accounts";
 import auth from "./auth";
 import categories from "./categories";
-import transactions from "./transactions";
 import home from "./home";
+import notifications from "./notifications";
+import transactions from "./transactions";
 
 const rootReducer = combineReducers({
   accounts,
   auth,
   categories,
-  transactions,
-  home
+  home,
+  notifications,
+  transactions
 });
 
 export default rootReducer;

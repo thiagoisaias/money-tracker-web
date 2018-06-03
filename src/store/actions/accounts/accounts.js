@@ -2,6 +2,8 @@ import * as actionTypes from "../actionTypes";
 import axios from "axios";
 import { camelizeKeys, decamelizeKeys } from "humps";
 
+import { setNotification } from "store/actions/notifications/notifications";
+
 /* Create Account */
 
 export const createAccountStart = () => {
@@ -40,12 +42,22 @@ export const createAccount = (accountData, history) => {
       .then(response => {
         const parsedData = camelizeKeys(response.data);
         dispatch(createAccountSuccess(parsedData));
+        dispatch(
+          setNotification({
+            type: "SUCCESS",
+            message: "Account created."
+          })
+        );
         history.push("/accounts");
       })
       .catch(error => {
-        // TODO: Display proper error message
-        const customErrorMessage = "Something went wrong.";
-        dispatch(createAccountFail(customErrorMessage));
+        dispatch(
+          setNotification({
+            type: "DANGER",
+            message: "Account not created."
+          })
+        );
+        dispatch(createAccountFail("Account not created."));
       });
   };
 };
