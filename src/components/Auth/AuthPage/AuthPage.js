@@ -23,13 +23,6 @@ const AuthPage = props => {
           <Route exact path="/auth/login" component={LoginContainer} />
         </Switch>
       </FormWrapper>
-      <PictureWrapper>
-        <PictureTitle>{"Welcome to Wallet"}</PictureTitle>
-        <PictureSubtitle>
-          {"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
-        </PictureSubtitle>
-        <PhotoCredit>{"Photo by Romello Williams on Unsplash"}</PhotoCredit>
-      </PictureWrapper>
     </Wrapper>
   );
 };

@@ -32,6 +32,7 @@ export const Wrapper = styled.div`
   box-shadow: 0.5px 0.5px 0.5px 0.5px #ddd;
   animation-name: display;
   animation-duration: 0.75s;
+  z-index: 99;
 
   @keyframes display {
     0% {
