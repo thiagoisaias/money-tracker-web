@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
 import Root from "../Root";
-import configureStore from "configureStore";
+import configureStore from "store/configureStore";
 
 describe("Root", () => {
   const mockProps = {
