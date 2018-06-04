@@ -1,5 +1,6 @@
 import * as actionTypes from "../actionTypes";
 import axios from "axios";
+import { camelizeKeys } from "humps";
 
 export const login = (loginData, history) => {
   return dispatch => {
@@ -8,14 +9,11 @@ export const login = (loginData, history) => {
     axios
       .post("/auth/sign_in", { email, password })
       .then(response => {
+        const { accessToken, client, expiry, tokenType, uid } = camelizeKeys(
+          response.headers
+        );
         const authData = {
-          headers: {
-            accessToken: response.headers["access-token"],
-            client: response.headers["client"],
-            expiry: response.headers["expiry"],
-            tokenType: response.headers["token-type"],
-            uid: response.headers["uid"]
-          },
+          headers: { accessToken, client, expiry, tokenType, uid },
           user: {
             id: response.data.data.id,
             name: response.data.data.name
@@ -25,7 +23,6 @@ export const login = (loginData, history) => {
         history.push("/");
       })
       .catch(error => {
-        console.log(error.response.data);
         const message = error.response.data.errors
           ? error.response.data.errors[0]
           : "Something went wrong.";
@@ -34,21 +31,18 @@ export const login = (loginData, history) => {
   };
 };
 
-export const signup = (signupData, history) => {
+export const signUp = (signUpData, history) => {
   return dispatch => {
-    const { name, email, password, passwordConfirmation } = signupData;
+    const { name, email, password, passwordConfirmation } = signUpData;
     dispatch(authStart());
     axios
       .post("/auth", { name, email, password, passwordConfirmation })
       .then(response => {
+        const { accessToken, client, expiry, tokenType, uid } = camelizeKeys(
+          response.headers
+        );
         const authData = {
-          headers: {
-            accessToken: response.headers["access-token"],
-            client: response.headers["client"],
-            expiry: response.headers["expiry"],
-            tokenType: response.headers["token-type"],
-            uid: response.headers["uid"]
-          },
+          headers: { accessToken, client, expiry, tokenType, uid },
           user: {
             id: response.data.data.id,
             name: response.data.data.name

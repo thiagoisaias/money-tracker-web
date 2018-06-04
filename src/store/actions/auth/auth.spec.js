@@ -42,7 +42,7 @@ describe("Auth actions", () => {
     //TODO: Async action
   });
 
-  xit("should create signup (async) action", () => {
+  xit("should create signUp (async) action", () => {
     //TODO: Async action
   });
 

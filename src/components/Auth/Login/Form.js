@@ -28,7 +28,7 @@ class Form extends Component {
             autoComplete: "email"
           },
           name: "Email",
-          value: this.props.email || "",
+          value: "",
           validation: {},
           isValid: false,
           touched: false
@@ -41,7 +41,7 @@ class Form extends Component {
             autoComplete: "password"
           },
           name: "Password",
-          value: this.props.name || "",
+          value: "",
           validation: {},
           isValid: false,
           touched: false

@@ -4,11 +4,11 @@ import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
 import { Container } from "../Container";
 
-describe("Signup Form Container", () => {
+describe("SignUp Form Container", () => {
   const mockProps = {
     error: null,
-    onClearAuthError: jest.fn(),
-    onSignup: jest.fn(),
+    clearAuthError: jest.fn(),
+    signUp: jest.fn(),
     isLoading: false,
     history: {}
   };

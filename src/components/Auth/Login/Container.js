@@ -7,58 +7,53 @@ import { clearAuthError, login } from "store/actions/auth/auth";
 import Form from "./Form";
 
 export class Container extends Component {
+  static propTypes = {
+    error: PropTypes.string,
+    clearAuthError: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   onSubmitData = formData => {
-    const { history, isLoading, onLogin } = this.props;
+    const { history, isLoading, login } = this.props;
 
     if (isLoading) {
       return;
     }
 
-    onLogin(formData, history);
+    login(formData, history);
   };
 
   render() {
-    const { onLogin, isLoading, error } = this.props;
+    const { login, isLoading, error } = this.props;
     return (
       <Form
         error={error}
         isLoading={isLoading}
-        onLogin={onLogin}
+        login={login}
         onSubmitData={this.onSubmitData}
       />
     );
   }
 
   componentWillUnmount() {
-    const { error, onClearAuthError } = this.props;
+    const { error, clearAuthError } = this.props;
     if (error) {
-      onClearAuthError();
+      clearAuthError();
     }
   }
 }
-
-Container.propTypes = {
-  error: PropTypes.string,
-  onClearAuthError: PropTypes.func.isRequired,
-  onLogin: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  history: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
   isLoading: state.auth.isLoading,
   error: state.auth.error
 });
 
-const mapDispatchToProps = dispatch => ({
-  onClearAuthError: () => {
-    dispatch(clearAuthError());
-  },
-
-  onLogin: (loginData, history) => {
-    dispatch(login(loginData, history));
-  }
-});
+const mapDispatchToProps = {
+  clearAuthError,
+  login
+};
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)

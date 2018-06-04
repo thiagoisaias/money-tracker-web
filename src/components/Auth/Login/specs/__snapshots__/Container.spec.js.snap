@@ -4,7 +4,7 @@ exports[`Login Container renders properly 1`] = `
 <Component
   error={null}
   isLoading={false}
-  onLogin={[Function]}
+  login={[Function]}
   onSubmitData={[Function]}
 />
 `;

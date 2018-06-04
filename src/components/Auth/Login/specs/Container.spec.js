@@ -7,8 +7,8 @@ import { Container } from "../Container";
 describe("Login Container", () => {
   const mockProps = {
     error: null,
-    onClearAuthError: jest.fn(),
-    onLogin: jest.fn(),
+    clearAuthError: jest.fn(),
+    login: jest.fn(),
     isLoading: false,
     history: {}
   };

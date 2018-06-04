@@ -3,62 +3,59 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { signup, clearAuthError } from "store/actions/auth/auth";
+import { signUp, clearAuthError } from "store/actions/auth/auth";
 import Form from "./Form";
 
 export class Container extends Component {
+  static propTypes = {
+    error: PropTypes.string,
+    clearAuthError: PropTypes.func.isRequired,
+    signUp: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   onSubmitData = formData => {
-    const { history, isLoading, onSignup } = this.props;
+    const { history, isLoading, signUp } = this.props;
 
     if (isLoading) {
       return;
     }
 
-    onSignup(formData, history);
+    signUp(formData, history);
   };
 
   render() {
-    const { onSignup, isLoading, error } = this.props;
+    const { signUp, isLoading, error } = this.props;
+
     return (
       <Form
         error={error}
         isLoading={isLoading}
-        onSignup={onSignup}
+        signUp={signUp}
         onSubmitData={this.onSubmitData}
       />
     );
   }
 
   componentWillUnmount() {
-    const { error, onClearAuthError } = this.props;
+    const { error, clearAuthError } = this.props;
+
     if (error) {
-      onClearAuthError();
+      clearAuthError();
     }
   }
 }
-
-Container.propTypes = {
-  error: PropTypes.string,
-  onClearAuthError: PropTypes.func.isRequired,
-  onSignup: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  history: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
   isLoading: state.auth.isLoading,
   error: state.auth.error
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSignup: (signupData, history) => {
-    dispatch(signup(signupData, history));
-  },
-
-  onClearAuthError: () => {
-    dispatch(clearAuthError());
-  }
-});
+const mapDispatchToProps = {
+  signUp,
+  clearAuthError
+};
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)
