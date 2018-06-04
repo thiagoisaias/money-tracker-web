@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Route, withRouter, Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
   return (
     <Route
       {...rest}
       render={props =>
-        props.isAuthenticated ? (
+        isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -24,8 +23,4 @@ PrivateRoute.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
-
-export default withRouter(connect(mapStateToProps)(PrivateRoute));
+export default PrivateRoute;

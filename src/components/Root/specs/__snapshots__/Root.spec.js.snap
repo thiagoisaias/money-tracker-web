@@ -13,7 +13,7 @@ exports[`Root renders properly 1`] = `
   }
 >
   <BrowserRouter>
-    <App />
+    <withRouter(Connect(Container)) />
   </BrowserRouter>
 </Provider>
 `;

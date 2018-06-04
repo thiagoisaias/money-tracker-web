@@ -4,53 +4,62 @@ exports[`App renders properly 1`] = `
 <React.Fragment>
   <Connect(Container) />
   <Switch>
-    <Route
+    <PrivateRoute
       component={[Function]}
       exact={true}
+      isAuthenticated={true}
       path="/"
     />
     <Route
       component={[Function]}
       path="/auth"
     />
-    <Route
+    <PrivateRoute
       component={[Function]}
       exact={true}
+      isAuthenticated={true}
       path="/accounts"
     />
-    <Route
+    <PrivateRoute
       component={[Function]}
       exact={true}
+      isAuthenticated={true}
       path="/accounts/new"
     />
-    <Route
+    <PrivateRoute
       component={[Function]}
       exact={true}
+      isAuthenticated={true}
       path="/accounts/:id/edit"
     />
-    <Route
+    <PrivateRoute
       component={[Function]}
       exact={true}
+      isAuthenticated={true}
       path="/categories"
     />
-    <Route
+    <PrivateRoute
       component={[Function]}
       exact={true}
+      isAuthenticated={true}
       path="/categories/new"
     />
-    <Route
+    <PrivateRoute
       component={[Function]}
       exact={true}
+      isAuthenticated={true}
       path="/categories/:id/edit"
     />
-    <Route
+    <PrivateRoute
       component={[Function]}
       exact={true}
+      isAuthenticated={true}
       path="/transactions/new"
     />
-    <Route
+    <PrivateRoute
       component={[Function]}
       exact={true}
+      isAuthenticated={true}
       path="/transactions/:id/edit"
     />
     <Route
