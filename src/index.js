@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 
-import configureStore from "./configureStore";
+import configureStore from "store/configureStore";
 import Root from "./components/Root/Root";
 import "./assets/index.css";
 

@@ -3,8 +3,8 @@ import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
 import throttle from "lodash/throttle";
 
-import rootReducer from "./store/reducers/rootReducer";
-import { saveState, loadState } from "./localStorage";
+import rootReducer from "./reducers/rootReducer";
+import { saveState, loadState } from "localStorage";
 
 const configureStore = () => {
   const composeEnhancers =
@@ -28,12 +28,10 @@ const configureStore = () => {
     }, 1000)
   );
 
-  if (process.env.NODE_ENV !== "production") {
-    if (module.hot) {
-      module.hot.accept("./store/reducers/rootReducer", () => {
-        store.replaceReducer(rootReducer);
-      });
-    }
+  if (module.hot) {
+    module.hot.accept("store/reducers/rootReducer", () => {
+      store.replaceReducer(rootReducer);
+    });
   }
 
   return store;
