@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { devices } from "utils/devices";
 
-import image from "assets/images/welcome.jpg";
-
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;

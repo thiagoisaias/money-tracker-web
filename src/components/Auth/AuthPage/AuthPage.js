@@ -1,14 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import {
-  Wrapper,
-  FormWrapper,
-  PictureWrapper,
-  PictureTitle,
-  PictureSubtitle,
-  PhotoCredit
-} from "./styled";
+import { Wrapper, FormWrapper } from "./styled";
 
 import LoginContainer from "../Login/Container";
 import SignupContainer from "../Signup/Container";

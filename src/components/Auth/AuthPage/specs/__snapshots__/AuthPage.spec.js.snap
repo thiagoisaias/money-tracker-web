@@ -21,16 +21,5 @@ exports[`AuthPage renders properly 1`] = `
       />
     </Switch>
   </styled.div>
-  <styled.div>
-    <styled.h2>
-      Welcome to Wallet
-    </styled.h2>
-    <styled.p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    </styled.p>
-    <styled.span>
-      Photo by Romello Williams on Unsplash
-    </styled.span>
-  </styled.div>
 </styled.div>
 `;
