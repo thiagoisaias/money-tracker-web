@@ -6,7 +6,7 @@ import configureStore from "./configureStore";
 import Root from "./components/Root/Root";
 import "./assets/index.css";
 
-axios.defaults.baseURL = "https://money-tracker-api.herokuapp.com/api/v1";
+axios.defaults.baseURL = "https://money-tracker-api-temp.herokuapp.com/api/v1";
 
 const store = configureStore();
 
