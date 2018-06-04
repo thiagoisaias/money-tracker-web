@@ -10,9 +10,10 @@ describe("Category List Container", () => {
       { id: 1, name: "Home", color: "red" },
       { id: 2, name: "Food", color: "blue" }
     ],
+    clearCategoriesError: jest.fn(),
     error: null,
     isLoading: false,
-    onFetchCategoryList: jest.fn()
+    fetchCategories: jest.fn()
   };
   const component = shallow(<Container {...mockProps} />);
 

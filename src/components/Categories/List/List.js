@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
+import { categoryType } from "types";
+
 import {
   Wrapper,
   Header,
@@ -60,13 +62,7 @@ const List = props => {
 };
 
 List.propTypes = {
-  categoryList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired
-    })
-  ).isRequired,
+  categoryList: PropTypes.arrayOf(categoryType).isRequired,
   activeItemId: PropTypes.number,
   error: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,

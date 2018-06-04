@@ -8,7 +8,7 @@ describe("Notification", () => {
   const mockProps = {
     type: "DANGER",
     message: "Something went wrong.",
-    onDismiss: jest.fn()
+    dismissNotification: jest.fn()
   };
   const component = shallow(<Notification {...mockProps} />);
 

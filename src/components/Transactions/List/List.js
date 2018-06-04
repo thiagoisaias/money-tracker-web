@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { transactionType } from "types";
+
 import {
   Wrapper,
   Header,
@@ -80,25 +82,7 @@ List.propTypes = {
   handleActiveItem: PropTypes.func.isRequired,
   handleMonthChange: PropTypes.func.isRequired,
   selectedDate: PropTypes.string,
-  transactionList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      account: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        initialBalance: PropTypes.string.isRequired
-      }).isRequired,
-      category: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        color: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
-      }).isRequired,
-      date: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      transactionType: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
-  )
+  transactionList: PropTypes.arrayOf(transactionType)
 };
 
 export default List;

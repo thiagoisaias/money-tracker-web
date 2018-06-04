@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { accountType, categoryType, transactionType } from "types";
+
 import {
   clearTransactionsError,
   clearTransactionToEdit,
@@ -16,13 +18,31 @@ import { fetchCategories } from "store/actions/categories/categories";
 import Form from "./Form";
 
 export class Container extends Component {
+  static propTypes = {
+    accountList: PropTypes.arrayOf(accountType),
+    accountListLoading: PropTypes.bool.isRequired,
+    categoryList: PropTypes.arrayOf(categoryType),
+    categoryListLoading: PropTypes.bool.isRequired,
+    transactionToEdit: transactionType,
+    error: PropTypes.string,
+    history: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    match: PropTypes.object.isRequired,
+    clearTransactionError: PropTypes.func.isRequired,
+    clearTransactionToEdit: PropTypes.func,
+    createTransaction: PropTypes.func.isRequired,
+    fetchAccounts: PropTypes.func.isRequired,
+    fetchCategories: PropTypes.func.isRequired,
+    updateTransaction: PropTypes.func.isRequired
+  };
+
   onSubmitData = formData => {
     const {
       history,
       isLoading,
       match,
-      onCreateTransaction,
-      onUpdateTransaction,
+      createTransaction,
+      updateTransaction,
       transactionToEdit
     } = this.props;
 
@@ -33,9 +53,9 @@ export class Container extends Component {
     const { accountId, ...transformedData } = formData;
 
     if (match.path === "/transactions/new") {
-      onCreateTransaction(transformedData, accountId, history);
+      createTransaction(transformedData, accountId, history);
     } else if (match.path === "/transactions/:id/edit" && transactionToEdit) {
-      onUpdateTransaction(formData, transactionToEdit.id, accountId, history);
+      updateTransaction(formData, transactionToEdit.id, accountId, history);
     } else {
       return;
     }
@@ -61,17 +81,17 @@ export class Container extends Component {
       categoryList,
       history,
       match,
-      onFetchAccounts,
-      onFetchCategories,
+      fetchAccounts,
+      fetchCategories,
       transactionToEdit
     } = this.props;
 
     if (categoryList.length === 0) {
-      onFetchCategories();
+      fetchCategories();
     }
 
     if (accountList.length === 0) {
-      onFetchAccounts();
+      fetchAccounts();
     }
 
     if (match.path === "/transactions/:id/edit" && transactionToEdit === null) {
@@ -83,16 +103,16 @@ export class Container extends Component {
     const {
       error,
       match,
-      onClearTransactionsError,
-      onClearTransactionToEdit
+      clearTransactionError,
+      clearTransactionToEdit
     } = this.props;
 
     if (match.path === "/transactions/:id/edit") {
-      onClearTransactionToEdit();
+      clearTransactionToEdit();
     }
 
     if (error) {
-      onClearTransactionsError();
+      clearTransactionError();
     }
   }
 
@@ -127,51 +147,7 @@ export class Container extends Component {
   }
 }
 
-Container.propTypes = {
-  accountList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      initialBalance: PropTypes.string.isRequired
-    })
-  ),
-  accountListLoading: PropTypes.bool.isRequired,
-  categoryList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired
-    })
-  ),
-  categoryListLoading: PropTypes.bool.isRequired,
-  transactionToEdit: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    account: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      initialBalance: PropTypes.string.isRequired
-    }).isRequired,
-    category: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired
-    }).isRequired,
-    date: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    transactionType: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
-  }),
-  error: PropTypes.string,
-  history: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  match: PropTypes.object.isRequired,
-  onClearTransactionError: PropTypes.func.isRequired,
-  onClearTransactionToEdit: PropTypes.func,
-  onCreateTransaction: PropTypes.func.isRequired,
-  onFetchAccounts: PropTypes.func.isRequired,
-  onFetchCategories: PropTypes.func.isRequired,
-  onUpdateTransaction: PropTypes.func.isRequired
-};
+Container.propTypes = {};
 
 const mapStateToProps = state => ({
   accountList: state.accounts.accountList,
@@ -184,12 +160,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onClearTransactionsError: clearTransactionsError,
-  onClearTransactionToEdit: clearTransactionToEdit,
-  onCreateTransaction: createTransaction,
-  onFetchAccounts: fetchAccounts,
-  onFetchCategories: fetchCategories,
-  onUpdateTransaction: updateTransaction
+  clearTransactionsError,
+  clearTransactionToEdit,
+  createTransaction,
+  fetchAccounts,
+  fetchCategories,
+  updateTransaction
 };
 
 export default withRouter(

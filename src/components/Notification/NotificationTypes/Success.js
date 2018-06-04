@@ -4,14 +4,14 @@ import successIcon from "assets/icons/success.svg";
 import { Icon, CloseButton, Wrapper } from "../styled";
 
 const Success = props => {
-  const { message, onDismiss } = props;
+  const { message, dismissNotification } = props;
   return (
     <Wrapper>
       <Icon src={successIcon} />
       {message}
       <CloseButton
         onClick={() => {
-          onDismiss();
+          dismissNotification();
         }}
       >
         &times;
@@ -22,7 +22,7 @@ const Success = props => {
 
 Success.propTypes = {
   message: PropTypes.string.isRequired,
-  onDismiss: PropTypes.func.isRequired
+  dismissNotification: PropTypes.func.isRequired
 };
 
 export default Success;

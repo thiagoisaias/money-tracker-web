@@ -15,8 +15,8 @@ describe("Category Item Container", () => {
     history: {},
     isActive: false,
     isLoading: false,
-    onDeleteCategory: jest.fn(),
-    onSetCategoryToEdit: jest.fn()
+    deleteCategory: jest.fn(),
+    setCategoryToEdit: jest.fn()
   };
   const component = shallow(<Container {...mockProps} />);
 

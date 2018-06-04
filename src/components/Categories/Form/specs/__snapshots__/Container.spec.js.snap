@@ -2,12 +2,16 @@
 
 exports[`Category Form Container renders properly 1`] = `
 <Component
-  color="red"
+  categoryToEdit={
+    Object {
+      "color": "red",
+      "id": 1,
+      "name": "Lorem",
+    }
+  }
   error={null}
-  id={1}
   isLoading={false}
   match={Object {}}
-  name="Lorem"
   onSubmitData={[Function]}
 />
 `;

@@ -4,14 +4,14 @@ import warningIcon from "assets/icons/warning.svg";
 import { Icon, CloseButton, Wrapper } from "../styled";
 
 const Warning = props => {
-  const { message, onDismiss } = props;
+  const { message, dismissNotification } = props;
   return (
     <Wrapper>
       <Icon src={warningIcon} />
       {message}
       <CloseButton
         onClick={() => {
-          onDismiss();
+          dismissNotification();
         }}
       >
         &times;
@@ -22,7 +22,7 @@ const Warning = props => {
 
 Warning.propTypes = {
   message: PropTypes.string.isRequired,
-  onDismiss: PropTypes.func.isRequired
+  dismissNotification: PropTypes.func.isRequired
 };
 
 export default Warning;

@@ -7,7 +7,7 @@ import Header from "../Header";
 describe("Header", () => {
   const mockProps = {
     history: {},
-    onLogout: jest.fn()
+    logout: jest.fn()
   };
 
   const component = shallow(<Header {...mockProps} />);

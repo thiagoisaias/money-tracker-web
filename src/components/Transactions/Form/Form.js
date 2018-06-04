@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 
+import { transactionType } from "types";
+
 import {
   Wrapper,
   SelectWrapper,
@@ -369,23 +371,7 @@ Form.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
   onSubmitData: PropTypes.func.isRequired,
-  transactionToEdit: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    account: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      initialBalance: PropTypes.string.isRequired
-    }).isRequired,
-    date: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    category: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired
-    }).isRequired,
-    value: PropTypes.string.isRequired,
-    transactionType: PropTypes.string.isRequired
-  })
+  transactionToEdit: transactionType
 };
 
 export default withFormHandler(Form);

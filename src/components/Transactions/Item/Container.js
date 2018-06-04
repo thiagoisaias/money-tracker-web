@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { transactionType } from "types";
+
 import Item from "./Item";
 
 import {
@@ -11,14 +13,23 @@ import {
 } from "store/actions/transactions/transactions";
 
 export class Container extends Component {
+  static propTypes = {
+    transactionData: transactionType.isRequired,
+    handleActiveItem: PropTypes.func.isRequired,
+    isActive: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    deleteTransaction: PropTypes.func.isRequired
+  };
+
   handleEdit = () => {
-    const { transactionData, history, onSetTransactionToEdit } = this.props;
-    onSetTransactionToEdit(transactionData);
+    const { transactionData, history, setTransactionToEdit } = this.props;
+
+    setTransactionToEdit(transactionData);
     history.push(`/transactions/${transactionData.id}/edit`);
   };
 
   handleDelete = () => {
-    const { isLoading, onDeleteTransaction, transactionData } = this.props;
+    const { isLoading, deleteTransaction, transactionData } = this.props;
 
     if (isLoading) {
       return;
@@ -27,7 +38,8 @@ export class Container extends Component {
     if (!window.confirm("Are you sure you want to delete this transaction?")) {
       return;
     }
-    onDeleteTransaction(transactionData.id, transactionData.account.id);
+
+    deleteTransaction(transactionData.id, transactionData.account.id);
   };
 
   render() {
@@ -41,43 +53,16 @@ export class Container extends Component {
   }
 }
 
-Container.propTypes = {
-  transactionData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    account: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      initialBalance: PropTypes.string.isRequired
-    }).isRequired,
-    date: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    category: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired
-    }).isRequired,
-    value: PropTypes.string.isRequired,
-    transactionType: PropTypes.string.isRequired
-  }).isRequired,
-  handleActiveItem: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  onDeleteTransaction: PropTypes.func.isRequired
-};
+Container.propTypes = {};
 
 const mapStateToProps = state => ({
   isLoading: state.transactions.isLoading
 });
 
-const mapDispatchToProps = dispatch => ({
-  onDeleteTransaction: (transactionId, accountId) => {
-    dispatch(deleteTransaction(transactionId, accountId));
-  },
-
-  onSetTransactionToEdit: transactionData => {
-    dispatch(setTransactionToEdit(transactionData));
-  }
-});
+const mapDispatchToProps = {
+  deleteTransaction,
+  setTransactionToEdit
+}
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)

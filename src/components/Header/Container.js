@@ -8,19 +8,17 @@ import Header from "./Header";
 import { logout } from "store/actions/auth/auth";
 
 export const Container = props => {
-  const { history, onLogout } = props;
+  const { history, logout } = props;
 
-  return <Header history={history} onLogout={onLogout} />;
+  return <Header history={history} logout={logout} />;
 };
 
-const mapDispatchToProps = dispatch => ({
-  onLogout: history => {
-    dispatch(logout(history));
-  }
-});
+const mapDispatchToProps = {
+  logout
+};
 
 Container.propTypes = {
-  onLogout: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 };
 

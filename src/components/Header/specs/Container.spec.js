@@ -7,7 +7,7 @@ import { Container } from "../Container";
 describe("Container", () => {
   const mockProps = {
     history: {},
-    onLogout: jest.fn()
+    logout: jest.fn()
   };
 
   const component = shallow(<Container {...mockProps} />);

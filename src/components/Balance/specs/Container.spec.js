@@ -8,7 +8,7 @@ describe("Category Item Container", () => {
   const mockProps = {
     isLoading: false,
     overallBalance: "9000",
-    onGetOverallBalance: jest.fn()
+    getOverallBalance: jest.fn()
   };
   const component = shallow(<Container {...mockProps} />);
 

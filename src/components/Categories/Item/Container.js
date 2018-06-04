@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { categoryType } from "types";
+
 import {
   deleteCategory,
   setCategoryToEdit
@@ -11,8 +13,18 @@ import {
 import Item from "./Item";
 
 export class Container extends Component {
+  static propTypes = {
+    categoryData: categoryType.isRequired,
+    handleActiveItem: PropTypes.func.isRequired,
+    isActive: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    deleteCategory: PropTypes.func.isRequired,
+    setCategoryToEdit: PropTypes.func.isRequired
+  };
+
   handleDelete = () => {
-    const { categoryData, isLoading, onDeleteCategory } = this.props;
+    const { categoryData, isLoading, deleteCategory } = this.props;
+
     if (isLoading) {
       return;
     }
@@ -20,17 +32,20 @@ export class Container extends Component {
     if (!window.confirm("Are you sure you want to delete this category?")) {
       return;
     }
-    onDeleteCategory(categoryData.id);
+
+    deleteCategory(categoryData.id);
   };
 
   handleEdit = () => {
-    const { categoryData, history, onSetCategoryToEdit } = this.props;
-    onSetCategoryToEdit(categoryData);
+    const { categoryData, history, setCategoryToEdit } = this.props;
+
+    setCategoryToEdit(categoryData);
     history.push(`/categories/${categoryData.id}/edit`);
   };
 
   render() {
     const { categoryData, handleActiveItem, isActive } = this.props;
+
     return (
       <Item
         categoryData={categoryData}
@@ -43,32 +58,14 @@ export class Container extends Component {
   }
 }
 
-Container.propTypes = {
-  categoryData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired
-  }).isRequired,
-  handleActiveItem: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  onDeleteCategory: PropTypes.func.isRequired,
-  onSetCategoryToEdit: PropTypes.func.isRequired
-};
-
 const mapStateToProps = state => ({
   isLoading: state.categories.isLoading
 });
 
-const mapDispatchToProps = dispatch => ({
-  onDeleteCategory: categoryId => {
-    dispatch(deleteCategory(categoryId));
-  },
-
-  onSetCategoryToEdit: category => {
-    dispatch(setCategoryToEdit(category));
-  }
-});
+const mapDispatchToProps = {
+  deleteCategory,
+  setCategoryToEdit
+};
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Container)

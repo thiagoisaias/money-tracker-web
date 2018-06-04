@@ -6,6 +6,7 @@ import Spinner from "shared/Spinner/Spinner";
 
 const Balance = props => {
   const { isLoading, overallBalance } = props;
+
   return (
     <Wrapper>
       <Description> {"Current Balance"}</Description>

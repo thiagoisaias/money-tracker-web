@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 import { Wrapper, Logo, NavBar, Logout } from "./styled";
 
 const Header = props => {
-  const { history, onLogout } = props;
+  const { history, logout } = props;
+  
   return (
     <Wrapper>
       <NavLink to="/">
@@ -18,7 +19,7 @@ const Header = props => {
       </NavBar>
       <Logout
         onClick={() => {
-          onLogout(history);
+          logout(history);
         }}
       >
         {"Logout"}
@@ -28,7 +29,7 @@ const Header = props => {
 };
 
 Header.propTypes = {
-  onLogout: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 };
 

@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { categoryType } from "types";
+
 import {
   clearCategoriesError,
   clearCategoryToEdit,
@@ -13,14 +15,26 @@ import {
 import Form from "./Form";
 
 export class Container extends Component {
+  static propTypes = {
+    categoryToEdit: categoryType,
+    error: PropTypes.string,
+    history: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    match: PropTypes.object.isRequired,
+    clearCategoriesError: PropTypes.func.isRequired,
+    clearCategoryToEdit: PropTypes.func.isRequired,
+    createCategory: PropTypes.func.isRequired,
+    updateCategory: PropTypes.func.isRequired
+  };
+
   onSubmitData = formData => {
     const {
       categoryToEdit,
       history,
       isLoading,
       match,
-      onCreateCategory,
-      onUpdateCategory
+      createCategory,
+      updateCategory
     } = this.props;
 
     if (isLoading) {
@@ -28,9 +42,9 @@ export class Container extends Component {
     }
 
     if (match.path === "/categories/new") {
-      onCreateCategory(formData, history);
+      createCategory(formData, history);
     } else if (match.path === "/categories/:id/edit" && categoryToEdit) {
-      onUpdateCategory(formData, categoryToEdit.id, history);
+      updateCategory(formData, categoryToEdit.id, history);
     } else {
       return;
     }
@@ -40,7 +54,7 @@ export class Container extends Component {
     const { categoryToEdit, error, isLoading, match } = this.props;
     return (
       <Form
-        {...categoryToEdit}
+        categoryToEdit={categoryToEdit}
         error={error}
         isLoading={isLoading}
         match={match}
@@ -49,9 +63,6 @@ export class Container extends Component {
     );
   }
 
-  /* When the page is reloaded and the path is /category/:id/edit, categoryToEdit is null, so the
-  app redirects the user back to /categories
-  */
   componentDidMount() {
     const { categoryToEdit, history, match } = this.props;
     if (match.path === "/categories/:id/edit" && categoryToEdit === null) {
@@ -59,40 +70,23 @@ export class Container extends Component {
     }
   }
 
-  // The value of categoryToEdit should be null when the user leave /categories/:id/edit
   componentWillUnmount() {
     const {
       error,
       match,
-      onClearCategoriesError,
-      onClearCategoryToEdit
+      clearCategoriesError,
+      clearCategoryToEdit
     } = this.props;
 
     if (match.path === "/categories/:id/edit") {
-      onClearCategoryToEdit();
+      clearCategoryToEdit();
     }
 
     if (error) {
-      onClearCategoriesError();
+      clearCategoriesError();
     }
   }
 }
-
-Container.propTypes = {
-  categoryToEdit: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired
-  }),
-  error: PropTypes.string,
-  history: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  match: PropTypes.object.isRequired,
-  onClearCategoriesError: PropTypes.func.isRequired,
-  onClearCategoryToEdit: PropTypes.func.isRequired,
-  onCreateCategory: PropTypes.func.isRequired,
-  onUpdateCategory: PropTypes.func.isRequired
-};
 
 const mapStateToProps = state => ({
   categoryToEdit: state.categories.categoryToEdit,
@@ -101,10 +95,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onClearCategoriesError: clearCategoriesError,
-  onClearCategoryToEdit: clearCategoryToEdit,
-  onCreateCategory: createCategory,
-  onUpdateCategory: updateCategory
+  clearCategoriesError,
+  clearCategoryToEdit,
+  createCategory,
+  updateCategory
 };
 
 export default withRouter(

@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import moment from "moment";
 
+import { transactionType } from "types";
+
 import List from "./List";
 import withExpandableItem from "hoc/withExpandableItem/withExpandableItem";
 
@@ -11,6 +13,18 @@ import { fetchTransactionsByDate } from "store/actions/transactions/transactions
 import { clearTransactionsError } from "../../../store/actions/transactions/transactions";
 
 export class Container extends Component {
+  static propTypes = {
+    activeItemId: PropTypes.number,
+    clearTransactionsError: PropTypes.func.isRequired,
+    error: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired,
+    handleActiveItem: PropTypes.func.isRequired,
+    fetchTransactionsByDate: PropTypes.func.isRequired,
+    transactionList: PropTypes.arrayOf(transactionType),
+    selectedDate: PropTypes.string.isRequired,
+    setSelectedDate: PropTypes.func.isRequired
+  };
+
   handleMonthChange = direction => {
     switch (direction) {
       case "next":
@@ -25,7 +39,7 @@ export class Container extends Component {
   };
 
   handleNextMonth = () => {
-    const { isLoading, onSetSelectedDate, selectedDate } = this.props;
+    const { isLoading, setSelectedDate, selectedDate } = this.props;
     const momentDate = moment(selectedDate, "MMMM of YYYY");
     const updatedDate = momentDate.clone().add(1, "month");
 
@@ -35,11 +49,11 @@ export class Container extends Component {
 
     const parsedDate = updatedDate.format("MMMM of YYYY");
 
-    onSetSelectedDate(parsedDate);
+    setSelectedDate(parsedDate);
   };
 
   handlePreviousMonth = () => {
-    const { isLoading, onSetSelectedDate, selectedDate } = this.props;
+    const { isLoading, setSelectedDate, selectedDate } = this.props;
     const momentDate = moment(selectedDate, "MMMM of YYYY");
 
     const updatedDate = momentDate.clone().subtract(1, "month");
@@ -50,46 +64,46 @@ export class Container extends Component {
 
     const parsedDate = updatedDate.format("MMMM of YYYY");
 
-    onSetSelectedDate(parsedDate);
+    setSelectedDate(parsedDate);
   };
 
   componentDidMount() {
     const {
-      onFetchTransactionsByDate,
-      onSetSelectedDate,
+      fetchTransactionsByDate,
+      setSelectedDate,
       selectedDate
     } = this.props;
 
     if (!selectedDate) {
       const currentDate = moment().format("MMMM of YYYY");
-      onSetSelectedDate(currentDate);
+      setSelectedDate(currentDate);
     }
 
     if (selectedDate) {
-      onFetchTransactionsByDate(selectedDate);
+      fetchTransactionsByDate(selectedDate);
     }
   }
 
   componentWillReceiveProps = nextProps => {
-    const { isLoading, onFetchTransactionsByDate, selectedDate } = this.props;
+    const { isLoading, fetchTransactionsByDate, selectedDate } = this.props;
 
     if (isLoading) {
       return;
     }
 
     if (selectedDate !== nextProps.selectedDate) {
-      onFetchTransactionsByDate(nextProps.selectedDate);
+      fetchTransactionsByDate(nextProps.selectedDate);
     }
   };
 
   componentWillUnmount = () => {
-    const { error, onClearTransactionsError, onSetSelectedDate } = this.props;
+    const { error, clearTransactionsError, setSelectedDate } = this.props;
 
     const currentDate = moment().format("MMMM of YYYY");
-    onSetSelectedDate(currentDate);
+    setSelectedDate(currentDate);
 
     if (error) {
-      onClearTransactionsError();
+      clearTransactionsError();
     }
   };
 
@@ -117,33 +131,6 @@ export class Container extends Component {
   }
 }
 
-Container.propTypes = {
-  activeItemId: PropTypes.number,
-  error: PropTypes.string,
-  isLoading: PropTypes.bool.isRequired,
-  handleActiveItem: PropTypes.func.isRequired,
-  onFetchTransactionsByDate: PropTypes.func.isRequired,
-  transactionList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      account: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        initialBalance: PropTypes.string.isRequired
-      }).isRequired,
-      category: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        color: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
-      }).isRequired,
-      date: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      transactionType: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
-  )
-};
-
 const mapStateToProps = state => ({
   error: state.transactions.error,
   isLoading: state.transactions.isLoading,
@@ -152,9 +139,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onClearTransactionsError: clearTransactionsError,
-  onFetchTransactionsByDate: fetchTransactionsByDate,
-  onSetSelectedDate: setSelectedDate
+  clearTransactionsError,
+  fetchTransactionsByDate,
+  setSelectedDate
 };
 
 export default withExpandableItem(

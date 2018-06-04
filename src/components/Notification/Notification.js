@@ -20,7 +20,7 @@ const Notification = props => {
 Notification.propTypes = {
   type: PropTypes.oneOf(["DANGER", "SUCCESS", "WARNING"]),
   message: PropTypes.string,
-  onDismiss: PropTypes.func
+  dismissNotification: PropTypes.func
 };
 
 export default Notification;

@@ -2,7 +2,7 @@
 
 exports[`Notification renders properly 1`] = `
 <Danger
+  dismissNotification={[Function]}
   message="Something went wrong."
-  onDismiss={[Function]}
 />
 `;

@@ -2,8 +2,8 @@
 
 exports[`Container renders properly 1`] = `
 <Notification
+  dismissNotification={[Function]}
   message="Something went wrong."
-  onDismiss={[Function]}
   type="DANGER"
 />
 `;

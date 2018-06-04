@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
+import { categoryType } from "types";
+
 import {
   clearCategoriesError,
   fetchCategories
@@ -10,39 +12,36 @@ import {
 import List from "./List";
 
 export class Container extends Component {
+  static propTypes = {
+    categoryList: PropTypes.arrayOf(categoryType).isRequired,
+    clearCategoriesError: PropTypes.func.isRequired,
+    error: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired,
+    fetchCategories: PropTypes.func.isRequired
+  };
+
   render() {
     const { categoryList, error, isLoading } = this.props;
+
     return (
       <List categoryList={categoryList} error={error} isLoading={isLoading} />
     );
   }
 
   componentDidMount() {
-    const { onFetchCategoryList } = this.props;
-    onFetchCategoryList();
+    const { fetchCategories } = this.props;
+
+    fetchCategories();
   }
 
   componentWillUnmount() {
-    const { error, onClearCategoriesError } = this.props;
+    const { error, clearCategoriesError } = this.props;
 
     if (error) {
-      onClearCategoriesError();
+      clearCategoriesError();
     }
   }
 }
-
-Container.propTypes = {
-  categoryList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired
-    })
-  ).isRequired,
-  error: PropTypes.string,
-  isLoading: PropTypes.bool.isRequired,
-  onFetchCategoryList: PropTypes.func.isRequired
-};
 
 const mapStateToProps = state => ({
   categoryList: state.categories.categoryList,
@@ -51,8 +50,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onClearCategoriesError: clearCategoriesError,
-  onFetchCategoryList: fetchCategories
+  clearCategoriesError,
+  fetchCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

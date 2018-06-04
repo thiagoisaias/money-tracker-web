@@ -10,9 +10,10 @@ describe("Account List Container", () => {
       { id: 1, initialBalance: "34534", name: "Lorem One" },
       { id: 2, initialBalance: "94834", name: "Lorem Two" }
     ],
+    clearAccountsError: jest.fn(),
     error: null,
     isLoading: false,
-    onFetchAccountList: jest.fn()
+    fetchAccounts: jest.fn()
   };
   const component = shallow(<Container {...mockProps} />);
 

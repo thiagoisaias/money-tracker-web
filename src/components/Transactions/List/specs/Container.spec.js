@@ -7,11 +7,13 @@ import { Container } from "../Container";
 describe("Transaction List Container", () => {
   const mockProps = {
     activeItemId: 1,
+    clearTransactionsError: jest.fn(),
     error: null,
     isLoading: false,
     handleActiveItem: jest.fn(),
-    onFetchTransactionsByDate: jest.fn(),
+    fetchTransactionsByDate: jest.fn(),
     selectedDate: "May of 2018",
+    setSelectedDate: jest.fn(),
     transactionList: [
       {
         id: 1,

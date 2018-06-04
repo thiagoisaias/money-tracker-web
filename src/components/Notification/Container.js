@@ -7,17 +7,23 @@ import { dismissNotification } from "store/actions/notifications/notifications";
 import Notification from "./Notification";
 
 export class Container extends Component {
+  static propTypes = {
+    type: PropTypes.oneOf(["DANGER", "SUCCESS", "WARNING"]),
+    message: PropTypes.string,
+    dismissNotification: PropTypes.func
+  };
+
   render() {
-    const { type, message, onDismiss } = this.props;
-    return <Notification type={type} message={message} onDismiss={onDismiss} />;
+    const { type, message, dismissNotification } = this.props;
+    return (
+      <Notification
+        type={type}
+        message={message}
+        dismissNotification={dismissNotification}
+      />
+    );
   }
 }
-
-Container.propTypes = {
-  type: PropTypes.oneOf(["DANGER", "SUCCESS", "WARNING"]),
-  message: PropTypes.string,
-  onDismiss: PropTypes.func
-};
 
 const mapStateToProps = state => ({
   type: state.notifications.type,
@@ -25,7 +31,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onDismiss: dismissNotification
+  dismissNotification
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

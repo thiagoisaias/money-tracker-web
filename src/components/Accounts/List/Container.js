@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+import { accountType } from "types";
+
 import List from "./List";
 
 import {
@@ -10,10 +12,17 @@ import {
 } from "store/actions/accounts/accounts";
 
 export class Container extends Component {
-  componentDidMount() {
-    const { onFetchAccountList } = this.props;
+  static propTypes = {
+    accountList: PropTypes.arrayOf(accountType).isRequired,
+    error: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired,
+    fetchAccounts: PropTypes.func.isRequired
+  };
 
-    onFetchAccountList();
+  componentDidMount() {
+    const { fetchAccounts } = this.props;
+
+    fetchAccounts();
   }
 
   render() {
@@ -27,26 +36,13 @@ export class Container extends Component {
   }
 
   componentWillUnmount() {
-    const { error, onClearAccountsError } = this.props;
+    const { error, clearAccountsError } = this.props;
 
     if (error) {
-      onClearAccountsError();
+      clearAccountsError();
     }
   }
 }
-
-Container.propTypes = {
-  accountList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      initialBalance: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired
-    })
-  ).isRequired,
-  error: PropTypes.string,
-  isLoading: PropTypes.bool.isRequired,
-  onFetchAccountList: PropTypes.func.isRequired
-};
 
 const mapStateToProps = state => ({
   isLoading: state.accounts.isLoading,
@@ -55,8 +51,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onFetchAccountList: fetchAccounts,
-  onClearAccountsError: clearAccountsError
+  fetchAccounts,
+  clearAccountsError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

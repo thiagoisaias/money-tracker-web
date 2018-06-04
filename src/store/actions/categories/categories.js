@@ -116,7 +116,7 @@ export const updateCategory = (formData, categoryId, history) => {
 
     axios
       .put(
-        `/ussers/${userId}/categories/${categoryId}`,
+        `/users/${userId}/categories/${categoryId}`,
         { category: decamelizeKeys(formData) },
         { headers: authHeaders }
       )

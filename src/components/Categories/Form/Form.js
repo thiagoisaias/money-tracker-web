@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+import { categoryType } from "types";
+
 import {
   Container,
   StyledInput,
@@ -33,7 +35,8 @@ class Form extends Component {
             placeholder: "Enter category name"
           },
           name: "Name",
-          value: this.props.name || "",
+          value:
+            (this.props.categoryToEdit && this.props.categoryToEdit.name) || "",
           validation: {
             required: true
           },
@@ -47,7 +50,9 @@ class Form extends Component {
             placeholder: "Enter color"
           },
           name: "Color",
-          value: this.props.color || "",
+          value:
+            (this.props.categoryToEdit && this.props.categoryToEdit.color) ||
+            "",
           validation: {
             required: true
           },
@@ -139,7 +144,7 @@ class Form extends Component {
             value={formField.value}
             touched={formField.touched}
             isValid={formField.isValid}
-            onChange={(event) => {
+            onChange={event => {
               this.onInputChange(event, key);
             }}
           />
@@ -175,14 +180,12 @@ class Form extends Component {
 
 Form.propTypes = {
   checkFormValidity: PropTypes.func.isRequired,
-  id: PropTypes.number,
-  color: PropTypes.string,
+  categoryToEdit: categoryType,
   error: PropTypes.string,
   generateFormData: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
-  name: PropTypes.string,
   onSubmitData: PropTypes.func.isRequired
 };
 

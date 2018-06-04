@@ -3,6 +3,6 @@
 exports[`Container renders properly 1`] = `
 <Header
   history={Object {}}
-  onLogout={[Function]}
+  logout={[Function]}
 />
 `;

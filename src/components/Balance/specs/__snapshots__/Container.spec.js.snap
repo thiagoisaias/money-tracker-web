@@ -2,8 +2,8 @@
 
 exports[`Category Item Container renders properly 1`] = `
 <Balance
+  getOverallBalance={[Function]}
   isLoading={false}
-  onGetOverallBalance={[Function]}
   overallBalance="9000"
 />
 `;
