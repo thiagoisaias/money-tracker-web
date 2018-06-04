@@ -18,7 +18,7 @@ If you'd like to run this application on a local server, here's how you can set 
 
 ## Todo
 - [ ] Improve test coverage
-- [ ] Generate Reports and Charts
+- [ ] New feature: Generate reports and charts (i.e. Expenses by category).
 
 
 ## Note
