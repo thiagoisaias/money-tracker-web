@@ -21,7 +21,7 @@ export class Container extends Component {
     handleActiveItem: PropTypes.func.isRequired,
     fetchTransactionsByDate: PropTypes.func.isRequired,
     transactionList: PropTypes.arrayOf(transactionType),
-    selectedDate: PropTypes.string.isRequired,
+    selectedDate: PropTypes.string,
     setSelectedDate: PropTypes.func.isRequired
   };
 
@@ -145,5 +145,8 @@ const mapDispatchToProps = {
 };
 
 export default withExpandableItem(
-  connect(mapStateToProps, mapDispatchToProps)(Container)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Container)
 );
