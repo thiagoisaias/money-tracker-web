@@ -6,10 +6,12 @@ import Form from "../Form";
 
 describe("Account Form", () => {
   const mockProps = {
-    id: 1,
-    name: "Lorem",
+    accountToEdit: {
+      id: 1,
+      name: "Lorem",
+      initialBalance: "32423.43"
+    },
     error: null,
-    initialBalance: "32423.43",
     isLoading: false,
     match: { path: "/path" },
     onSubmitData: jest.fn()

@@ -2,19 +2,23 @@
 
 exports[`Account Form renders properly 1`] = `
 <Form
+  accountToEdit={
+    Object {
+      "id": 1,
+      "initialBalance": "32423.43",
+      "name": "Lorem",
+    }
+  }
   checkFormValidity={[Function]}
   error={null}
   generateFormData={[Function]}
   handleInputChange={[Function]}
-  id={1}
-  initialBalance="32423.43"
   isLoading={false}
   match={
     Object {
       "path": "/path",
     }
   }
-  name="Lorem"
   onSubmitData={[Function]}
 />
 `;

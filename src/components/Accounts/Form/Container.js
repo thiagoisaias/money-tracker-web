@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { accountType } from "types";
+
 import Form from "./Form";
 
 import {
@@ -14,14 +16,26 @@ import {
 } from "store/actions/accounts/accounts";
 
 export class Container extends Component {
+  static propTypes = {
+    accountToEdit: accountType,
+    error: PropTypes.string,
+    history: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    match: PropTypes.object.isRequired,
+    clearAccountToEdit: PropTypes.func.isRequired,
+    createAccount: PropTypes.func.isRequired,
+    updateAccount: PropTypes.func.isRequired,
+    setAccountToEdit: PropTypes.func.isRequired
+  };
+
   onSubmitData = formData => {
     const {
       accountToEdit,
       history,
       isLoading,
       match,
-      onCreateAccount,
-      onUpdateAccount
+      createAccount,
+      updateAccount
     } = this.props;
 
     if (isLoading) {
@@ -29,9 +43,9 @@ export class Container extends Component {
     }
 
     if (match.path === "/accounts/new") {
-      onCreateAccount(formData, history);
+      createAccount(formData, history);
     } else if (match.path === "/accounts/:id/edit" && accountToEdit) {
-      onUpdateAccount(formData, accountToEdit.id, history);
+      updateAccount(formData, accountToEdit.id, history);
     } else {
       return;
     }
@@ -41,7 +55,7 @@ export class Container extends Component {
     const { accountToEdit, error, isLoading, match } = this.props;
     return (
       <Form
-        {...accountToEdit}
+        accountToEdit={accountToEdit}
         onSubmitData={this.onSubmitData}
         error={error}
         isLoading={isLoading}
@@ -50,9 +64,6 @@ export class Container extends Component {
     );
   }
 
-  /* When the page is reloaded and the path is /account/:id/edit, accountToEdit is null, so the
-  app redirects the user back to /accounts
-  */
   componentDidMount() {
     const { accountToEdit, history, match } = this.props;
     if (match.path === "/accounts/:id/edit" && accountToEdit === null) {
@@ -60,40 +71,17 @@ export class Container extends Component {
     }
   }
 
-  // The value of accountToEdit should be null when the user leave /accounts/:id/edit
   componentWillUnmount() {
-    const {
-      error,
-      match,
-      onClearAccountsError,
-      onClearAccountToEdit
-    } = this.props;
+    const { error, match, clearAccountsError, clearAccountToEdit } = this.props;
 
     if (match.path === "/accounts/:id/edit") {
-      onClearAccountToEdit();
+      clearAccountToEdit();
     }
-
     if (error) {
-      onClearAccountsError();
+      clearAccountsError();
     }
   }
 }
-
-Container.propTypes = {
-  accountToEdit: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    initialBalance: PropTypes.string.isRequired
-  }),
-  error: PropTypes.string,
-  history: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  match: PropTypes.object.isRequired,
-  onClearAccountToEdit: PropTypes.func.isRequired,
-  onCreateAccount: PropTypes.func.isRequired,
-  onUpdateAccount: PropTypes.func.isRequired,
-  onSetAccountToEdit: PropTypes.func.isRequired
-};
 
 const mapStateToProps = state => ({
   accountToEdit: state.accounts.accountToEdit,
@@ -102,11 +90,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onCreateAccount: createAccount,
-  onSetAccountToEdit: setAccountToEdit,
-  onClearAccountsError: clearAccountsError,
-  onClearAccountToEdit: clearAccountToEdit,
-  onUpdateAccount: updateAccount
+  createAccount,
+  setAccountToEdit,
+  clearAccountsError,
+  clearAccountToEdit,
+  updateAccount
 };
 
 export default withRouter(

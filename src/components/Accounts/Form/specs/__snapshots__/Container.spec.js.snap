@@ -2,12 +2,16 @@
 
 exports[`Account Container renders properly 1`] = `
 <Component
+  accountToEdit={
+    Object {
+      "id": 1,
+      "initialBalance": "25345.00",
+      "name": "Lorem",
+    }
+  }
   error={null}
-  id={1}
-  initialBalance="25345.00"
   isLoading={false}
   match={Object {}}
-  name="Lorem"
   onSubmitData={[Function]}
 />
 `;

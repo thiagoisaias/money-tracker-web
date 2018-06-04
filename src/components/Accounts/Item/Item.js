@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { accountType } from "types";
+
 import { Wrapper, Name, Balance, ActionsWrapper, Action } from "./styled";
 
 const AccountItem = props => {
@@ -40,11 +42,7 @@ const AccountItem = props => {
 };
 
 AccountItem.propTypes = {
-  accountData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    initialBalance: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  }).isRequired,
+  accountData: accountType.isRequired,
   handleActiveItem: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,

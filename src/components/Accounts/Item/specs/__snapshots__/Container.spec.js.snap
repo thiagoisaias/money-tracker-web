@@ -4,6 +4,7 @@ exports[`Account Item Container renders properly 1`] = `
 <AccountItem
   accountData={
     Object {
+      "currentBalance": "342.34",
       "id": 1,
       "initialBalance": "23423.00",
       "name": "Lorem",

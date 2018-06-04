@@ -15,10 +15,10 @@ describe("Account Container", () => {
     history: {},
     isLoading: false,
     match: {},
-    onClearAccountToEdit: jest.fn(),
-    onCreateAccount: jest.fn(),
-    onUpdateAccount: jest.fn(),
-    onSetAccountToEdit: jest.fn()
+    clearAccountToEdit: jest.fn(),
+    createAccount: jest.fn(),
+    updateAccount: jest.fn(),
+    setAccountToEdit: jest.fn()
   };
   const component = shallow(<Container {...mockProps} />);
 

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+import { accountType } from "types";
+
 import {
   Container,
   StyledInput,
@@ -33,7 +35,8 @@ class Form extends Component {
             placeholder: "Enter account name"
           },
           name: "Name",
-          value: this.props.name || "",
+          value:
+            (this.props.accountToEdit && this.props.accountToEdit.name) || "",
           validation: {
             required: true
           },
@@ -47,7 +50,10 @@ class Form extends Component {
             placeholder: "Enter initial balance"
           },
           name: "Initial Balance",
-          value: this.props.initialBalance || "",
+          value:
+            (this.props.accountToEdit &&
+              this.props.accountToEdit.initialBalance) ||
+            "",
           validation: {
             required: true,
             nonNegative: true
@@ -179,13 +185,11 @@ class Form extends Component {
 }
 
 Form.propTypes = {
+  accountToEdit: accountType,
   checkFormValidity: PropTypes.func.isRequired,
-  id: PropTypes.number,
-  name: PropTypes.string,
   error: PropTypes.string,
   generateFormData: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
-  initialBalance: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
   onSubmitData: PropTypes.func.isRequired
