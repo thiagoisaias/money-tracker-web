@@ -74,10 +74,8 @@ export class Container extends Component {
       selectedDate
     } = this.props;
 
-    if (!selectedDate) {
-      const currentDate = moment().format("MMMM of YYYY");
-      setSelectedDate(currentDate);
-    }
+    const currentDate = moment().format("MMMM of YYYY");
+    setSelectedDate(currentDate);
 
     if (selectedDate) {
       fetchTransactionsByDate(selectedDate);
@@ -97,10 +95,7 @@ export class Container extends Component {
   };
 
   componentWillUnmount = () => {
-    const { error, clearTransactionsError, setSelectedDate } = this.props;
-
-    const currentDate = moment().format("MMMM of YYYY");
-    setSelectedDate(currentDate);
+    const { error, clearTransactionsError } = this.props;
 
     if (error) {
       clearTransactionsError();
