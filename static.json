@@ -1,5 +1,6 @@
 {
   "root": "build/",
+  "https_only": true,
   "routes": {
     "/assets/*": "/assets/",
     "/**": "index.html"
